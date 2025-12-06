@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  username: curt   # ← coloca teu usuário do mac
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: igspy_development
+
+test:
+  <<: *default
+  database: igspy_test
