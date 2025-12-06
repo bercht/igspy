@@ -1,0 +1,124 @@
+<div class="px-4 sm:px-0" data-controller="scraping-monitor" data-scraping-monitor-scraping-id-value="<%= @scraping.id %>" data-scraping-monitor-status-value="<%= @scraping.status %>">
+  
+  <div class="mb-8">
+    <%= link_to "← Voltar", admin_igspy_path, class: "text-blue-600 hover:text-blue-800" %>
+  </div>
+
+  <div class="bg-white shadow rounded-lg p-6 mb-6">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-3xl font-bold text-gray-900">Scraping #<%= @scraping.scraping_id %></h1>
+      
+      <!-- Status Badge -->
+      <span class="px-4 py-2 rounded-full text-sm font-semibold <%= status_badge_class(@scraping.status) %>" data-scraping-monitor-target="statusBadge">
+        <%= @scraping.status.upcase %>
+      </span>
+    </div>
+
+    <!-- Informações do Scraping -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Perfil Instagram</label>
+        <p class="text-gray-900"><%= @scraping.profile_url %></p>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Postagens a Extrair</label>
+        <p class="text-gray-900"><%= @scraping.results_limit %></p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Iniciado em</label>
+        <p class="text-gray-900"><%= @scraping.started_at.strftime("%d/%m/%Y %H:%M:%S") %></p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Status Atual</label>
+        <p class="text-gray-900 font-semibold" data-scraping-monitor-target="statusMessage">
+          <%= @scraping.status_message || "Aguardando..." %>
+        </p>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <% if @scraping.in_progress? %>
+      <div class="mb-6">
+        <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+          <div class="bg-blue-600 h-4 rounded-full transition-all duration-500 animate-pulse" style="width: <%= progress_percentage(@scraping.status) %>%"></div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Timeline de Status -->
+    <div class="border-t pt-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">Timeline</h3>
+      <div class="space-y-4" data-scraping-monitor-target="timeline">
+        
+        <!-- Pending -->
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <%= render_timeline_icon(@scraping, 'pending') %>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-900">Scraping Criado</p>
+            <p class="text-sm text-gray-500"><%= @scraping.created_at.strftime("%H:%M:%S") %></p>
+          </div>
+        </div>
+
+        <!-- Fetching -->
+        <% if ['fetching', 'processing', 'completed', 'failed'].include?(@scraping.status) %>
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <%= render_timeline_icon(@scraping, 'fetching') %>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Buscando Postagens no Instagram</p>
+              <p class="text-sm text-gray-500">Este processo pode levar alguns minutos...</p>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Processing -->
+        <% if ['processing', 'completed', 'failed'].include?(@scraping.status) %>
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <%= render_timeline_icon(@scraping, 'processing') %>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Processando Dados</p>
+              <p class="text-sm text-gray-500">Extraindo informações...</p>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Completed -->
+        <% if @scraping.completed? %>
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <%= render_timeline_icon(@scraping, 'completed') %>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-green-900">Scraping Finalizado!</p>
+              <p class="text-sm text-gray-500"><%= @scraping.completed_at.strftime("%H:%M:%S") %></p>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Failed -->
+        <% if @scraping.failed? %>
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <%= render_timeline_icon(@scraping, 'failed') %>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-red-900">Erro no Scraping</p>
+              <p class="text-sm text-red-600"><%= @scraping.status_message %></p>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

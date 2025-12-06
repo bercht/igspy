@@ -1,0 +1,65 @@
+<div class="px-4 sm:px-0">
+  <div class="md:flex md:items-center md:justify-between mb-8">
+    <div class="flex-1 min-w-0">
+      <h1 class="text-3xl font-bold text-gray-900">Igspy - Envio para n8n</h1>
+      <p class="mt-2 text-sm text-gray-600">
+        Configure e envie dados para automação via webhook n8n
+      </p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Formulário -->
+    <div class="lg:col-span-2">
+      <div class="bg-white shadow rounded-lg p-6" data-controller="igspy-form">
+        <%= form_with(url: admin_igspy_path, method: :post, data: { igspy_form_target: "form", action: "submit->igspy-form#submit" }) do |f| %>
+          
+          <!-- URL do Perfil Instagram -->
+          <div class="mb-6">
+            <%= f.label :profile_url, "URL do Perfil Instagram", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.text_field :igspy_profile_url, 
+                placeholder: "https://www.instagram.com/username/", 
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                data: { igspy_form_target: "profileUrl" },
+                required: true %>
+            <p class="mt-1 text-sm text-gray-500">Cole a URL completa do perfil do Instagram</p>
+          </div>
+
+          <!-- Número de Postagens -->
+          <div class="mb-6">
+            <%= f.label :results_limit, "Número de Postagens a Extrair", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.number_field :igspy_results_limit, 
+                value: 10,
+                min: 1,
+                max: 100,
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                data: { igspy_form_target: "resultsLimit" },
+                required: true %>
+            <p class="mt-1 text-sm text-gray-500">Mínimo: 1 | Máximo: 100</p>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex items-center justify-between">
+            <%= f.submit "Enviar para n8n", 
+                class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed",
+                data: { igspy_form_target: "submitButton" } %>
+            
+            <span class="hidden text-sm text-gray-600" data-igspy-form-target="loadingText">
+              <svg class="animate-spin inline-block w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Enviando...
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Info Card -->
+    <div class="lg:col-span-1">
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-900 mb-3">Como Funciona</h3>
+        <ol class="text-sm text-blue-800 space-y-2 list-decimal list-inside">
+          <li>Cole a URL completa do perfil Instagram</li>
+          <li>Defina quantas postagens quer ext
