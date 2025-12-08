@@ -1,3 +1,4 @@
+# app/controllers/api/callbacks_controller.rb
 class Api::CallbacksController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :verify_n8n_token
@@ -10,13 +11,17 @@ class Api::CallbacksController < ApplicationController
       return
     end
 
+    # Atualiza status
     scraping.update!(
       status: callback_params[:status],
       status_message: callback_params[:message]
     )
 
-    # Se completou, salva o timestamp
-    scraping.update!(completed_at: Time.current) if scraping.completed?
+    # Se completou, salva timestamp E processa o JSON do Apify
+    if scraping.completed?
+      scraping.update!(completed_at: Time.current)
+      process_apify_data(scraping)
+    end
 
     render json: { success: true, scraping_id: scraping.scraping_id }
   rescue StandardError => e
@@ -27,16 +32,32 @@ class Api::CallbacksController < ApplicationController
   private
 
   def callback_params
-    params.permit(:scraping_id, :status, :message)
+    params.permit(:scraping_id, :status, :message, apify_data: [])
   end
 
   def verify_n8n_token
-    # Verificação simples de token
     token = request.headers["X-N8N-Token"]
     expected_token = ENV.fetch("N8N_CALLBACK_TOKEN", "secret_token_123")
 
     unless token == expected_token
       render json: { error: "Unauthorized" }, status: :unauthorized
+    end
+  end
+
+  def process_apify_data(scraping)
+    apify_data = callback_params[:apify_data]
+    
+    return unless apify_data.present?
+
+    processor = ApifyJsonProcessorService.new(scraping, apify_data)
+    
+    if processor.call
+      Rails.logger.info "Successfully processed #{apify_data.length} posts for scraping #{scraping.id}"
+    else
+      Rails.logger.error "ApifyJsonProcessor errors: #{processor.errors.join(', ')}"
+      scraping.update!(
+        status_message: "Dados processados com erros: #{processor.errors.first}"
+      )
     end
   end
 end

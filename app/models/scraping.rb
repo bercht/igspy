@@ -1,13 +1,15 @@
+# app/models/scraping.rb
 class Scraping < ApplicationRecord
   belongs_to :user
+  has_many :instagram_posts, dependent: :destroy  # ← ADICIONA ESSA LINHA
 
   # Status possíveis
   STATUSES = {
-    pending: "pending",           # Aguardando início
-    fetching: "fetching",         # Buscando postagens
-    processing: "processing",     # Processando dados
-    completed: "completed",       # Finalizado com sucesso
-    failed: "failed"              # Falhou
+    pending: "pending",
+    fetching: "fetching",
+    processing: "processing",
+    completed: "completed",
+    failed: "failed"
   }.freeze
 
   validates :profile_url, presence: true

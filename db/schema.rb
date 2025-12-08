@@ -10,9 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_06_180505) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_08_112644) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "instagram_posts", force: :cascade do |t|
+    t.bigint "scraping_id", null: false
+    t.string "instagram_id", null: false
+    t.string "short_code"
+    t.string "post_type"
+    t.text "caption"
+    t.string "url"
+    t.text "alt"
+    t.integer "likes_count", default: 0
+    t.integer "comments_count", default: 0
+    t.integer "video_view_count"
+    t.integer "video_play_count"
+    t.decimal "video_duration"
+    t.datetime "posted_at"
+    t.integer "dimensions_height"
+    t.integer "dimensions_width"
+    t.text "display_url"
+    t.text "video_url"
+    t.text "audio_url"
+    t.text "transcription"
+    t.string "transcription_status", default: "pending"
+    t.string "owner_username"
+    t.string "owner_full_name"
+    t.string "owner_id"
+    t.boolean "is_pinned", default: false
+    t.boolean "is_comments_disabled", default: false
+    t.boolean "is_sponsored", default: false
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instagram_id"], name: "index_instagram_posts_on_instagram_id", unique: true
+    t.index ["likes_count"], name: "index_instagram_posts_on_likes_count"
+    t.index ["metadata"], name: "index_instagram_posts_on_metadata", using: :gin
+    t.index ["owner_username"], name: "index_instagram_posts_on_owner_username"
+    t.index ["post_type"], name: "index_instagram_posts_on_post_type"
+    t.index ["posted_at"], name: "index_instagram_posts_on_posted_at"
+    t.index ["scraping_id"], name: "index_instagram_posts_on_scraping_id"
+    t.index ["transcription_status"], name: "index_instagram_posts_on_transcription_status"
+    t.index ["video_view_count"], name: "index_instagram_posts_on_video_view_count"
+  end
 
   create_table "scrapings", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -40,5 +81,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_06_180505) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "instagram_posts", "scrapings"
   add_foreign_key "scrapings", "users"
 end
