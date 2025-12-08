@@ -60,6 +60,7 @@ class IgspyWebhookService
   def payload
     {
       scrapingId: @scraping.scraping_id,
+      scrapingRecordId: @scraping.id,  # ← ADICIONAR ESTA LINHA
       userId: @user.id,
       urls: [ @scraping.profile_url ],
       resultsLimit: @scraping.results_limit,
