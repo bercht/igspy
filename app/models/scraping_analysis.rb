@@ -1,34 +1,30 @@
-# app/models/scraping.rb
-class Scraping < ApplicationRecord
-  belongs_to :user
-  has_many :instagram_posts, dependent: :destroy  # ← ADICIONA ESSA LINHA
-  has_one :scraping_analysis, dependent: :destroy
+# app/models/scraping_analysis.rb
+class ScrapingAnalysis < ApplicationRecord
+  belongs_to :scraping
 
   # Status possíveis
   STATUSES = {
     pending: "pending",
-    fetching: "fetching",
     processing: "processing",
     completed: "completed",
     failed: "failed"
   }.freeze
 
-  validates :profile_url, presence: true
-  validates :results_limit, presence: true, numericality: { greater_than: 0 }
+  validates :analysis_text, presence: true
   validates :status, presence: true, inclusion: { in: STATUSES.values }
 
   # Scopes úteis
   scope :recent, -> { order(created_at: :desc) }
-  scope :in_progress, -> { where(status: [STATUSES[:pending], STATUSES[:fetching], STATUSES[:processing]]) }
   scope :completed, -> { where(status: STATUSES[:completed]) }
+  scope :failed, -> { where(status: STATUSES[:failed]) }
 
   # Helpers de status
   def pending?
     status == STATUSES[:pending]
   end
 
-  def in_progress?
-    [STATUSES[:fetching], STATUSES[:processing]].include?(status)
+  def processing?
+    status == STATUSES[:processing]
   end
 
   def completed?

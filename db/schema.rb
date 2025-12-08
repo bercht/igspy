@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_08_112644) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_08_185351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_08_112644) do
     t.index ["video_view_count"], name: "index_instagram_posts_on_video_view_count"
   end
 
+  create_table "scraping_analyses", force: :cascade do |t|
+    t.bigint "scraping_id", null: false
+    t.text "analysis_text", null: false
+    t.string "assistant_id"
+    t.string "vector_store_id"
+    t.string "file_id"
+    t.string "status", default: "pending", null: false
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assistant_id"], name: "index_scraping_analyses_on_assistant_id"
+    t.index ["created_at"], name: "index_scraping_analyses_on_created_at"
+    t.index ["metadata"], name: "index_scraping_analyses_on_metadata", using: :gin
+    t.index ["scraping_id"], name: "index_scraping_analyses_on_scraping_id"
+    t.index ["status"], name: "index_scraping_analyses_on_status"
+  end
+
   create_table "scrapings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "profile_url"
@@ -82,5 +99,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_08_112644) do
   end
 
   add_foreign_key "instagram_posts", "scrapings"
+  add_foreign_key "scraping_analyses", "scrapings"
   add_foreign_key "scrapings", "users"
 end
