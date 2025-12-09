@@ -4,7 +4,12 @@ class Api::CallbacksController < ApplicationController
   before_action :verify_n8n_token
 
   def create
-    scraping = Scraping.find_by(scraping_id: callback_params[:scraping_id])
+    # Busca por ID (preferencial) ou scraping_id (timestamp)
+    scraping = if callback_params[:id].present?
+                 Scraping.find_by(id: callback_params[:id])
+               else
+                 Scraping.find_by(scraping_id: callback_params[:scraping_id])
+               end
 
     unless scraping
       render json: { error: "Scraping não encontrado" }, status: :not_found
@@ -17,13 +22,24 @@ class Api::CallbacksController < ApplicationController
       status_message: callback_params[:message]
     )
 
+    # Salva IDs do assistant se fornecidos
+    if callback_params[:assistant_id].present?
+      # Busca ou cria análise
+      analysis = scraping.scraping_analysis || scraping.build_scraping_analysis
+      analysis.update!(
+        assistant_id: callback_params[:assistant_id],
+        vector_store_id: callback_params[:vector_store_id],
+        file_id: callback_params[:file_id]
+      )
+    end
+
     # Se completou, salva timestamp E processa o JSON do Apify
     if scraping.completed?
       scraping.update!(completed_at: Time.current)
       process_apify_data(scraping)
     end
 
-    render json: { success: true, scraping_id: scraping.scraping_id }
+    render json: { success: true, scraping_id: scraping.scraping_id, id: scraping.id }
   rescue StandardError => e
     Rails.logger.error "Callback error: #{e.message}"
     render json: { error: e.message }, status: :unprocessable_entity
@@ -32,7 +48,17 @@ class Api::CallbacksController < ApplicationController
   private
 
   def callback_params
-    params.permit(:scraping_id, :status, :message, apify_data: [])
+    params.permit(
+      :id, 
+      :scraping_id, 
+      :status, 
+      :message, 
+      :assistant_id, 
+      :vector_store_id, 
+      :file_id,
+      :analysis_id,
+      apify_data: []
+    )
   end
 
   def verify_n8n_token
