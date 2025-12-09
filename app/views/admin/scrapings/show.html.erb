@@ -118,7 +118,51 @@
 
       </div>
     </div>
+    <!-- Análise de IA -->
+    <% if @scraping.completed? && @analysis&.analysis_text.present? %>
+      <div class="bg-white shadow rounded-lg p-6 mt-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-bold text-gray-900">
+            <%= heroicon "chart-bar", class: "w-6 h-6 inline-block mr-2 text-blue-600" %>
+            Análise de Performance
+          </h2>
+          
+          <% if @analysis.assistant_id.present? %>
+            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+              Assistant Criado
+            </span>
+          <% end %>
+        </div>
 
+        <div class="prose max-w-none">
+          <%= simple_format(@analysis.analysis_text, class: "text-gray-700 leading-relaxed whitespace-pre-wrap") %>
+        </div>
+
+        <div class="mt-6 flex gap-4">
+          <button 
+            onclick="navigator.clipboard.writeText(document.querySelector('.prose').innerText)"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+            <%= heroicon "clipboard-document", class: "w-5 h-5 mr-2" %>
+            Copiar Análise
+          </button>
+
+          <% if @analysis.assistant_id.present? %>
+            <%= link_to admin_scraping_chat_path(@scraping), 
+              class: "inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700" do %>
+              <%= heroicon "chat-bubble-left-right", class: "w-5 h-5 mr-2" %>
+              Conversar com o Assistant
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% elsif @scraping.completed? && @analysis.nil? %>
+      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+        <p class="text-yellow-800 text-sm">
+          <%= heroicon "exclamation-triangle", class: "w-5 h-5 inline-block mr-2" %>
+          Scraping concluído, mas a análise ainda não foi gerada.
+        </p>
+      </div>
+    <% end %>
   </div>
 
 </div>
