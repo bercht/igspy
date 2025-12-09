@@ -5,6 +5,6 @@ class Admin::ScrapingsController < Admin::BaseController
 
   def show
     @scraping = current_user.scrapings.find(params[:id])
-    @analysis = @scraping.scraping_analysis  # ← ADICIONAR
+    @analysis = @scraping.scraping_analysis
   end
 end
