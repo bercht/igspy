@@ -138,7 +138,7 @@
           <%= simple_format(@analysis.analysis_text, class: "text-gray-700 leading-relaxed whitespace-pre-wrap") %>
         </div>
 
-        <div class="mt-6 flex gap-4">
+        <div class="mt-6 flex flex-wrap gap-4">
           <button 
             onclick="navigator.clipboard.writeText(document.querySelector('.prose').innerText)"
             class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
@@ -150,7 +150,16 @@
             <%= link_to admin_conversation_path(@scraping), 
               class: "inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700" do %>
               <%= icon_chat(css_class: "w-5 h-5 mr-2") %>
-              Conversar com o Assistant
+              <%= @scraping.conversation.present? ? "Continuar Conversa" : "Iniciar Conversa" %>
+            <% end %>
+
+            <%= link_to "https://platform.openai.com/playground/assistants?assistant=#{@analysis.assistant_id}", 
+              target: "_blank",
+              class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" do %>
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              Abrir na OpenAI
             <% end %>
           <% end %>
         </div>

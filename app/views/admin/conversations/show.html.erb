@@ -75,10 +75,15 @@
 
     <!-- Loading Indicator (hidden by default) -->
     <div class="hidden justify-start" data-chat-target="loadingIndicator">
-      <div class="bg-white border border-gray-200 rounded-lg px-4 py-3 shadow-sm">
-        <div class="flex items-center space-x-2">
-          <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-          <span class="text-gray-600 text-sm">Pensando...</span>
+      <div class="bg-white border border-gray-200 rounded-lg px-4 py-3 shadow-sm animate-fade-in">
+        <div class="flex items-center space-x-3">
+          <!-- Typing Animation -->
+          <div class="flex space-x-1">
+            <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0ms"></div>
+            <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+            <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+          </div>
+          <span class="text-gray-600 text-sm">O assistente está pensando...</span>
         </div>
       </div>
     </div>
@@ -144,5 +149,30 @@
       Arquivos suportados: TXT, CSV, JSON, PNG, JPG • Máx: 10MB
     </p>
   </div>
+  <style>
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
+    .animate-fade-in {
+      animation: fade-in 0.3s ease-out;
+    }
+
+    /* Ajuste do bounce para ficar mais suave */
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+  </style>
 </div>
