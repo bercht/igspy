@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_08_185351) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_10_002446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "scraping_id", null: false
+    t.string "thread_id", null: false
+    t.string "status", default: "active", null: false
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["metadata"], name: "index_conversations_on_metadata", using: :gin
+    t.index ["scraping_id"], name: "index_conversations_on_scraping_id"
+    t.index ["status"], name: "index_conversations_on_status"
+    t.index ["thread_id"], name: "index_conversations_on_thread_id", unique: true
+  end
 
   create_table "instagram_posts", force: :cascade do |t|
     t.bigint "scraping_id", null: false
@@ -53,6 +66,35 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_08_185351) do
     t.index ["scraping_id"], name: "index_instagram_posts_on_scraping_id"
     t.index ["transcription_status"], name: "index_instagram_posts_on_transcription_status"
     t.index ["video_view_count"], name: "index_instagram_posts_on_video_view_count"
+  end
+
+  create_table "message_attachments", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.string "file_id", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.integer "file_size"
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["file_id"], name: "index_message_attachments_on_file_id"
+    t.index ["message_id"], name: "index_message_attachments_on_message_id"
+    t.index ["metadata"], name: "index_message_attachments_on_metadata", using: :gin
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "conversation_id", null: false
+    t.string "role", null: false
+    t.text "content", null: false
+    t.string "message_id"
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id", "created_at"], name: "index_messages_on_conversation_id_and_created_at"
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["message_id"], name: "index_messages_on_message_id"
+    t.index ["metadata"], name: "index_messages_on_metadata", using: :gin
+    t.index ["role"], name: "index_messages_on_role"
   end
 
   create_table "scraping_analyses", force: :cascade do |t|
@@ -98,7 +140,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_08_185351) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "conversations", "scrapings"
   add_foreign_key "instagram_posts", "scrapings"
+  add_foreign_key "message_attachments", "messages"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "scraping_analyses", "scrapings"
   add_foreign_key "scrapings", "users"
 end

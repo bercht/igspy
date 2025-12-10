@@ -17,6 +17,14 @@ Rails.application.routes.draw do
     # Página Igspy
     resource :igspy, only: [:show, :create]
     resources :scrapings, only: [:index, :show]
+
+    # Rotas para chat com o assistant
+    resources :conversations, only: [:show] do
+      resources :messages, only: [:create]
+      member do
+        post :upload_file
+      end
+    end
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

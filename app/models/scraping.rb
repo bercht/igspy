@@ -1,8 +1,9 @@
 # app/models/scraping.rb
 class Scraping < ApplicationRecord
   belongs_to :user
-  has_many :instagram_posts, dependent: :destroy  # ← ADICIONA ESSA LINHA
+  has_many :instagram_posts, dependent: :destroy  
   has_one :scraping_analysis, dependent: :destroy
+  has_one :conversation, dependent: :destroy
 
   # Status possíveis
   STATUSES = {

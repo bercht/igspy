@@ -1,6 +1,6 @@
 class Admin::ScrapingsController < Admin::BaseController
   def index
-    @scrapings = current_user.scrapings.recent.page(params[:page]).per(20)
+    @scrapings = current_user.scrapings
   end
 
   def show
