@@ -184,4 +184,85 @@ export default class extends Controller {
     messageDiv.dataset.chatTarget = "message"
 
     let attachmentsHTML = ""
-    if (att
+    if (attachments.length > 0) {
+      attachmentsHTML = `
+        <div class="mt-2 space-y-1">
+          ${attachments.map(att => `
+            <div class="flex items-center space-x-2 text-xs ${isUser ? "text-blue-100" : "text-gray-600"}">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+              </svg>
+              <span>${att.filename} (${this.formatFileSize(att.file_size)})</span>
+            </div>
+          `).join("")}
+        </div>
+      `
+    }
+
+    messageDiv.innerHTML = `
+      <div class="${isUser ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-900"} rounded-lg px-4 py-3 max-w-2xl shadow-sm">
+        <div class="whitespace-pre-wrap break-words">${this.escapeHtml(content)}</div>
+        ${attachmentsHTML}
+        <div class="text-xs ${isUser ? "text-blue-100" : "text-gray-500"} mt-1">${time}</div>
+      </div>
+    `
+
+    this.messagesContainerTarget.appendChild(messageDiv)
+    this.scrollToBottom()
+  }
+
+  showLoadingIndicator() {
+    if (this.hasLoadingIndicatorTarget) {
+      this.loadingIndicatorTarget.classList.remove("hidden")
+      this.loadingIndicatorTarget.classList.add("flex")
+      this.scrollToBottom()
+    }
+  }
+
+  hideLoadingIndicator() {
+    if (this.hasLoadingIndicatorTarget) {
+      this.loadingIndicatorTarget.classList.add("hidden")
+      this.loadingIndicatorTarget.classList.remove("flex")
+    }
+  }
+
+  disableInput() {
+    this.messageInputTarget.disabled = true
+    this.sendButtonTarget.disabled = true
+  }
+
+  enableInput() {
+    this.messageInputTarget.disabled = false
+    this.sendButtonTarget.disabled = false
+  }
+
+  autoResizeTextarea() {
+    const textarea = this.messageInputTarget
+    textarea.style.height = "auto"
+    textarea.style.height = Math.min(textarea.scrollHeight, 150) + "px"
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      this.messagesContainerTarget.scrollTop = this.messagesContainerTarget.scrollHeight
+    }, 100)
+  }
+
+  formatFileSize(bytes) {
+    if (bytes === 0) return "0 B"
+    const k = 1024
+    const sizes = ["B", "KB", "MB", "GB"]
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + " " + sizes[i]
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement("div")
+    div.textContent = text
+    return div.innerHTML
+  }
+
+  getCSRFToken() {
+    return document.querySelector("[name='csrf-token']")?.content
+  }
+}
