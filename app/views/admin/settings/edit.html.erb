@@ -1,0 +1,169 @@
+<div class="min-h-screen" style="background-color: var(--bg-primary);">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold" style="color: var(--text-primary);">Configurações da Conta</h1>
+      <p class="mt-2" style="color: var(--text-secondary);">Gerencie suas informações pessoais e API keys</p>
+    </div>
+
+    <!-- Mensagem de Sucesso -->
+    <% if notice %>
+      <div class="mb-6 p-4 rounded-lg flex items-start" style="background-color: rgba(16, 185, 129, 0.1); border: 1px solid var(--color-success);">
+        <svg class="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" style="color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p class="text-sm" style="color: var(--color-success);"><%= notice %></p>
+      </div>
+    <% end %>
+
+    <!-- Card Principal -->
+    <div class="rounded-lg shadow-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-light);">
+      <%= form_with(model: @user, url: admin_settings_path, method: :patch, local: true, html: { class: "p-6 sm:p-8" }) do |f| %>
+        <!-- Mensagens de Erro -->
+        <% if @user.errors.any? %>
+          <div class="mb-6 p-4 rounded-lg" style="background-color: rgba(255, 107, 107, 0.1); border: 1px solid var(--color-error);">
+            <div class="flex items-start">
+              <svg class="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" style="color: var(--color-error);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div class="flex-1">
+                <h3 class="text-sm font-semibold mb-2" style="color: var(--color-error);">
+                  <%= pluralize(@user.errors.count, "erro") %> impediram que este formulário fosse salvo:
+                </h3>
+                <ul class="list-disc list-inside text-sm space-y-1" style="color: var(--text-primary);">
+                  <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Seção: Informações Básicas -->
+        <div class="mb-8">
+          <h2 class="text-xl font-semibold mb-4" style="color: var(--text-primary);">Informações Básicas</h2>
+          
+          <!-- Email -->
+          <div class="mb-6">
+            <%= f.label :email, "E-mail", class: "block text-sm font-medium mb-2", style: "color: var(--text-primary);" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", 
+                class: "w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition", 
+                style: "background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-light);" %>
+          </div>
+
+          <!-- Senha Atual (para confirmar mudanças) -->
+          <div class="mb-6">
+            <%= f.label :current_password, "Senha Atual", class: "block text-sm font-medium mb-2", style: "color: var(--text-primary);" %>
+            <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "Digite sua senha atual para confirmar mudanças",
+                class: "w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition", 
+                style: "background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-light);" %>
+            <p class="mt-1 text-sm" style="color: var(--text-tertiary);">Necessário para confirmar alterações</p>
+          </div>
+        </div>
+
+        <hr class="my-8" style="border-color: var(--border-light);">
+
+        <!-- Seção: Alterar Senha (Opcional) -->
+        <div class="mb-8">
+          <h2 class="text-xl font-semibold mb-4" style="color: var(--text-primary);">Alterar Senha</h2>
+          <p class="text-sm mb-4" style="color: var(--text-secondary);">Deixe em branco se não quiser alterar</p>
+          
+          <!-- Nova Senha -->
+          <div class="mb-6">
+            <%= f.label :password, "Nova Senha", class: "block text-sm font-medium mb-2", style: "color: var(--text-primary);" %>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "Mínimo 6 caracteres",
+                class: "w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition", 
+                style: "background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-light);" %>
+            <p class="mt-1 text-sm" style="color: var(--text-tertiary);">6 caracteres no mínimo</p>
+          </div>
+
+          <!-- Confirmação de Senha -->
+          <div class="mb-6">
+            <%= f.label :password_confirmation, "Confirmar Nova Senha", class: "block text-sm font-medium mb-2", style: "color: var(--text-primary);" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Digite a senha novamente",
+                class: "w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition", 
+                style: "background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-light);" %>
+          </div>
+        </div>
+
+        <hr class="my-8" style="border-color: var(--border-light);">
+
+        <!-- Seção: API Keys -->
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-xl font-semibold" style="color: var(--text-primary);">API Keys</h2>
+              <p class="text-sm mt-1" style="color: var(--text-secondary);">Configure suas chaves de API para integrações</p>
+            </div>
+            <svg class="w-6 h-6" style="color: var(--color-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+            </svg>
+          </div>
+
+          <!-- Manus API Key -->
+          <div class="mb-6 p-4 rounded-lg" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-light);">
+            <div class="flex items-center mb-2">
+              <svg class="w-5 h-5 mr-2" style="color: var(--color-secondary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+              <%= f.label :manus_api_key, "Manus.ai API Key", class: "text-sm font-medium", style: "color: var(--text-primary);" %>
+            </div>
+            <%= f.text_field :manus_api_key, 
+                placeholder: "sk-manus-xxxxxxxxxxxxxxxxxxxx",
+                class: "w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition font-mono text-sm", 
+                style: "background-color: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-light);" %>
+            <p class="mt-2 text-xs" style="color: var(--text-tertiary);">
+              Usada para análise de dados com IA. 
+              <a href="https://manus.ai" target="_blank" class="underline" style="color: var(--color-primary);">Obtenha sua chave aqui</a>
+            </p>
+          </div>
+
+          <!-- Anthropic API Key -->
+          <div class="mb-6 p-4 rounded-lg" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-light);">
+            <div class="flex items-center mb-2">
+              <svg class="w-5 h-5 mr-2" style="color: var(--color-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+              </svg>
+              <%= f.label :anthropic_api_key, "Anthropic API Key (Claude)", class: "text-sm font-medium", style: "color: var(--text-primary);" %>
+            </div>
+            <%= f.text_field :anthropic_api_key, 
+                placeholder: "sk-ant-xxxxxxxxxxxxxxxxxxxx",
+                class: "w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition font-mono text-sm", 
+                style: "background-color: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-light);" %>
+            <p class="mt-2 text-xs" style="color: var(--text-tertiary);">
+              Usada para chat com Claude AI. 
+              <a href="https://console.anthropic.com" target="_blank" class="underline" style="color: var(--color-primary);">Obtenha sua chave aqui</a>
+            </p>
+          </div>
+
+          <!-- Aviso de Segurança -->
+          <div class="flex items-start p-4 rounded-lg" style="background-color: rgba(255, 215, 0, 0.1); border: 1px solid var(--color-accent-gold);">
+            <svg class="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" style="color: var(--color-accent-gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <div>
+              <p class="text-sm font-medium" style="color: var(--color-accent-gold);">Mantenha suas chaves seguras</p>
+              <p class="text-xs mt-1" style="color: var(--text-tertiary);">
+                Suas API keys são criptografadas e nunca compartilhadas. Não as divulgue publicamente.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-8" style="border-color: var(--border-light);">
+
+        <!-- Botões de Ação -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+          <%= f.submit "Salvar Alterações", 
+              class: "w-full sm:w-auto px-6 py-3 rounded-lg font-semibold transition shadow-md hover:shadow-lg", 
+              style: "background: var(--gradient-primary); color: var(--color-white);" %>
+          
+          <%= link_to "Voltar", admin_dashboard_path, 
+              class: "w-full sm:w-auto px-6 py-3 rounded-lg font-semibold transition text-center", 
+              style: "background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-light);" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

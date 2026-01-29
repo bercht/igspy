@@ -1,0 +1,19 @@
+<% if resource.errors.any? %>
+  <div class="mb-6 p-4 rounded-lg" style="background-color: rgba(255, 107, 107, 0.1); border: 1px solid var(--color-error);">
+    <div class="flex items-start">
+      <svg class="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" style="color: var(--color-error);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <div class="flex-1">
+        <h3 class="text-sm font-semibold mb-2" style="color: var(--color-error);">
+          <%= pluralize(resource.errors.count, "erro") %> impediram que este formulário fosse salvo:
+        </h3>
+        <ul class="list-disc list-inside text-sm space-y-1" style="color: var(--text-primary);">
+          <% resource.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>

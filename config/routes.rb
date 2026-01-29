@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     root "dashboard#index"
     get "dashboard", to: "dashboard#index"
     
+    # Configurações do Usuário (API Keys)
+    get "settings", to: "settings#edit", as: :settings
+    patch "settings", to: "settings#update"
+    
     # Página Igspy
     resource :igspy, only: [:show, :create]
     resources :scrapings, only: [:index, :show]
