@@ -1,4 +1,16 @@
 class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
+
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    # Permitir API keys na atualização de conta (edit/update)
+    devise_parameter_sanitizer.permit(:account_update, keys: [:manus_api_key, :anthropic_api_key])
+    
+    # Se você quiser permitir na criação também (sign_up), descomente a linha abaixo:
+    # devise_parameter_sanitizer.permit(:sign_up, keys: [:manus_api_key, :anthropic_api_key])
+  end
 end
