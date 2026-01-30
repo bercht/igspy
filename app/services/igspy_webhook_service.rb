@@ -65,8 +65,8 @@ class IgspyWebhookService
       urls: [ @scraping.profile_url ],
       resultsLimit: @scraping.results_limit,
       callbackUrl: callback_url,
-      # API Keys do usuário
-      manusApiKey: @user.manus_api_key,
+      # API Keys e preferências
+      preferredChatApi: @user.preferred_chat_api || 'none',
       anthropicApiKey: @user.anthropic_api_key
     }
   end
