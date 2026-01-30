@@ -7,10 +7,14 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    # Permitir API keys na atualização de conta (edit/update)
-    devise_parameter_sanitizer.permit(:account_update, keys: [:manus_api_key, :anthropic_api_key])
+    # Permitir API keys e preferência de chat na atualização de conta (edit/update)
+    devise_parameter_sanitizer.permit(:account_update, keys: [
+      :manus_api_key, 
+      :anthropic_api_key,
+      :preferred_chat_api
+    ])
     
     # Se você quiser permitir na criação também (sign_up), descomente a linha abaixo:
-    # devise_parameter_sanitizer.permit(:sign_up, keys: [:manus_api_key, :anthropic_api_key])
+    # devise_parameter_sanitizer.permit(:sign_up, keys: [:manus_api_key, :anthropic_api_key, :preferred_chat_api])
   end
-end
+end 

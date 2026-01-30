@@ -42,7 +42,8 @@ class Admin::SettingsController < Admin::BaseController
       :password,
       :password_confirmation,
       :manus_api_key,
-      :anthropic_api_key
+      :anthropic_api_key,
+      :preferred_chat_api
     )
   end
 end

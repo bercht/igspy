@@ -136,7 +136,59 @@
               <a href="https://console.anthropic.com" target="_blank" class="underline" style="color: var(--color-primary);">Obtenha sua chave aqui</a>
             </p>
           </div>
+          <!-- Escolha de API para Chat -->
+          <div class="mb-6 p-4 rounded-lg" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-light);">
+            <div class="flex items-center mb-3">
+              <svg class="w-5 h-5 mr-2" style="color: var(--color-accent-gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+              </svg>
+              <%= f.label :preferred_chat_api, "API para Chat (Opcional)", class: "text-sm font-medium", style: "color: var(--text-primary);" %>
+            </div>
+            
+            <p class="text-xs mb-3" style="color: var(--text-tertiary);">
+              Escolha qual API usar para o chat interativo com a análise. A análise dos posts sempre usa OpenAI.
+            </p>
 
+            <div class="space-y-3">
+              <!-- Opção: Sem Chat -->
+              <label class="flex items-center p-3 rounded-lg cursor-pointer transition" style="background-color: var(--bg-primary); border: 1px solid var(--border-light);">
+                <%= f.radio_button :preferred_chat_api, '', 
+                    checked: @user.preferred_chat_api.blank?,
+                    class: "mr-3",
+                    style: "accent-color: var(--color-primary);" %>
+                <div>
+                  <p class="text-sm font-medium" style="color: var(--text-primary);">Sem Chat</p>
+                  <p class="text-xs" style="color: var(--text-tertiary);">Apenas análise (não precisa de API de chat)</p>
+                </div>
+              </label>
+
+              <!-- Opção: OpenAI -->
+              <label class="flex items-center p-3 rounded-lg cursor-pointer transition" style="background-color: var(--bg-primary); border: 1px solid var(--border-light);">
+                <%= f.radio_button :preferred_chat_api, 'openai', 
+                    checked: @user.preferred_chat_api == 'openai',
+                    class: "mr-3",
+                    style: "accent-color: var(--color-primary);" %>
+                <div class="flex-1">
+                  <p class="text-sm font-medium" style="color: var(--text-primary);">OpenAI (GPT)</p>
+                  <p class="text-xs" style="color: var(--text-tertiary);">Usa a mesma API da análise (sem custo adicional)</p>
+                </div>
+                <span class="px-2 py-1 text-xs font-semibold rounded" style="background-color: var(--color-success); color: var(--color-white);">Incluído</span>
+              </label>
+
+              <!-- Opção: Anthropic -->
+              <label class="flex items-center p-3 rounded-lg cursor-pointer transition" style="background-color: var(--bg-primary); border: 1px solid var(--border-light);">
+                <%= f.radio_button :preferred_chat_api, 'anthropic', 
+                    checked: @user.preferred_chat_api == 'anthropic',
+                    class: "mr-3",
+                    style: "accent-color: var(--color-primary);" %>
+                <div class="flex-1">
+                  <p class="text-sm font-medium" style="color: var(--text-primary);">Anthropic (Claude)</p>
+                  <p class="text-xs" style="color: var(--text-tertiary);">Requer Anthropic API Key configurada acima</p>
+                </div>
+              </label>
+            </div>
+          </div>
+          <!-- FIM escolha -->
           <!-- Aviso de Segurança -->
           <div class="flex items-start p-4 rounded-lg" style="background-color: rgba(255, 215, 0, 0.1); border: 1px solid var(--color-accent-gold);">
             <svg class="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" style="color: var(--color-accent-gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">

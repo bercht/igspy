@@ -60,11 +60,14 @@ class IgspyWebhookService
   def payload
     {
       scrapingId: @scraping.scraping_id,
-      scrapingRecordId: @scraping.id,  # ← ADICIONAR ESTA LINHA
+      scrapingRecordId: @scraping.id,
       userId: @user.id,
       urls: [ @scraping.profile_url ],
       resultsLimit: @scraping.results_limit,
-      callbackUrl: callback_url
+      callbackUrl: callback_url,
+      # API Keys do usuário
+      manusApiKey: @user.manus_api_key,
+      anthropicApiKey: @user.anthropic_api_key
     }
   end
 
