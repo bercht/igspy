@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_30_000617) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_30_114745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,7 +107,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_30_000617) do
     t.jsonb "metadata", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "chat_provider", default: "openai"
     t.index ["assistant_id"], name: "index_scraping_analyses_on_assistant_id"
+    t.index ["chat_provider"], name: "index_scraping_analyses_on_chat_provider"
     t.index ["created_at"], name: "index_scraping_analyses_on_created_at"
     t.index ["metadata"], name: "index_scraping_analyses_on_metadata", using: :gin
     t.index ["scraping_id"], name: "index_scraping_analyses_on_scraping_id"
