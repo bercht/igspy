@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_30_114745) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_01_190225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,12 +57,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_30_114745) do
     t.jsonb "metadata", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "assembly_transcript_id"
+    t.index ["assembly_transcript_id"], name: "idx_posts_assembly_transcript", where: "(assembly_transcript_id IS NOT NULL)"
     t.index ["instagram_id"], name: "index_instagram_posts_on_instagram_id", unique: true
     t.index ["likes_count"], name: "index_instagram_posts_on_likes_count"
     t.index ["metadata"], name: "index_instagram_posts_on_metadata", using: :gin
     t.index ["owner_username"], name: "index_instagram_posts_on_owner_username"
     t.index ["post_type"], name: "index_instagram_posts_on_post_type"
     t.index ["posted_at"], name: "index_instagram_posts_on_posted_at"
+    t.index ["scraping_id", "transcription_status"], name: "idx_posts_scraping_transcription", where: "(video_url IS NOT NULL)"
     t.index ["scraping_id"], name: "index_instagram_posts_on_scraping_id"
     t.index ["transcription_status"], name: "index_instagram_posts_on_transcription_status"
     t.index ["video_view_count"], name: "index_instagram_posts_on_video_view_count"
