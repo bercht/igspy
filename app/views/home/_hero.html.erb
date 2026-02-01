@@ -1,0 +1,83 @@
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+  <!-- Background effects -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#0A7AFF]/20 via-[#0F1419] to-[#0F1419]"></div>
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-[#0A7AFF]/30 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-[#FFD700]/20 rounded-full blur-[100px]"></div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#3A4452] bg-[#1A1F2E]/50 mb-8 animate-fade-up">
+        <span class="w-2 h-2 rounded-full bg-[#0A7AFF] animate-pulse-glow"></span>
+        <span class="text-sm text-[#A1A5B0]">+5.000 criadores já usam o Viral Spy</span>
+      </div>
+
+      <!-- Main headline -->
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 animate-fade-up text-white" style="animation-delay: 0.1s">
+        Descubra o que vai
+        <span class="block text-gradient bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] bg-clip-text text-transparent">viralizar antes de todos</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-2xl md:text-3xl lg:text-4xl font-black leading-tight mb-6 animate-fade-up text-white" style="animation-delay: 0.2s">
+        Espie tendências, analise conteúdos virais e crie posts que explodem — 
+        tudo com dados em tempo real e IA avançada.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-up" style="animation-delay: 0.3s">
+        <%= link_to new_user_registration_path, class: "group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] text-[#0F1419] rounded-lg font-bold text-lg hover:shadow-xl hover:shadow-[#00D98E]/40 transition-all" do %>
+          Assinar por R$79/mês
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        <% end %>
+        
+        <button class="group inline-flex items-center gap-2 px-8 py-4 border-2 border-[#3A4452] text-white rounded-lg font-bold text-lg hover:border-[#0A7AFF] hover:bg-[#0A7AFF]/10 transition-all">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"></path>
+          </svg>
+          Ver demonstração
+        </button>
+      </div>
+
+      <!-- App Preview -->
+      <div class="relative animate-fade-up" style="animation-delay: 0.4s">
+        <div class="gradient-border rounded-2xl overflow-hidden">
+          <div class="bg-[#16161F] p-2">
+            <img 
+              src="https://placehold.co/1200x700/1A1F2E/00D98E?text=Dashboard+Viral+Spy" 
+              alt="Dashboard Viral Spy - Painel de análise de tendências e métricas de viralidade"
+              class="rounded-xl w-full h-auto"
+            />
+          </div>
+        </div>
+        
+        <!-- Floating elements -->
+        <div class="absolute -left-8 top-1/4 glass rounded-xl p-4 animate-float hidden lg:block">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-[#0A7AFF]/20 flex items-center justify-center">
+              <span class="text-2xl">🔥</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-[#E5E7EB]">+340%</p>
+              <p class="text-xs text-[#A1A5B0]">Engajamento</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="absolute -right-8 bottom-1/4 glass rounded-xl p-4 animate-float hidden lg:block" style="animation-delay: 1s">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-[#00D98E]/20 flex items-center justify-center">
+              <span class="text-2xl">📈</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-[#E5E7EB]">Viral Alert</p>
+              <p class="text-xs text-[#A1A5B0]">Tendência detectada</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

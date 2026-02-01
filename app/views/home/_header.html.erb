@@ -1,0 +1,58 @@
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" data-controller="header">
+  <div class="container mx-auto px-4 py-5" data-header-target="container">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-[#00D98E] flex items-center justify-center">
+          <span class="text-[#0F1419] font-bold text-lg">V</span>
+        </div>
+        <span class="text-xl font-bold text-[#E5E7EB]">Viral Spy</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#como-funciona" class="text-[#A1A5B0] hover:text-[#E5E7EB] transition-colors text-sm">
+          Como Funciona
+        </a>
+        <a href="#recursos" class="text-[#A1A5B0] hover:text-[#E5E7EB] transition-colors text-sm">
+          Recursos
+        </a>
+        <a href="#depoimentos" class="text-[#A1A5B0] hover:text-[#E5E7EB] transition-colors text-sm">
+          Depoimentos
+        </a>
+        <a href="#faq" class="text-[#A1A5B0] hover:text-[#E5E7EB] transition-colors text-sm">
+          FAQ
+        </a>
+      </nav>
+
+      <!-- Desktop CTA -->
+      <div class="hidden md:flex items-center gap-3">
+        <%= link_to "Login", new_user_session_path, class: "px-4 py-2 text-sm text-[#E5E7EB] hover:text-white transition-colors" %>
+        <%= link_to "Assinar R$79/mês", new_user_registration_path, class: "px-6 py-2 bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] text-[#0F1419] rounded-lg font-semibold text-sm hover:shadow-lg hover:shadow-[#00D98E]/30 transition-all" %>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-[#E5E7EB] p-2" data-action="click->header#toggleMenu">
+        <svg data-header-target="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg data-header-target="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div data-header-target="mobileMenu" class="hidden md:hidden mt-4 bg-[#16161F]/80 backdrop-blur-xl rounded-xl p-4 border border-[#3A4452]">
+      <nav class="flex flex-col gap-4">
+        <a href="#como-funciona" class="text-[#E5E7EB] py-2">Como Funciona</a>
+        <a href="#recursos" class="text-[#E5E7EB] py-2">Recursos</a>
+        <a href="#depoimentos" class="text-[#E5E7EB] py-2">Depoimentos</a>
+        <a href="#faq" class="text-[#E5E7EB] py-2">FAQ</a>
+        <hr class="border-[#3A4452]">
+        <%= link_to "Login", new_user_session_path, class: "text-[#E5E7EB] py-2" %>
+        <%= link_to "Assinar R$79/mês", new_user_registration_path, class: "px-6 py-3 bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] text-[#0F1419] rounded-lg font-semibold text-center" %>
+      </nav>
+    </div>
+  </div>
+</header>

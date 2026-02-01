@@ -1,0 +1,103 @@
+<section class="py-24 relative overflow-hidden">
+  <!-- Background effects -->
+  <div class="absolute inset-0 bg-gradient-to-r from-[#0A7AFF]/20 via-[#00D98E]/20 to-[#0A7AFF]/20"></div>
+  <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#00D98E]/30 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-[#0A7AFF]/30 rounded-full blur-[120px]"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <div class="glass rounded-3xl p-12 md:p-16 border border-[#3A4452] text-center">
+        <h2 class="text-3xl md:text-5xl font-black mb-6 text-white">
+          Pronto para criar conteúdo que 
+          <span class="text-gradient bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] bg-clip-text text-transparent">viraliza?</span>
+        </h2>
+        
+        <p class="text-lg md:text-xl text-[#A1A5B0] max-w-2xl mx-auto mb-10">
+          Junte-se a 5.000+ criadores que já estão dominando as redes sociais com dados e IA.
+        </p>
+
+        <!-- Pricing Box -->
+        <div class="inline-block bg-gradient-to-br from-[#1A1F2E] to-[#16161F] rounded-2xl p-8 border border-[#3A4452] mb-8">
+          <div class="flex items-baseline justify-center gap-2 mb-4">
+            <span class="text-[#A1A5B0] line-through text-2xl">R$ 149</span>
+            <span class="text-5xl md:text-6xl font-black text-gradient bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] bg-clip-text text-transparent">R$ 79</span>
+            <span class="text-[#A1A5B0] text-xl">/mês</span>
+          </div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#00D98E]/20 rounded-full mb-6">
+            <svg class="w-4 h-4 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-sm font-semibold text-[#00D98E]">Oferta por tempo limitado - Economize 47%</span>
+          </div>
+          
+          <!-- Benefits -->
+          <div class="space-y-3 mb-8 text-left max-w-md mx-auto">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[#00D98E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-[#E5E7EB]">Análise ilimitada de tendências</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[#00D98E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-[#E5E7EB]">Alertas em tempo real</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[#00D98E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-[#E5E7EB]">Gerador de ideias com IA</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[#00D98E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-[#E5E7EB]">Suporte prioritário</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[#00D98E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-[#E5E7EB]">Cancele quando quiser</span>
+            </div>
+          </div>
+
+          <%= link_to new_user_registration_path, class: "group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] text-[#0F1419] rounded-lg font-bold text-lg hover:shadow-2xl hover:shadow-[#00D98E]/50 transition-all animate-pulse-glow" do %>
+            Começar agora - R$ 79/mês
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          <% end %>
+          
+          <p class="text-xs text-[#A1A5B0] mt-4">
+            💳 Garantia de 7 dias - 100% do dinheiro de volta se não gostar
+          </p>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-[#A1A5B0]">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+            <span>Pagamento seguro</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Sem surpresas</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>Cancele a qualquer momento</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
