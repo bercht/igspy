@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_02_014027) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_02_022523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "analyses", force: :cascade do |t|
+    t.bigint "scraping_id", null: false
+    t.string "thread_id"
+    t.string "assistant_id"
+    t.string "vector_store_id"
+    t.text "report"
+    t.string "status", default: "pending"
+    t.string "chat_provider"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scraping_id"], name: "index_analyses_on_scraping_id"
+    t.index ["status"], name: "index_analyses_on_status"
+    t.index ["thread_id"], name: "index_analyses_on_thread_id"
+  end
 
   create_table "conversations", force: :cascade do |t|
     t.bigint "scraping_id", null: false
@@ -151,6 +166,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_014027) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "analyses", "scrapings"
   add_foreign_key "conversations", "scrapings"
   add_foreign_key "instagram_posts", "scrapings"
   add_foreign_key "message_attachments", "messages"
