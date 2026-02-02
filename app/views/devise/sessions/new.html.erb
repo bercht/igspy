@@ -1,26 +1,86 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8" style="background: linear-gradient(135deg, #0F1419 0%, #1A1F2E 50%, #252D3D 100%);">
+  
+  <!-- Subtle Grid Background -->
+  <div class="absolute inset-0 opacity-[0.03]">
+    <div class="absolute inset-0" style="background-image: linear-gradient(rgba(10, 122, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(10, 122, 255, 0.1) 1px, transparent 1px); background-size: 100px 100px;"></div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+  <!-- Minimal Gradient Accent -->
+  <div class="absolute top-1/4 right-1/4 w-[500px] h-[500px] opacity-[0.08] blur-[120px]" style="background: radial-gradient(circle, #0A7AFF 0%, transparent 70%);"></div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+  <!-- Login Card -->
+  <div class="relative w-full max-w-md">
+    
+    <!-- Logo/Brand -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.05] mb-4">
+        <svg class="w-8 h-8" style="color: #0A7AFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </div>
+      <h1 class="text-3xl font-light text-white mb-2">IgSpy</h1>
+      <p class="text-sm text-gray-500">Intelligence Platform</p>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <!-- Login Form -->
+    <div class="relative bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 border border-white/[0.05] shadow-2xl">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+        
+        <!-- Email Field -->
+        <div>
+          <%= f.label :email, class: "block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider" %>
+          <%= f.email_field :email, 
+            autofocus: true, 
+            autocomplete: "email",
+            placeholder: "seu@email.com",
+            class: "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition-all duration-300" %>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <%= f.label :password, "Senha", class: "block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wider" %>
+          <%= f.password_field :password, 
+            autocomplete: "current-password",
+            placeholder: "••••••••",
+            class: "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition-all duration-300" %>
+        </div>
+
+        <!-- Remember Me -->
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center">
+            <%= f.check_box :remember_me, class: "w-4 h-4 bg-white/[0.03] border border-white/[0.05] rounded text-[#0A7AFF] focus:ring-[#0A7AFF]/50" %>
+            <%= f.label :remember_me, "Lembrar de mim", class: "ml-2 text-sm text-gray-400" %>
+          </div>
+        <% end %>
+
+        <!-- Submit Button -->
+        <div>
+          <%= f.submit "Entrar", class: "w-full py-3 px-4 rounded-xl font-medium text-white transition-all duration-300 cursor-pointer hover:scale-[1.02] shadow-lg", style: "background: linear-gradient(135deg, #0A7AFF 0%, #3B9EFF 100%);" %>
+        </div>
+      <% end %>
+
+      <!-- Links -->
+      <div class="mt-6 pt-6 border-t border-white/[0.05]">
+        <div class="flex flex-col space-y-3 text-sm">
+          <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+            <%= link_to "Esqueceu sua senha?", new_password_path(resource_name), class: "text-gray-400 hover:text-[#0A7AFF] transition-colors text-center" %>
+          <% end %>
+          
+          <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+            <%= link_to new_registration_path(resource_name), class: "flex items-center justify-center space-x-2 text-gray-400 hover:text-white transition-colors group" do %>
+              <span>Não tem conta?</span>
+              <span class="text-[#0A7AFF] group-hover:translate-x-1 transition-transform">Criar conta</span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-center">
+      <p class="text-xs text-gray-600">
+        Análise inteligente de Instagram powered by IA
+      </p>
+    </div>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

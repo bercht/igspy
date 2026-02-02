@@ -1,112 +1,106 @@
-<div class="min-h-screen" style="background: linear-gradient(135deg, #0F1419 0%, #1A1F2E 50%, #252D3D 100%);">
+<div class="min-h-screen bg-[#0F1419]">
   
   <!-- Hero Section -->
-  <div class="relative overflow-hidden pb-8">
-    <!-- Grid Background Effect -->
-    <div class="absolute inset-0 opacity-20">
-      <div class="absolute inset-0" style="background-image: linear-gradient(#0A7AFF 1px, transparent 1px), linear-gradient(90deg, #0A7AFF 1px, transparent 1px); background-size: 50px 50px;"></div>
+  <div class="relative overflow-hidden">
+    <!-- Subtle Grid Background -->
+    <div class="absolute inset-0 opacity-[0.03]">
+      <div class="absolute inset-0" style="background-image: linear-gradient(rgba(10, 122, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(10, 122, 255, 0.1) 1px, transparent 1px); background-size: 100px 100px;"></div>
     </div>
     
-    <!-- Animated Gradient Orbs -->
-    <div class="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl animate-pulse" style="background: radial-gradient(circle, #0A7AFF 0%, transparent 70%);"></div>
-    <div class="absolute bottom-0 right-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl animate-pulse" style="background: radial-gradient(circle, #7C3AED 0%, transparent 70%); animation-delay: 1s;"></div>
+    <!-- Minimal Gradient Accent -->
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.08] blur-[120px]" style="background: radial-gradient(circle, #0A7AFF 0%, transparent 70%);"></div>
     
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
-      <!-- Header -->
-      <div class="text-center mb-12">
-        <div class="inline-flex items-center space-x-3 mb-4">
-          <div class="w-3 h-3 rounded-full animate-pulse" style="background-color: #00D98E;"></div>
-          <span class="text-sm font-semibold tracking-wider uppercase" style="color: #00D98E;">Sistema Ativo</span>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <!-- Minimal Header -->
+      <div class="mb-16">
+        <div class="inline-flex items-center space-x-2 mb-6">
+          <div class="w-2 h-2 rounded-full bg-[#00D98E]"></div>
+          <span class="text-xs font-medium tracking-wider uppercase text-gray-500">Sistema Operacional</span>
         </div>
-        <h1 class="text-5xl font-black mb-4 bg-clip-text text-transparent" style="background-image: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 50%, #00D98E 100%);">
-          Intelligence Dashboard
+        <h1 class="text-5xl font-light text-white mb-3 tracking-tight">
+          Intelligence <span class="font-semibold">Dashboard</span>
         </h1>
-        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-          Análise de Instagram powered by <span class="font-semibold" style="color: #0A7AFF;">Inteligência Artificial</span>
+        <p class="text-lg text-gray-500">
+          Análise avançada de Instagram com tecnologia de IA
         </p>
       </div>
 
-      <!-- Stats Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Minimal Stats Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
         
-        <!-- Card 1: Total Users -->
-        <div class="relative group">
-          <div class="absolute inset-0 rounded-2xl opacity-50 blur-xl group-hover:opacity-75 transition duration-300" style="background: linear-gradient(135deg, #0A7AFF 0%, #3B9EFF 100%);"></div>
-          <div class="relative bg-gray-900/50 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-[#0A7AFF]/50 transition duration-300">
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #0A7AFF 0%, #3B9EFF 100%);">
-                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        <!-- Card 1: Users -->
+        <div class="group relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-[#0A7AFF]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+            <div class="flex items-start justify-between mb-8">
+              <div class="w-10 h-10 rounded-xl bg-white/[0.03] flex items-center justify-center">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <div class="flex items-center space-x-1 text-xs font-semibold" style="color: #00D98E;">
-                <span>+0%</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
+              <span class="text-xs text-gray-600">+0%</span>
             </div>
             <div>
-              <p class="text-sm text-gray-400 mb-1">Total de Usuários</p>
-              <p class="text-4xl font-black text-white"><%= User.count %></p>
+              <p class="text-xs text-gray-500 mb-2 uppercase tracking-wider">Total Usuários</p>
+              <p class="text-3xl font-light text-white"><%= User.count %></p>
             </div>
           </div>
         </div>
 
-        <!-- Card 2: System Status -->
-        <div class="relative group">
-          <div class="absolute inset-0 rounded-2xl opacity-50 blur-xl group-hover:opacity-75 transition duration-300" style="background: linear-gradient(135deg, #00D98E 0%, #1FE5A0 100%);"></div>
-          <div class="relative bg-gray-900/50 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-[#00D98E]/50 transition duration-300">
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #00D98E 0%, #1FE5A0 100%);">
-                <svg class="w-7 h-7 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <!-- Card 2: System -->
+        <div class="group relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-[#00D98E]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+            <div class="flex items-start justify-between mb-8">
+              <div class="w-10 h-10 rounded-xl bg-white/[0.03] flex items-center justify-center">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <div class="w-3 h-3 rounded-full animate-pulse" style="background-color: #00D98E;"></div>
+              <div class="w-2 h-2 rounded-full bg-[#00D98E] animate-pulse"></div>
             </div>
             <div>
-              <p class="text-sm text-gray-400 mb-1">Sistema</p>
-              <p class="text-2xl font-black" style="color: #00D98E;">Ativo</p>
-              <p class="text-xs text-gray-500 mt-1">99.9% uptime</p>
+              <p class="text-xs text-gray-500 mb-2 uppercase tracking-wider">Sistema</p>
+              <p class="text-xl font-light text-[#00D98E]">Operacional</p>
+              <p class="text-xs text-gray-600 mt-2">99.9% uptime</p>
             </div>
           </div>
         </div>
 
-        <!-- Card 3: AI Processing -->
-        <div class="relative group">
-          <div class="absolute inset-0 rounded-2xl opacity-50 blur-xl group-hover:opacity-75 transition duration-300" style="background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);"></div>
-          <div class="relative bg-gray-900/50 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-[#7C3AED]/50 transition duration-300">
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);">
-                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <!-- Card 3: Automations -->
+        <div class="group relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+            <div class="flex items-start justify-between mb-8">
+              <div class="w-10 h-10 rounded-xl bg-white/[0.03] flex items-center justify-center">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background-color: rgba(124, 58, 237, 0.2); color: #A78BFA;">Em Breve</span>
+              <span class="text-[10px] px-2 py-1 rounded-full bg-white/[0.03] text-gray-500 uppercase tracking-wider">Em Breve</span>
             </div>
             <div>
-              <p class="text-sm text-gray-400 mb-1">Automações IA</p>
-              <p class="text-4xl font-black text-white">-</p>
+              <p class="text-xs text-gray-500 mb-2 uppercase tracking-wider">Automações</p>
+              <p class="text-3xl font-light text-white">—</p>
             </div>
           </div>
         </div>
 
         <!-- Card 4: Analytics -->
-        <div class="relative group">
-          <div class="absolute inset-0 rounded-2xl opacity-50 blur-xl group-hover:opacity-75 transition duration-300" style="background: linear-gradient(135deg, #FFD700 0%, #FFE135 100%);"></div>
-          <div class="relative bg-gray-900/50 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-[#FFD700]/50 transition duration-300">
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #FFD700 0%, #FFE135 100%);">
-                <svg class="w-7 h-7 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        <div class="group relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+            <div class="flex items-start justify-between mb-8">
+              <div class="w-10 h-10 rounded-xl bg-white/[0.03] flex items-center justify-center">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background-color: rgba(255, 215, 0, 0.2); color: #FFD700;">Premium</span>
+              <span class="text-xs text-[#0A7AFF]"><%= current_user.scrapings.completed.count %></span>
             </div>
             <div>
-              <p class="text-sm text-gray-400 mb-1">Análises</p>
-              <p class="text-4xl font-black text-white"><%= current_user.scrapings.completed.count %></p>
+              <p class="text-xs text-gray-500 mb-2 uppercase tracking-wider">Análises Concluídas</p>
+              <p class="text-3xl font-light text-white"><%= current_user.scrapings.count %></p>
             </div>
           </div>
         </div>
@@ -114,135 +108,123 @@
     </div>
   </div>
 
-  <!-- Main Content -->
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+  <!-- Actions Section -->
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     
-    <!-- Quick Actions -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Action Cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
       
-      <!-- Card: Start Analysis -->
-      <div class="relative group">
-        <div class="absolute inset-0 rounded-2xl opacity-30 blur-xl group-hover:opacity-50 transition duration-300" style="background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);"></div>
-        <div class="relative bg-gray-900/50 backdrop-blur-xl rounded-2xl p-8 border border-white/10 hover:border-[#0A7AFF]/50 transition duration-300">
+      <!-- New Analysis -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0A7AFF]/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.05] hover:border-[#0A7AFF]/20 transition-all duration-300">
           <div class="flex items-start justify-between mb-6">
-            <div class="w-16 h-16 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%); color: white;">Ação Rápida</span>
           </div>
-          <h3 class="text-2xl font-bold text-white mb-2">Iniciar Nova Análise</h3>
-          <p class="text-gray-400 mb-6">
-            Analise perfis do Instagram com IA avançada. Obtenha insights sobre conteúdo, engajamento e tendências.
+          <h3 class="text-xl font-light text-white mb-2">Nova Análise</h3>
+          <p class="text-sm text-gray-500 mb-8 leading-relaxed">
+            Inicie uma análise profunda de perfis do Instagram utilizando IA avançada para identificar padrões e tendências.
           </p>
-          <%= link_to admin_igspy_path, class: "inline-flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 group hover:scale-105", style: "background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%); color: white;" do %>
+          <%= link_to admin_igspy_path, class: "inline-flex items-center space-x-2 text-sm font-medium text-[#0A7AFF] hover:text-[#3B9EFF] transition-colors group" do %>
             <span>Começar Análise</span>
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           <% end %>
         </div>
       </div>
 
-      <!-- Card: Recent Scrapings -->
-      <div class="relative group">
-        <div class="absolute inset-0 rounded-2xl opacity-30 blur-xl group-hover:opacity-50 transition duration-300" style="background: linear-gradient(135deg, #00D98E 0%, #10B981 100%);"></div>
-        <div class="relative bg-gray-900/50 backdrop-blur-xl rounded-2xl p-8 border border-white/10 hover:border-[#00D98E]/50 transition duration-300">
+      <!-- History -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
           <div class="flex items-start justify-between mb-6">
-            <div class="w-16 h-16 rounded-2xl flex items-center justify-center" style="background: linear-gradient(135deg, #00D98E 0%, #10B981 100%);">
-              <svg class="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+              <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
-            <span class="text-xs font-semibold px-3 py-1 rounded-full" style="background-color: rgba(0, 217, 142, 0.2); color: #00D98E;"><%= current_user.scrapings.count %> Total</span>
+            <span class="text-xs text-gray-600"><%= current_user.scrapings.count %> total</span>
           </div>
-          <h3 class="text-2xl font-bold text-white mb-2">Histórico de Análises</h3>
-          <p class="text-gray-400 mb-6">
-            Visualize todas as análises realizadas e acompanhe o progresso em tempo real.
+          <h3 class="text-xl font-light text-white mb-2">Histórico</h3>
+          <p class="text-sm text-gray-500 mb-8 leading-relaxed">
+            Acesse todas as análises realizadas, acompanhe o status e visualize relatórios completos.
           </p>
-          <%= link_to admin_scrapings_path, class: "inline-flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold border-2 transition-all duration-300 group hover:scale-105", style: "border-color: #00D98E; color: #00D98E;" do %>
+          <%= link_to admin_scrapings_path, class: "inline-flex items-center space-x-2 text-sm font-medium text-gray-400 hover:text-white transition-colors group" do %>
             <span>Ver Histórico</span>
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           <% end %>
         </div>
       </div>
     </div>
 
-    <!-- Features Grid -->
-    <div class="bg-gray-900/50 backdrop-blur-xl rounded-2xl p-8 border border-white/10">
+    <!-- Features -->
+    <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.05]">
       <div class="flex items-center space-x-3 mb-8">
-        <div class="w-1 h-8 rounded-full" style="background: linear-gradient(180deg, #0A7AFF 0%, #7C3AED 100%);"></div>
-        <h2 class="text-2xl font-bold text-white">Recursos do Sistema</h2>
+        <div class="w-1 h-6 bg-[#0A7AFF]/50 rounded-full"></div>
+        <h2 class="text-lg font-light text-white">Capacidades do Sistema</h2>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         <!-- Feature 1 -->
-        <div class="flex items-start space-x-4 p-4 rounded-xl bg-gray-800/30 border border-white/5 hover:border-[#0A7AFF]/30 transition duration-300">
-          <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: rgba(10, 122, 255, 0.1);">
-            <svg class="w-6 h-6" style="color: #0A7AFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        <div class="flex items-start space-x-4">
+          <div class="w-10 h-10 rounded-lg bg-white/[0.03] flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-white mb-1">Análise Inteligente</h3>
-            <p class="text-sm text-gray-400">IA avançada analisa padrões de conteúdo, engajamento e tendências do Instagram</p>
+            <h3 class="text-sm font-medium text-white mb-1">Análise Inteligente</h3>
+            <p class="text-xs text-gray-500 leading-relaxed">Processamento avançado de padrões de conteúdo e métricas de engajamento</p>
           </div>
         </div>
 
         <!-- Feature 2 -->
-        <div class="flex items-start space-x-4 p-4 rounded-xl bg-gray-800/30 border border-white/5 hover:border-[#7C3AED]/30 transition duration-300">
-          <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: rgba(124, 58, 237, 0.1);">
-            <svg class="w-6 h-6" style="color: #7C3AED;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        <div class="flex items-start space-x-4">
+          <div class="w-10 h-10 rounded-lg bg-white/[0.03] flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-white mb-1">Chat com IA</h3>
-            <p class="text-sm text-gray-400">Converse com a IA sobre análises e obtenha insights personalizados</p>
+            <h3 class="text-sm font-medium text-white mb-1">Assistente Virtual</h3>
+            <p class="text-xs text-gray-500 leading-relaxed">Interface conversacional para exploração interativa de dados</p>
           </div>
         </div>
 
         <!-- Feature 3 -->
-        <div class="flex items-start space-x-4 p-4 rounded-xl bg-gray-800/30 border border-white/5 hover:border-[#00D98E]/30 transition duration-300">
-          <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: rgba(0, 217, 142, 0.1);">
-            <svg class="w-6 h-6" style="color: #00D98E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        <div class="flex items-start space-x-4">
+          <div class="w-10 h-10 rounded-lg bg-white/[0.03] flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
             </svg>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-white mb-1">Métricas em Tempo Real</h3>
-            <p class="text-sm text-gray-400">Acompanhe progresso de análises e estatísticas atualizadas</p>
+            <h3 class="text-sm font-medium text-white mb-1">Métricas em Tempo Real</h3>
+            <p class="text-xs text-gray-500 leading-relaxed">Monitoramento contínuo de processos e estatísticas atualizadas</p>
           </div>
         </div>
 
         <!-- Feature 4 -->
-        <div class="flex items-start space-x-4 p-4 rounded-xl bg-gray-800/30 border border-white/5 hover:border-[#FFD700]/30 transition duration-300">
-          <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: rgba(255, 215, 0, 0.1);">
-            <svg class="w-6 h-6" style="color: #FFD700;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+        <div class="flex items-start space-x-4">
+          <div class="w-10 h-10 rounded-lg bg-white/[0.03] flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
             </svg>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-white mb-1">Ideias de Conteúdo</h3>
-            <p class="text-sm text-gray-400">Receba sugestões personalizadas baseadas em dados reais</p>
+            <h3 class="text-sm font-medium text-white mb-1">Recomendações Estratégicas</h3>
+            <p class="text-xs text-gray-500 leading-relaxed">Sugestões de conteúdo baseadas em análise preditiva</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<style>
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-</style>
