@@ -1,5 +1,17 @@
 # app/models/scraping.rb
 class Scraping < ApplicationRecord
+    # Constante de status possíveis
+  STATUSES = %w[
+    pending
+    scraping
+    scraped
+    transcribing
+    transcriptions_completed
+    analyzing
+    completed
+    failed
+    analysis_failed
+  ].freeze
   belongs_to :user
   has_many :instagram_posts, dependent: :destroy
   has_one :analysis, dependent: :destroy
