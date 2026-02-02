@@ -92,6 +92,10 @@ class Scraping < ApplicationRecord
     status == 'completed'
   end
 
+  def failed?
+    status == 'failed' || status == 'analysis_failed'
+  end
+
   # Alias para has_one :analysis
   def scraping_analysis
     analysis
