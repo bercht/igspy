@@ -87,4 +87,13 @@ class Scraping < ApplicationRecord
       progress_percent: (transcription_progress * 100).round(1)
     }
   end
+  # Verificar se está completo
+  def completed?
+    status == 'completed'
+  end
+
+  # Alias para has_one :analysis
+  def scraping_analysis
+    analysis
+  end
 end
