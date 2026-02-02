@@ -32,9 +32,9 @@ Rails.application.routes.draw do
   end
   # Webhooks para integrações externas
   namespace :webhooks do
-    post 'transcriptions_completed', to: 'webhooks#transcriptions_completed'
-    get 'health', to: 'webhooks#health'
-  end  
+    post 'transcriptions_completed', to: 'base#transcriptions_completed'
+    get 'health', to: 'base#health'
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

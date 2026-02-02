@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_01_190225) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_02_014027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +130,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_01_190225) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.index ["metadata"], name: "index_scrapings_on_metadata", using: :gin
     t.index ["user_id"], name: "index_scrapings_on_user_id"
   end
 
