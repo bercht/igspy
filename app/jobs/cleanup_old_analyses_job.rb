@@ -16,23 +16,25 @@ class CleanupOldAnalysesJob < ApplicationJob
   private
   
   def cleanup_user_analyses(user)
-    analyses = user.scrapings.includes(:scraping_analysis).order(created_at: :desc)
-    analyses_to_delete = analyses.offset(3)
-    
+    scrapings_to_delete = user.scrapings.order(created_at: :desc).offset(3)
+
     count = 0
-    
-    analyses_to_delete.each do |scraping|
-      analysis = scraping.scraping_analysis
+
+    scrapings_to_delete.each do |scraping|
+      # Buscar análise diretamente do banco (sem depender do cache do includes)
+      analysis = ScrapingAnalysis.find_by(scraping_id: scraping.id)
+
       if analysis
         delete_openai_assistant(analysis.assistant_id) if analysis.assistant_id.present?
         delete_openai_vector_store(analysis.vector_store_id) if analysis.vector_store_id.present?
-        analysis.destroy # Deletar análise ANTES do scraping
       end
-      
-      scraping.destroy # Agora pode deletar o scraping
+
+      # dependent: :destroy no modelo Scraping cuida de:
+      # scraping_analysis, conversation e instagram_posts
+      scraping.destroy
       count += 1
     end
-    
+
     Rails.logger.info "🗑️  User #{user.id}: #{count} scrapings antigos deletados" if count > 0
   end
   
