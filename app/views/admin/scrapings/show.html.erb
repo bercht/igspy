@@ -21,7 +21,7 @@
       <!-- Status Badge Grande -->
       <div class="flex items-center space-x-3">
         <% if @scraping.completed? %>
-          <div class="flex items-center space-x-2 bg-green-50 text-green-700 px-6 py-3 rounded-xl border-2 border-green-200">
+          <div class="flex items-center space-x-2 bg-emerald-50 px-6 py-3 rounded-xl border-2 border-[#00D98E]" style="color: #007A52;">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -35,7 +35,7 @@
             <span class="font-semibold">Falhou</span>
           </div>
         <% else %>
-          <div class="flex items-center space-x-2 bg-blue-50 text-blue-700 px-6 py-3 rounded-xl border-2 border-blue-200">
+          <div class="flex items-center space-x-2 bg-blue-50 px-6 py-3 rounded-xl border-2 border-[#0A7AFF]" style="color: #0559CC;">
             <svg class="animate-spin w-6 h-6" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -53,8 +53,8 @@
     <!-- Card: Informações Básicas -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition">
       <div class="flex items-center space-x-3 mb-4">
-        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(10, 122, 255, 0.1);">
+          <svg class="w-6 h-6" style="color: #0A7AFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
@@ -86,8 +86,8 @@
     <!-- Card: Posts Coletados -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition">
       <div class="flex items-center space-x-3 mb-4">
-        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(124, 58, 237, 0.1);">
+          <svg class="w-6 h-6" style="color: #7C3AED;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
         </div>
@@ -105,8 +105,8 @@
     <!-- Card: Status da Análise -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition">
       <div class="flex items-center space-x-3 mb-4">
-        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(0, 217, 142, 0.1);">
+          <svg class="w-6 h-6" style="color: #00D98E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
@@ -116,10 +116,10 @@
       <% if @analysis.present? %>
         <div class="flex items-center space-x-2">
           <div class="flex-1">
-            <div class="text-lg font-semibold text-green-600">Pronta</div>
+            <div class="text-lg font-semibold" style="color: #00D98E;">Pronta</div>
             <p class="text-sm text-gray-500">Análise concluída com sucesso</p>
           </div>
-          <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-8 h-8" style="color: #00D98E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
@@ -146,22 +146,22 @@
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
       
       <!-- Header da Análise -->
-      <div class="bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-6">
+      <div class="px-8 py-6" style="background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
-            <div class="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+            <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
             <div>
               <h2 class="text-2xl font-bold text-white">Análise Completa</h2>
-              <p class="text-blue-100 text-sm">Gerada por Inteligência Artificial</p>
+              <p class="text-sm" style="color: rgba(255, 255, 255, 0.8);">Gerada por Inteligência Artificial</p>
             </div>
           </div>
           
           <% if @analysis.assistant_id.present? %>
-            <span class="px-4 py-2 bg-white/20 backdrop-blur text-white rounded-lg text-sm font-semibold">
+            <span class="px-4 py-2 rounded-lg text-sm font-semibold text-white" style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
               ✓ Assistant Criado
             </span>
           <% end %>
@@ -170,8 +170,8 @@
 
       <!-- Conteúdo da Análise -->
       <div class="p-8">
-        <div class="prose max-w-none bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-8 border border-gray-200">
-          <%= simple_format(@analysis.analysis_text, class: "text-gray-700 leading-relaxed whitespace-pre-wrap") %>
+        <div class="prose prose-lg max-w-none bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-8 border border-gray-200">
+          <%= render_markdown(@analysis.analysis_text) %>
         </div>
 
         <!-- Ações -->
@@ -189,7 +189,8 @@
           <!-- Botão Chat -->
           <% if @analysis.assistant_id.present? %>
             <%= link_to admin_conversation_path(@scraping), 
-              class: "inline-flex items-center px-6 py-3 border-2 border-transparent rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg" do %>
+              class: "inline-flex items-center px-6 py-3 border-2 border-transparent rounded-xl text-sm font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg",
+              style: "background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);" do %>
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>

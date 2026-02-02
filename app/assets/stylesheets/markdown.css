@@ -1,0 +1,225 @@
+/* app/assets/stylesheets/markdown.css */
+
+.prose {
+  color: #374151;
+  max-width: none;
+}
+
+.prose h1 {
+  color: #111827;
+  font-weight: 800;
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+}
+
+.prose h2 {
+  color: #0A7AFF;
+  font-weight: 700;
+  font-size: 1.875em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+  line-height: 1.3333333;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid rgba(10, 122, 255, 0.2);
+}
+
+.prose h3 {
+  color: #1F2937;
+  font-weight: 600;
+  font-size: 1.5em;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.6;
+}
+
+.prose h4 {
+  color: #374151;
+  font-weight: 600;
+  font-size: 1.25em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.75;
+}
+
+.prose strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+.prose em {
+  color: #4B5563;
+  font-style: italic;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding-left: 0.375em;
+}
+
+.prose li::marker {
+  color: #0A7AFF;
+  font-weight: 600;
+}
+
+.prose blockquote {
+  font-weight: 500;
+  font-style: italic;
+  color: #1F2937;
+  border-left: 0.25rem solid #0A7AFF;
+  quotes: "\201C""\201D""\2018""\2019";
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  padding-left: 1em;
+  background-color: rgba(10, 122, 255, 0.05);
+  padding: 1em;
+  padding-left: 1.5em;
+  border-radius: 0.5rem;
+}
+
+.prose code {
+  color: #7C3AED;
+  font-weight: 600;
+  font-size: 0.875em;
+  background-color: rgba(124, 58, 237, 0.1);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.prose pre {
+  color: #E5E7EB;
+  background-color: #1F2937;
+  overflow-x: auto;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+  margin-top: 1.7142857em;
+  margin-bottom: 1.7142857em;
+  border-radius: 0.75rem;
+  padding: 1.1428571em 1.1428571em;
+  border: 1px solid #374151;
+}
+
+.prose pre code {
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.prose table {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #E5E7EB;
+}
+
+.prose thead {
+  background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);
+}
+
+.prose thead th {
+  color: white;
+  font-weight: 600;
+  vertical-align: bottom;
+  padding: 0.8571429em 0.8571429em;
+  border-bottom: none;
+}
+
+.prose tbody tr {
+  border-bottom-width: 1px;
+  border-bottom-color: #E5E7EB;
+  background-color: white;
+}
+
+.prose tbody tr:nth-child(even) {
+  background-color: #F9FAFB;
+}
+
+.prose tbody tr:hover {
+  background-color: rgba(10, 122, 255, 0.05);
+}
+
+.prose tbody td {
+  vertical-align: baseline;
+  padding: 0.8571429em 0.8571429em;
+}
+
+.prose a {
+  color: #0A7AFF;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(10, 122, 255, 0.3);
+  transition: all 0.2s;
+}
+
+.prose a:hover {
+  color: #0559CC;
+  border-bottom-color: #0559CC;
+}
+
+.prose hr {
+  border-color: rgba(10, 122, 255, 0.2);
+  margin-top: 3em;
+  margin-bottom: 3em;
+  border-top-width: 2px;
+}
+
+/* Destaque para números e métricas */
+.prose strong:has(+ em),
+.prose strong em {
+  color: #00D98E;
+  font-size: 1.1em;
+}
+
+/* Estilo para listas aninhadas */
+.prose ul ul,
+.prose ul ol,
+.prose ol ul,
+.prose ol ol {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+/* Estilo para del (texto riscado) */
+.prose del {
+  color: #9CA3AF;
+  text-decoration: line-through;
+}
