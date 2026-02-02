@@ -3,6 +3,8 @@ class Scraping < ApplicationRecord
   belongs_to :user
   has_many :instagram_posts, dependent: :destroy
   has_one :analysis, dependent: :destroy
+
+  scope :recent, -> { order(created_at: :desc) }
   
   # Status possíveis:
   # - pending: aguardando processamento
