@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # API para callbacks do n8n
   namespace :api do
     post "callbacks", to: "callbacks#create"
+    post "profile_stats", to: "profile_stats#create"
   end
 
   # Área administrativa (requer autenticação)

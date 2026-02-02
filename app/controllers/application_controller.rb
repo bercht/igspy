@@ -24,11 +24,20 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [
       :manus_api_key, 
       :anthropic_api_key,
-      :preferred_chat_api
+      :preferred_chat_api,
+      :cpf,
+      :full_name,
+      :instagram_profile,
+      :phone
     ])
     
-    # Se você quiser permitir na criação também (sign_up), descomente a linha abaixo:
-    # devise_parameter_sanitizer.permit(:sign_up, keys: [:manus_api_key, :anthropic_api_key, :preferred_chat_api])
+    # Permitir novos campos no cadastro (sign_up)
+    devise_parameter_sanitizer.permit(:sign_up, keys: [
+      :cpf,
+      :full_name,
+      :instagram_profile,
+      :phone
+    ])
   end
 
   private

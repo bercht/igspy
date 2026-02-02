@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_02_171439) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_02_173752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,6 +115,26 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_171439) do
     t.index ["role"], name: "index_messages_on_role"
   end
 
+  create_table "profile_stats", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "username"
+    t.string "full_name"
+    t.text "biography"
+    t.integer "followers", default: 0
+    t.integer "following", default: 0
+    t.integer "posts", default: 0
+    t.string "profile_url"
+    t.string "profile_image_url"
+    t.boolean "is_private", default: false
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["metadata"], name: "index_profile_stats_on_metadata", using: :gin
+    t.index ["user_id", "created_at"], name: "index_profile_stats_on_user_id_and_created_at", order: { created_at: :desc }
+    t.index ["user_id"], name: "index_profile_stats_on_user_id"
+    t.index ["username"], name: "index_profile_stats_on_username"
+  end
+
   create_table "scraping_analyses", force: :cascade do |t|
     t.bigint "scraping_id", null: false
     t.text "analysis_text", null: false
@@ -166,7 +186,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_171439) do
     t.string "manus_api_key"
     t.string "anthropic_api_key"
     t.string "preferred_chat_api"
+    t.string "cpf"
+    t.string "full_name"
+    t.string "instagram_profile"
+    t.string "phone"
+    t.index ["cpf"], name: "index_users_on_cpf", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["instagram_profile"], name: "index_users_on_instagram_profile"
     t.index ["preferred_chat_api"], name: "index_users_on_preferred_chat_api"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -176,6 +202,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_171439) do
   add_foreign_key "instagram_posts", "scrapings"
   add_foreign_key "message_attachments", "messages"
   add_foreign_key "messages", "conversations"
+  add_foreign_key "profile_stats", "users"
   add_foreign_key "scraping_analyses", "scrapings"
   add_foreign_key "scrapings", "users"
 end
