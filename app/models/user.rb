@@ -38,7 +38,7 @@ class User < ApplicationRecord
   def profile_stats_for_chart
     profile_stats.recent_first.limit(3).reverse
   end
-  
+
   private
   
   def trigger_profile_data_collection
@@ -49,6 +49,5 @@ class User < ApplicationRecord
     
     # Disparar job assíncrono
     CollectProfileDataJob.perform_later(id)
-  end
-end  
+  end 
 end
