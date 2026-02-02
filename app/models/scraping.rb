@@ -19,6 +19,7 @@ class Scraping < ApplicationRecord
   has_one :conversation, dependent: :destroy
 
   scope :recent, -> { order(created_at: :desc) }
+  scope :completed, -> { where(status: 'completed') }
   
   # Status possíveis:
   # - pending: aguardando processamento
