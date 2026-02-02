@@ -1,6 +1,6 @@
 # app/models/scraping.rb
 class Scraping < ApplicationRecord
-    # Constante de status possíveis
+  # Constante de status possíveis
   STATUSES = %w[
     pending
     scraping
@@ -12,6 +12,7 @@ class Scraping < ApplicationRecord
     failed
     analysis_failed
   ].freeze
+  
   belongs_to :user
   has_many :instagram_posts, dependent: :destroy
   has_one :scraping_analysis, class_name: 'ScrapingAnalysis', dependent: :destroy
@@ -87,15 +88,9 @@ class Scraping < ApplicationRecord
       progress_percent: (transcription_progress * 100).round(1)
     }
   end
+
   # Verificar se está completo
   def completed?
-    status == 'completed'
-  end
-
-  def failed?
-    status == 'failed' || status == 'analysis_failed'
-  end
-    def completed?
     status == 'completed'
   end
 
@@ -114,10 +109,4 @@ class Scraping < ApplicationRecord
   def analyzing?
     status == 'analyzing'
   end
-
-  # Alias para compatibilidade com views antigas
-  def scraping_analysis
-    analysis
-  end
-
 end
