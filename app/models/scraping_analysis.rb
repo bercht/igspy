@@ -12,6 +12,7 @@ class ScrapingAnalysis < ApplicationRecord
 
   validates :analysis_text, presence: true
   validates :status, presence: true, inclusion: { in: STATUSES.values }
+  validates :scraping_id, uniqueness: true
 
   # Scopes úteis
   scope :recent, -> { order(created_at: :desc) }
