@@ -23,7 +23,6 @@ class CleanupOldAnalysesJob < ApplicationJob
     
     analyses_to_delete.each do |scraping|
       analysis = scraping.scraping_analysis
-      
       if analysis
         delete_openai_assistant(analysis.assistant_id) if analysis.assistant_id.present?
         delete_openai_vector_store(analysis.vector_store_id) if analysis.vector_store_id.present?
