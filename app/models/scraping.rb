@@ -16,6 +16,7 @@ class Scraping < ApplicationRecord
   belongs_to :user
   has_many :instagram_posts, dependent: :destroy
   has_one :scraping_analysis, class_name: 'ScrapingAnalysis', dependent: :destroy
+  has_one :conversation, dependent: :destroy
 
   scope :recent, -> { order(created_at: :desc) }
   
