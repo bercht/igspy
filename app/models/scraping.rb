@@ -14,7 +14,7 @@ class Scraping < ApplicationRecord
   ].freeze
   belongs_to :user
   has_many :instagram_posts, dependent: :destroy
-  has_one :analysis, dependent: :destroy
+  has_one :scraping_analysis, class_name: 'ScrapingAnalysis', dependent: :destroy
 
   scope :recent, -> { order(created_at: :desc) }
   
@@ -120,8 +120,4 @@ class Scraping < ApplicationRecord
     analysis
   end
 
-  # Alias para has_one :analysis
-  def scraping_analysis
-    analysis
-  end
 end
