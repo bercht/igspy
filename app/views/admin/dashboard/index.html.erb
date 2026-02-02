@@ -86,21 +86,66 @@
           </div>
         </div>
 
-        <!-- Card 4: Analytics -->
+        <!-- Card 4: Crescimento do Perfil -->
         <div class="group relative">
           <div class="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
-            <div class="flex items-start justify-between mb-8">
+            <div class="flex items-start justify-between mb-4">
               <div class="w-10 h-10 rounded-xl bg-white/[0.03] flex items-center justify-center">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                <svg class="w-5 h-5 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
               </div>
-              <span class="text-xs text-[#0A7AFF]"><%= current_user.scrapings.completed.count %></span>
             </div>
+            
             <div>
-              <p class="text-xs text-gray-500 mb-2 uppercase tracking-wider">Análises Concluídas</p>
-              <p class="text-3xl font-light text-white"><%= current_user.scrapings.count %></p>
+              <p class="text-xs text-gray-500 mb-4 uppercase tracking-wider">Crescimento do Perfil</p>
+              
+              <% if @loading_profile_data %>
+                <!-- Loading State -->
+                <div class="flex flex-col items-center justify-center py-8">
+                  <svg class="animate-spin w-8 h-8 text-[#0A7AFF] mb-3" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <p class="text-xs text-gray-500">Carregando dados...</p>
+                </div>
+              
+              <% elsif @profile_stats.empty? %>
+                <!-- No Instagram Profile -->
+                <div class="text-center py-4">
+                  <p class="text-sm text-gray-500">Configure seu perfil do Instagram em</p>
+                  <%= link_to "Configurações", admin_settings_path, class: "text-xs text-[#0A7AFF] hover:underline" %>
+                </div>
+              
+              <% else %>
+                <!-- Graph -->
+                <div class="space-y-3">
+                  <% @profile_stats.each_with_index do |stat, index| %>
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs text-gray-500"><%= stat.created_at.strftime('%d/%m') %></span>
+                      <div class="flex-1 mx-3">
+                        <div class="h-1 bg-white/[0.05] rounded-full overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-[#0A7AFF] to-[#3B9EFF] rounded-full transition-all duration-500" 
+                               style="width: <%= (stat.followers.to_f / @profile_stats.map(&:followers).max * 100).round %>%"></div>
+                        </div>
+                      </div>
+                      <span class="text-xs text-white font-medium"><%= number_to_human(stat.followers, precision: 1, significant: false, delimiter: '.', separator: ',') %></span>
+                    </div>
+                  <% end %>
+                </div>
+                
+                <!-- Growth Indicator -->
+                <% if @profile_stats.length >= 2 %>
+                  <% growth = @profile_stats.last.growth_rate(@profile_stats.first) %>
+                  <div class="mt-4 pt-4 border-t border-white/[0.05] flex items-center justify-between">
+                    <span class="text-xs text-gray-500">Crescimento</span>
+                    <span class="text-sm <%= growth && growth > 0 ? 'text-[#00D98E]' : 'text-gray-400' %> font-medium">
+                      <%= growth ? "#{growth > 0 ? '+' : ''}#{growth}%" : 'N/A' %>
+                    </span>
+                  </div>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
