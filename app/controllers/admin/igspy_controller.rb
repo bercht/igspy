@@ -8,12 +8,12 @@ class Admin::IgspyController < Admin::BaseController
     scraping = current_user.scrapings.create!(
       profile_url: igspy_params[:igspy_profile_url],
       results_limit: igspy_params[:igspy_results_limit],
-      status: Scraping::STATUSES[:pending],
+      status: 'pending',  # ← Mudou aqui
       status_message: "Aguardando início...",
       scraping_id: Time.current.to_i,
       started_at: Time.current
     )
-
+    
     # Envia para n8n
     result = IgspyWebhookService.call(scraping, current_user)
     
@@ -22,7 +22,7 @@ class Admin::IgspyController < Admin::BaseController
       redirect_to admin_scraping_path(scraping)
     else
       scraping.update!(
-        status: Scraping::STATUSES[:failed],
+        status: 'failed',  # ← Mudou aqui
         status_message: "Erro ao iniciar: #{result[:error]}"
       )
       flash.now[:alert] = "Erro ao enviar dados: #{result[:error]}"
