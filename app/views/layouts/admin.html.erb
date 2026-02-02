@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Admin - Igspy" %></title>
+    <title><%= content_for(:title) || "Admin - IgSpy" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -18,50 +18,67 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-gray-100">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg">
+  <body class="bg-[#0F1419]">
+    <!-- Navbar Minimalista -->
+    <nav class="bg-white/[0.02] backdrop-blur-xl border-b border-white/[0.05]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-          <div class="flex">
+          <div class="flex items-center space-x-8">
             <!-- Logo -->
             <div class="flex-shrink-0 flex items-center">
-              <%= link_to admin_root_path, class: "text-2xl font-bold text-blue-600" do %>
-                Igspy Admin
+              <%= link_to admin_root_path, class: "flex items-center space-x-2 group" do %>
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #0A7AFF 0%, #3B9EFF 100%);">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <span class="text-lg font-light text-white group-hover:text-[#0A7AFF] transition-colors">IgSpy</span>
               <% end %>
             </div>
             
             <!-- Navigation Links -->
-            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <%= link_to "Dashboard", admin_dashboard_path, class: "#{request.path == admin_dashboard_path ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+            <div class="hidden sm:flex sm:space-x-1">
+              <%= link_to "Dashboard", admin_dashboard_path, class: "#{request.path == admin_dashboard_path ? 'text-white bg-white/[0.05]' : 'text-gray-400 hover:text-white hover:bg-white/[0.03]'} px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200" %>
               
-              <%= link_to "Igspy", admin_igspy_path, class: "#{request.path == admin_igspy_path ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+              <%= link_to "Nova Análise", admin_igspy_path, class: "#{request.path == admin_igspy_path ? 'text-white bg-white/[0.05]' : 'text-gray-400 hover:text-white hover:bg-white/[0.03]'} px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200" %>
               
-              <%= link_to "Scrapings", admin_scrapings_path, class: "#{request.path.start_with?('/admin/scrapings') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+              <%= link_to "Histórico", admin_scrapings_path, class: "#{request.path.start_with?('/admin/scrapings') ? 'text-white bg-white/[0.05]' : 'text-gray-400 hover:text-white hover:bg-white/[0.03]'} px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200" %>
             </div>
           </div>
 
           <!-- User Menu -->
-          <div class="flex items-center">
-            <span class="text-gray-700 text-sm mr-4"><%= current_user.email %></span>
-            <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition" %>
+          <div class="flex items-center space-x-4">
+            <span class="text-sm text-gray-500"><%= current_user.email %></span>
+            <%= button_to destroy_user_session_path, method: :delete, class: "px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/[0.03] transition-all duration-200 border border-white/[0.05]" do %>
+              <span>Sair</span>
+            <% end %>
           </div>
         </div>
       </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <main class="min-h-screen">
       <!-- Flash Messages -->
       <% if notice %>
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <span class="block sm:inline"><%= notice %></span>
+        <div class="fixed top-20 right-4 z-50 animate-slide-in">
+          <div class="bg-white/[0.05] backdrop-blur-xl border border-[#00D98E]/30 text-white px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3">
+            <svg class="w-5 h-5 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-sm"><%= notice %></span>
+          </div>
         </div>
       <% end %>
       
       <% if alert %>
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-          <span class="block sm:inline"><%= alert %></span>
+        <div class="fixed top-20 right-4 z-50 animate-slide-in">
+          <div class="bg-white/[0.05] backdrop-blur-xl border border-red-500/30 text-white px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3">
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-sm"><%= alert %></span>
+          </div>
         </div>
       <% end %>
 
@@ -69,3 +86,20 @@
     </main>
   </body>
 </html>
+
+<style>
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+</style>

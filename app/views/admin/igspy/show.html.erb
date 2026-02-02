@@ -1,55 +1,64 @@
-<div class="px-4 sm:px-0">
-  <div class="md:flex md:items-center md:justify-between mb-8">
-    <div class="flex-1 min-w-0">
-      <h1 class="text-3xl font-bold text-gray-900">Igspy - Envio para n8n - BETA</h1>
-      <p class="mt-2 text-sm text-gray-600">
-        Configure e envie dados para automação via webhook n8n
-      </p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  
+  <!-- Header -->
+  <div class="mb-12">
+    <div class="inline-flex items-center space-x-2 mb-4">
+      <div class="w-2 h-2 rounded-full bg-[#0A7AFF]"></div>
+      <span class="text-xs font-medium tracking-wider uppercase text-gray-500">Nova Análise</span>
     </div>
+    <h1 class="text-4xl font-light text-white mb-3">
+      Análise de <span class="font-semibold">Perfil</span>
+    </h1>
+    <p class="text-lg text-gray-500">
+      Configure e envie dados para automação via webhook n8n
+    </p>
   </div>
 
+  <!-- Grid Layout -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- Formulário -->
+    
+    <!-- Form Card -->
     <div class="lg:col-span-2">
-      <div class="bg-white shadow rounded-lg p-6" data-controller="igspy-form">
-        <%= form_with(url: admin_igspy_path, method: :post, data: { igspy_form_target: "form", action: "submit->igspy-form#submit" }) do |f| %>
+      <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.05]" data-controller="igspy-form">
+        <%= form_with(url: admin_igspy_path, method: :post, data: { igspy_form_target: "form", action: "submit->igspy-form#submit" }, class: "space-y-8") do |f| %>
           
-          <!-- URL do Perfil Instagram -->
-          <div class="mb-6">
-            <%= f.label :profile_url, "URL do Perfil Instagram", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <!-- URL do Perfil -->
+          <div>
+            <%= f.label :igspy_profile_url, "URL do Perfil Instagram", class: "block text-xs font-medium text-gray-400 mb-3 uppercase tracking-wider" %>
             <%= f.text_field :igspy_profile_url, 
                 placeholder: "https://www.instagram.com/username/", 
-                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                class: "w-full px-4 py-4 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition-all duration-300",
                 data: { igspy_form_target: "profileUrl" },
                 required: true %>
-            <p class="mt-1 text-sm text-gray-500">Cole a URL completa do perfil do Instagram</p>
+            <p class="mt-2 text-xs text-gray-600">Cole a URL completa do perfil do Instagram</p>
           </div>
 
           <!-- Número de Postagens -->
-          <div class="mb-6">
-            <%= f.label :results_limit, "Número de Postagens a Extrair", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <div>
+            <%= f.label :igspy_results_limit, "Número de Postagens a Extrair", class: "block text-xs font-medium text-gray-400 mb-3 uppercase tracking-wider" %>
             <%= f.number_field :igspy_results_limit, 
                 value: 10,
                 min: 1,
                 max: 100,
-                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                class: "w-full px-4 py-4 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition-all duration-300",
                 data: { igspy_form_target: "resultsLimit" },
                 required: true %>
-            <p class="mt-1 text-sm text-gray-500">Mínimo: 1 | Máximo: 100</p>
+            <p class="mt-2 text-xs text-gray-600">Mínimo: 1 | Máximo: 100</p>
           </div>
 
           <!-- Submit Button -->
-          <div class="flex items-center justify-between">
-            <%= f.submit "Enviar para n8n", 
-                class: "bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed",
+          <div class="pt-4">
+            <%= f.submit "Iniciar Análise", 
+                class: "w-full py-4 px-6 rounded-xl font-medium text-white transition-all duration-300 cursor-pointer hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed",
+                style: "background: linear-gradient(135deg, #0A7AFF 0%, #3B9EFF 100%);",
                 data: { igspy_form_target: "submitButton" } %>
             
-            <span class="hidden text-sm text-gray-600" data-igspy-form-target="loadingText">
-              <svg class="animate-spin inline-block w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
+            <span class="hidden text-sm text-gray-500 mt-3 flex items-center justify-center" data-igspy-form-target="loadingText">
+              <svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Enviando...
+              Processando...
             </span>
           </div>
         <% end %>
@@ -57,9 +66,75 @@
     </div>
 
     <!-- Info Card -->
-    <div class="lg:col-span-1">
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-        <h3 class="text-lg font-semibold text-blue-900 mb-3">Como Funciona</h3>
-        <ol class="text-sm text-blue-800 space-y-2 list-decimal list-inside">
-          <li>Cole a URL completa do perfil Instagram</li>
-          <li>Defina quantas postagens quer ext
+    <div class="lg:col-span-1 space-y-6">
+      
+      <!-- Como Funciona -->
+      <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
+        <div class="flex items-center space-x-2 mb-6">
+          <div class="w-8 h-8 rounded-lg bg-white/[0.03] flex items-center justify-center">
+            <svg class="w-4 h-4 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-medium text-white">Como Funciona</h3>
+        </div>
+        <ol class="space-y-4">
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0A7AFF]/10 text-[#0A7AFF] text-xs font-semibold flex items-center justify-center">1</span>
+            <p class="text-sm text-gray-400 leading-relaxed">Cole a URL completa do perfil Instagram</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0A7AFF]/10 text-[#0A7AFF] text-xs font-semibold flex items-center justify-center">2</span>
+            <p class="text-sm text-gray-400 leading-relaxed">Defina quantas postagens quer extrair (1-100)</p>
+          </li>
+          <li class="flex items-start space-x-3">
+            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0A7AFF]/10 text-[#0A7AFF] text-xs font-semibold flex items-center justify-center">3</span>
+            <p class="text-sm text-gray-400 leading-relaxed">Clique em "Iniciar Análise" e aguarde o processamento</p>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Análises Recentes -->
+      <% if @recent_scrapings.any? %>
+        <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-sm font-medium text-white">Análises Recentes</h3>
+            <%= link_to admin_scrapings_path, class: "text-xs text-[#0A7AFF] hover:text-[#3B9EFF] transition-colors" do %>
+              Ver todas →
+            <% end %>
+          </div>
+          <div class="space-y-3">
+            <% @recent_scrapings.first(3).each do |scraping| %>
+              <%= link_to admin_scraping_path(scraping), class: "block p-3 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:border-white/10 transition-all duration-200 group" do %>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs text-gray-500">#<%= scraping.scraping_id %></span>
+                  <span class="text-[10px] px-2 py-1 rounded-full <%= scraping.completed? ? 'bg-[#00D98E]/10 text-[#00D98E]' : scraping.failed? ? 'bg-red-500/10 text-red-500' : 'bg-[#0A7AFF]/10 text-[#0A7AFF]' %>">
+                    <%= scraping.status.upcase %>
+                  </span>
+                </div>
+                <p class="text-xs text-gray-400 truncate group-hover:text-gray-300 transition-colors">
+                  <%= scraping.profile_url %>
+                </p>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Stats -->
+      <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-white/[0.03] flex items-center justify-center">
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500">Total de Análises</p>
+            <p class="text-2xl font-light text-white"><%= current_user.scrapings.count %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

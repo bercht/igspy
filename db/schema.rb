@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_02_022523) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_02_171439) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -146,7 +146,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_022523) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "metadata", default: {}, null: false
+    t.index ["completed_at"], name: "index_scrapings_on_completed_at", order: :desc, where: "(completed_at IS NOT NULL)"
     t.index ["metadata"], name: "index_scrapings_on_metadata", using: :gin
+    t.index ["status"], name: "index_scrapings_on_status"
+    t.index ["user_id", "completed_at"], name: "index_scrapings_on_user_and_completed_at", order: { completed_at: :desc }, where: "(completed_at IS NOT NULL)"
+    t.index ["user_id", "created_at"], name: "index_scrapings_on_user_and_created_at", order: { created_at: :desc }
+    t.index ["user_id", "status"], name: "index_scrapings_on_user_and_status"
     t.index ["user_id"], name: "index_scrapings_on_user_id"
   end
 
