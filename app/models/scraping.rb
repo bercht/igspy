@@ -95,6 +95,30 @@ class Scraping < ApplicationRecord
   def failed?
     status == 'failed' || status == 'analysis_failed'
   end
+    def completed?
+    status == 'completed'
+  end
+
+  def failed?
+    status == 'failed' || status == 'analysis_failed'
+  end
+
+  def in_progress?
+    %w[pending scraping scraped transcribing transcriptions_completed analyzing].include?(status)
+  end
+
+  def pending?
+    status == 'pending'
+  end
+
+  def analyzing?
+    status == 'analyzing'
+  end
+
+  # Alias para compatibilidade com views antigas
+  def scraping_analysis
+    analysis
+  end
 
   # Alias para has_one :analysis
   def scraping_analysis
