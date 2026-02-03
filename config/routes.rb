@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   namespace :api do
     post "callbacks", to: "callbacks#create"
     post "profile_stats", to: "profile_stats#create"
+    get "scrapings/:id/status", to: "scrapings#status", as: :scraping_status
   end
 
   # Área administrativa (requer autenticação)
