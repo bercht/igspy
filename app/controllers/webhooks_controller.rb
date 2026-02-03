@@ -43,17 +43,25 @@ class WebhooksController < ActionController::Base
     user = User.find_by(id: session.client_reference_id)
     return unless user
 
+    unless session.subscription
+      Rails.logger.error "❌ Checkout session missing subscription: #{session.id}"
+      return
+    end
+
     # Forma correta segundo a documentação oficial
     subscription_data = Stripe::Subscription.retrieve(
       { id: session.subscription, expand: ['latest_invoice'] }
     )
 
+    current_period_end = subscription_data['current_period_end']
+    cancel_at = subscription_data['cancel_at']
+
     user.create_subscription!(
       stripe_subscription_id: subscription_data.id,
       stripe_price_id: subscription_data.items.data.first.price.id,
       status: subscription_data.status,
-      current_period_end: Time.zone.at(subscription_data.current_period_end),
-      cancel_at: subscription_data.cancel_at ? Time.zone.at(subscription_data.cancel_at) : nil
+      current_period_end: current_period_end ? Time.zone.at(current_period_end) : nil,
+      cancel_at: cancel_at ? Time.zone.at(cancel_at) : nil
     )
 
     Rails.logger.info "✅ Subscription created for user #{user.id}: #{subscription_data.id}"
@@ -66,10 +74,13 @@ class WebhooksController < ActionController::Base
     sub = Subscription.find_by(stripe_subscription_id: subscription.id)
     return unless sub
 
+    current_period_end = subscription['current_period_end']
+    cancel_at = subscription['cancel_at']
+
     sub.update(
       status: subscription.status,
-      current_period_end: Time.at(subscription.current_period_end),
-      cancel_at: subscription.cancel_at ? Time.at(subscription.cancel_at) : nil
+      current_period_end: current_period_end ? Time.zone.at(current_period_end) : nil,
+      cancel_at: cancel_at ? Time.zone.at(cancel_at) : nil
     )
 
     Rails.logger.info "✅ Subscription updated: #{sub.id}"
@@ -81,7 +92,14 @@ class WebhooksController < ActionController::Base
     sub = Subscription.find_by(stripe_subscription_id: subscription.id)
     return unless sub
 
-    sub.update(status: 'canceled')
+    current_period_end = subscription['current_period_end']
+    canceled_at = subscription['canceled_at']
+
+    sub.update(
+      status: 'canceled',
+      current_period_end: current_period_end ? Time.zone.at(current_period_end) : nil,
+      cancel_at: canceled_at ? Time.zone.at(canceled_at) : sub.cancel_at
+    )
     Rails.logger.info "✅ Subscription canceled: #{sub.id}"
   rescue => e
     Rails.logger.error "Error in handle_subscription_deleted: #{e.message}"
