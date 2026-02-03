@@ -43,7 +43,10 @@ class WebhooksController < ActionController::Base
     user = User.find_by(id: session.client_reference_id)
     return unless user
 
-    subscription_data = Stripe::Subscription.retrieve(session.subscription)
+    subscription_data = Stripe::Subscription.retrieve(
+      session.subscription,
+      expand: ['latest_invoice']
+    )
 
     user.create_subscription!(
       stripe_subscription_id: subscription_data.id,
@@ -56,6 +59,7 @@ class WebhooksController < ActionController::Base
     Rails.logger.info "✅ Subscription created for user #{user.id}"
   rescue => e
     Rails.logger.error "Error in handle_checkout_completed: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 
   def handle_subscription_updated(subscription)
