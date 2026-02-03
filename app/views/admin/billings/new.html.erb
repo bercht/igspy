@@ -1,0 +1,96 @@
+<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8" style="background-color: var(--bg-primary);">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4" style="color: var(--text-primary);">
+        Escolha seu plano
+      </h1>
+      <p class="text-lg" style="color: var(--text-secondary);">
+        Selecione o plano ideal para suas necessidades
+      </p>
+    </div>
+
+    <!-- Plans Grid -->
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <% @plans.each do |plan| %>
+        <div class="rounded-2xl p-8 border-2 transition-all hover:scale-105" 
+             style="background-color: var(--bg-secondary); border-color: var(--border-light);">
+          
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold mb-2" style="color: var(--text-primary);">
+              <%= plan[:name] %>
+            </h3>
+            
+            <div class="mb-4">
+              <span class="text-5xl font-bold" style="color: var(--color-primary);">
+                <%= plan[:price] %>
+              </span>
+              <span class="text-lg" style="color: var(--text-secondary);">
+                / <%= plan[:interval] %>
+              </span>
+            </div>
+
+            <% if plan[:savings] %>
+              <div class="inline-block px-4 py-2 rounded-full text-sm font-semibold" 
+                   style="background-color: var(--color-success-bg); color: var(--color-success);">
+                <%= plan[:savings] %>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- Features -->
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span style="color: var(--text-primary);">Análises ilimitadas de perfis</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span style="color: var(--text-primary);">Insights com IA avançada</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span style="color: var(--text-primary);">Histórico completo</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 flex-shrink-0" style="color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span style="color: var(--text-primary);">Suporte prioritário</span>
+            </li>
+          </ul>
+
+          <%= form_with url: admin_billings_path, method: :post, local: true do |f| %>
+            <%= f.hidden_field :price_id, value: plan[:price_id] %>
+            <%= f.submit "Assinar agora", 
+                class: "w-full py-4 rounded-lg font-bold text-lg transition-all cursor-pointer hover:opacity-90",
+                style: "background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); color: var(--bg-primary);" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="mt-12 flex flex-wrap items-center justify-center gap-6 text-sm" style="color: var(--text-secondary);">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5" style="color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+        </svg>
+        <span>Pagamento seguro com Stripe</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5" style="color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span>Cancele quando quiser</span>
+      </div>
+    </div>
+  </div>
+</div>

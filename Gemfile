@@ -25,6 +25,8 @@ gem "devise"
 
 gem 'redcarpet', '~> 3.6'
 
+gem 'stripe'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

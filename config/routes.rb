@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     get "scrapings/:id/status", to: "scrapings#status", as: :scraping_status
   end
 
+  # Webhook do Stripe (fora do namespace admin)
+  post '/webhooks/stripe', to: 'webhooks#stripe'
+
   # Área administrativa (requer autenticação)
   namespace :admin do
     root "dashboard#index"
@@ -31,6 +34,15 @@ Rails.application.routes.draw do
       resources :messages, only: [:create]
       member do
         post :upload_file
+      end
+    end
+
+    # Billing routes
+    resources :billings, only: [:new, :create] do
+      collection do
+        get :success
+        get :cancel
+        get :portal
       end
     end
   end

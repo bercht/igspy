@@ -201,7 +201,7 @@
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     
     <!-- Action Cards -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
       
       <!-- New Analysis -->
       <div class="group relative">
@@ -248,6 +248,57 @@
             <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
+          <% end %>
+        </div>
+      </div>
+      <!-- Subscription Card  -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#00D98E]/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.05] hover:border-[#00D98E]/20 transition-all duration-300">
+          <div class="flex items-start justify-between mb-6">
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+            </div>
+            <% if current_user.subscribed? %>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#00D98E]/10 text-[#00D98E] border border-[#00D98E]/20">
+                Ativo
+              </span>
+            <% else %>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20">
+                Inativo
+              </span>
+            <% end %>
+          </div>
+          <h3 class="text-xl font-light text-white mb-2">
+            <% if current_user.subscribed? %>
+              Minha Assinatura
+            <% else %>
+              Assine o IgSpy
+            <% end %>
+          </h3>
+          <p class="text-sm text-gray-500 mb-8 leading-relaxed">
+            <% if current_user.subscribed? %>
+              Gerencie sua assinatura, métodos de pagamento e faturas.
+            <% else %>
+              Acesso completo a todas as funcionalidades premium do IgSpy.
+            <% end %>
+          </p>
+          <% if current_user.subscribed? %>
+            <%= link_to portal_admin_billings_path, class: "inline-flex items-center space-x-2 text-sm font-medium text-[#00D98E] hover:text-[#00F5A0] transition-colors group" do %>
+              <span>Gerenciar Assinatura</span>
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            <% end %>
+          <% else %>
+            <%= link_to new_admin_billing_path, class: "inline-flex items-center space-x-2 text-sm font-medium text-[#00D98E] hover:text-[#00F5A0] transition-colors group" do %>
+              <span>Ver Planos</span>
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            <% end %>
           <% end %>
         </div>
       </div>

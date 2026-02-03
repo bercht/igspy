@@ -1,0 +1,32 @@
+<div class="min-h-screen flex items-center justify-center px-4" style="background-color: var(--bg-primary);">
+  <div class="max-w-md w-full text-center">
+    
+    <!-- Cancel Icon -->
+    <div class="mb-8 flex justify-center">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center" 
+           style="background-color: rgba(255, 107, 107, 0.1);">
+        <svg class="w-12 h-12" style="color: var(--color-error);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </div>
+    </div>
+
+    <h1 class="text-3xl font-bold mb-4" style="color: var(--text-primary);">
+      Pagamento cancelado
+    </h1>
+    
+    <p class="text-lg mb-8" style="color: var(--text-secondary);">
+      Você cancelou o processo de pagamento. Nenhuma cobrança foi realizada.
+    </p>
+
+    <div class="flex gap-4 justify-center">
+      <%= link_to "Tentar novamente", new_admin_billing_path, 
+          class: "inline-block px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90",
+          style: "background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); color: var(--bg-primary);" %>
+      
+      <%= link_to "Voltar ao início", admin_root_path, 
+          class: "inline-block px-6 py-3 rounded-lg font-semibold transition-all",
+          style: "color: var(--text-primary); border: 1px solid var(--border-light);" %>
+    </div>
+  </div>
+</div>

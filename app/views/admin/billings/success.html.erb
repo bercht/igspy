@@ -1,0 +1,28 @@
+<div class="min-h-screen flex items-center justify-center px-4" style="background-color: var(--bg-primary);">
+  <div class="max-w-md w-full text-center">
+    
+    <!-- Success Icon -->
+    <div class="mb-8 flex justify-center">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center" 
+           style="background-color: var(--color-success-bg);">
+        <svg class="w-12 h-12" style="color: var(--color-success);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+    </div>
+
+    <h1 class="text-3xl font-bold mb-4" style="color: var(--text-primary);">
+      Pagamento confirmado!
+    </h1>
+    
+    <p class="text-lg mb-8" style="color: var(--text-secondary);">
+      Sua assinatura foi ativada com sucesso. Agora você tem acesso completo ao IgSpy.
+    </p>
+
+    <%= link_to admin_root_path, 
+        class: "inline-block px-8 py-4 rounded-lg font-bold text-lg transition-all hover:opacity-90",
+        style: "background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); color: var(--bg-primary);" do %>
+      Começar a usar
+    <% end %>
+  </div>
+</div>

@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :scrapings, dependent: :destroy
   has_many :profile_stats, dependent: :destroy
+  has_one :subscription, dependent: :destroy
 
   # Validações para API keys (opcional - permite vazio)
   validates :manus_api_key, format: { with: /\A[a-zA-Z0-9_-]*\z/, allow_blank: true }, if: -> { manus_api_key.present? }
@@ -15,6 +16,14 @@ class User < ApplicationRecord
   
   # Validação de escolha de API de chat
   validates :preferred_chat_api, inclusion: { in: %w[openai anthropic], allow_nil: true }
+
+  def subscribed?
+    subscription.present? && subscription.active?
+  end
+  
+  def subscription_status
+    subscription&.status || 'none'
+  end
   
   # Métodos auxiliares
   def has_chat_api?
