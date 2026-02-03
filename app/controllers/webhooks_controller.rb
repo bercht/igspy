@@ -57,8 +57,8 @@ class WebhooksController < ActionController::Base
       stripe_subscription_id: subscription_data.id,
       stripe_price_id: subscription_data.items.data.first.price.id,
       status: subscription_data.status,
-      current_period_end: subscription_data.current_period_end ? Time.zone.at(subscription_data.current_period_end) : nil,
-      cancel_at: subscription_data.cancel_at ? Time.zone.at(subscription_data.cancel_at) : nil
+      current_period_end: timestamp_to_time(subscription_data.current_period_end),
+      cancel_at: timestamp_to_time(subscription_data.cancel_at)
     )
 
     Rails.logger.info "✅ Subscription created for user #{user.id}: #{subscription_data.id}"
@@ -72,12 +72,16 @@ class WebhooksController < ActionController::Base
     return unless sub
 
     current_period_end = subscription.current_period_end
-    cancel_at = subscription.cancel_at
+    cancel_at = if subscription.cancel_at_period_end
+                  subscription.cancel_at || subscription.current_period_end
+                else
+                  subscription.cancel_at
+                end
 
     sub.update(
-      status: subscription.status,
-      current_period_end: current_period_end ? Time.zone.at(current_period_end) : nil,
-      cancel_at: cancel_at ? Time.zone.at(cancel_at) : nil
+      status: subscription.cancel_at_period_end ? 'canceled' : subscription.status,
+      current_period_end: timestamp_to_time(current_period_end),
+      cancel_at: subscription.cancel_at_period_end ? timestamp_to_time(cancel_at) : nil
     )
 
     Rails.logger.info "✅ Subscription updated: #{sub.id}"
@@ -90,13 +94,13 @@ class WebhooksController < ActionController::Base
     sub = Subscription.find_by(stripe_subscription_id: subscription.id)
     return unless sub
 
-    current_period_end = subscription.current_period_end
-    canceled_at = subscription.canceled_at
+    current_period_end = subscription.current_period_end || subscription.ended_at
+    canceled_at = subscription.canceled_at || subscription.cancel_at
 
     sub.update(
       status: 'canceled',
-      current_period_end: current_period_end ? Time.zone.at(current_period_end) : nil,
-      cancel_at: canceled_at ? Time.zone.at(canceled_at) : sub.cancel_at
+      current_period_end: timestamp_to_time(current_period_end),
+      cancel_at: timestamp_to_time(canceled_at) || sub.cancel_at
     )
     Rails.logger.info "✅ Subscription canceled: #{sub.id}"
   rescue => e
@@ -110,5 +114,14 @@ class WebhooksController < ActionController::Base
 
   def handle_payment_failed(invoice)
     Rails.logger.error "❌ Payment failed for invoice: #{invoice.id}"
+  end
+
+  def timestamp_to_time(timestamp)
+    return nil if timestamp.nil?
+
+    value = timestamp.to_i
+    return nil if value.zero?
+
+    Time.zone.at(value)
   end
 end
