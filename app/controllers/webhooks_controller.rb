@@ -48,12 +48,16 @@ class WebhooksController < ActionController::Base
       { id: session.subscription, expand: ['latest_invoice'] }
     )
 
+    # Extrair os valores do hash
+    current_period_end = subscription_data['current_period_end']
+    cancel_at = subscription_data['cancel_at']
+
     user.create_subscription!(
       stripe_subscription_id: subscription_data.id,
       stripe_price_id: subscription_data.items.data.first.price.id,
       status: subscription_data.status,
-      current_period_end: Time.zone.at(subscription_data.current_period_end),
-      cancel_at: subscription_data.cancel_at ? Time.zone.at(subscription_data.cancel_at) : nil
+      current_period_end: current_period_end ? Time.zone.at(current_period_end) : nil,
+      cancel_at: cancel_at ? Time.zone.at(cancel_at) : nil
     )
 
     Rails.logger.info "✅ Subscription created for user #{user.id}: #{subscription_data.id}"
