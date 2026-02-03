@@ -43,7 +43,6 @@ class WebhooksController < ActionController::Base
     user = User.find_by(id: session.client_reference_id)
     return unless user
 
-    # Buscar subscription do Stripe
     subscription_data = Stripe::Subscription.retrieve(session.subscription)
 
     user.create_subscription!(
@@ -66,13 +65,14 @@ class WebhooksController < ActionController::Base
 
     sub.update(
       status: subscription.status,
-      current_period_end: Time.at(subscription.current_period_end),
-      cancel_at: subscription.cancel_at ? Time.at(subscription.cancel_at) : nil
+      current_period_end: subscription.current_period_end ? Time.zone.at(subscription.current_period_end) : nil,
+      cancel_at: subscription.cancel_at ? Time.zone.at(subscription.cancel_at) : nil
     )
 
     Rails.logger.info "✅ Subscription updated: #{sub.id}"
   rescue => e
-    Rails.logger.error "Error in handle_subscription_updated: #{e.message}"
+    Rails.logger.error "❌ Error in handle_subscription_updated: #{e.message}"
+    Rails.logger.error "Backtrace: #{e.backtrace.first(5).join("\n")}"
   end
 
   def handle_subscription_deleted(subscription)
@@ -82,7 +82,8 @@ class WebhooksController < ActionController::Base
     sub.update(status: 'canceled')
     Rails.logger.info "✅ Subscription canceled: #{sub.id}"
   rescue => e
-    Rails.logger.error "Error in handle_subscription_deleted: #{e.message}"
+    Rails.logger.error "❌ Error in handle_subscription_deleted: #{e.message}"
+    Rails.logger.error "Backtrace: #{e.backtrace.first(5).join("\n")}"
   end
 
   def handle_payment_succeeded(invoice)
