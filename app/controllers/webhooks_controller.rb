@@ -58,10 +58,7 @@ class WebhooksController < ActionController::Base
     end
 
     # Forma correta segundo a documentação oficial
-    subscription_data = Stripe::Subscription.retrieve(
-      session.subscription,
-      expand: ['latest_invoice', 'items.data']
-    )
+    subscription_data = Stripe::Subscription.retrieve(session.subscription)
 
     Rails.logger.info "📦 Creating subscription for user #{user.id}"
     Rails.logger.info "  Stripe Subscription ID: #{subscription_data.id}"
