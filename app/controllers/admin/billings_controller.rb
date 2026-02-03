@@ -28,8 +28,8 @@ class Admin::BillingsController < Admin::BaseController
         price: params[:price_id],
         quantity: 1
       }],
-      success_url: admin_billing_success_url,
-      cancel_url: admin_billing_cancel_url,
+      success_url: success_admin_billings_url,  # MUDOU AQUI
+      cancel_url: cancel_admin_billings_url,    # MUDOU AQUI
       allow_promotion_codes: true,
       billing_address_collection: 'required',
       payment_method_types: ['card'],
