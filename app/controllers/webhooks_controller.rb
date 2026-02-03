@@ -85,7 +85,8 @@ class WebhooksController < ActionController::Base
 
     Rails.logger.info "✅ Subscription updated: #{sub.id}"
   rescue => e
-    Rails.logger.error "Error in handle_subscription_updated: #{e.message}"
+    Rails.logger.error "❌ Error in handle_subscription_updated: #{e.message}"
+    Rails.logger.error "Backtrace: #{e.backtrace.first(5).join("\n")}"
   end
 
   def handle_subscription_deleted(subscription)
@@ -102,7 +103,8 @@ class WebhooksController < ActionController::Base
     )
     Rails.logger.info "✅ Subscription canceled: #{sub.id}"
   rescue => e
-    Rails.logger.error "Error in handle_subscription_deleted: #{e.message}"
+    Rails.logger.error "❌ Error in handle_subscription_deleted: #{e.message}"
+    Rails.logger.error "Backtrace: #{e.backtrace.first(5).join("\n")}"
   end
 
   def handle_payment_succeeded(invoice)
