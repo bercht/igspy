@@ -67,7 +67,7 @@
             </li>
           </ul>
 
-          <%= form_with url: admin_billings_path, method: :post, local: true do |f| %>
+          <%= form_with url: admin_billings_path, method: :post, local: true, data: { turbo: false } do |f| %>
             <%= f.hidden_field :price_id, value: plan[:price_id] %>
             <%= f.submit "Assinar agora", 
                 class: "w-full py-4 rounded-lg font-bold text-lg transition-all cursor-pointer hover:opacity-90",
