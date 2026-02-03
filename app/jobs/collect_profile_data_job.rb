@@ -1,4 +1,5 @@
-# app/jobs/collect_profile_data_job.rb
+require 'net/http'
+require 'uri'
 class CollectProfileDataJob < ApplicationJob
   queue_as :default
 
@@ -32,22 +33,23 @@ class CollectProfileDataJob < ApplicationJob
     }
     
     begin
-      response = HTTParty.post(
-        n8n_webhook_url,
-        body: payload.to_json,
-        headers: { 
-          'Content-Type' => 'application/json',
-          'X-N8N-Token' => ENV['N8N_WEBHOOK_TOKEN']
-        },
-        timeout: 10
-      )
-      
-      if response.success?
+      uri = URI(n8n_webhook_url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+
+      request = Net::HTTP::Post.new(uri.request_uri)
+      request['Content-Type'] = 'application/json'
+      request['X-N8N-Token'] = ENV['N8N_WEBHOOK_TOKEN'] if ENV['N8N_WEBHOOK_TOKEN']
+      request.body = payload.to_json
+
+      response = http.request(request)
+
+      if response.is_a?(Net::HTTPSuccess)
         Rails.logger.info "✅ [CollectProfileDataJob] Coleta disparada com sucesso"
       else
-        Rails.logger.error "❌ [CollectProfileDataJob] Erro: #{response.code}"
+        Rails.logger.error "❌ [CollectProfileDataJob] Erro: #{response.code} - #{response.body}"
       end
-      
+
     rescue StandardError => e
       Rails.logger.error "❌ [CollectProfileDataJob] Exceção: #{e.message}"
       Rails.logger.error e.backtrace.join("\n")
