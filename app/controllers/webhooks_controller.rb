@@ -79,7 +79,7 @@ class WebhooksController < ActionController::Base
                 end
 
     sub.update(
-      status: subscription.status,
+      status: subscription.cancel_at_period_end ? 'canceled' : subscription.status,
       current_period_end: timestamp_to_time(current_period_end),
       cancel_at: subscription.cancel_at_period_end ? timestamp_to_time(cancel_at) : nil
     )
@@ -118,8 +118,6 @@ class WebhooksController < ActionController::Base
 
   def timestamp_to_time(timestamp)
     return nil if timestamp.nil?
-    return timestamp if timestamp.is_a?(Time)
-    return timestamp.to_time if timestamp.respond_to?(:to_time)
 
     value = timestamp.to_i
     return nil if value.zero?
