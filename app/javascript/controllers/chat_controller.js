@@ -188,8 +188,8 @@ export default class extends Controller {
       attachmentsHTML = `
         <div class="mt-2 space-y-1">
           ${attachments.map(att => `
-            <div class="flex items-center space-x-2 text-xs ${isUser ? "text-blue-100" : "text-gray-600"}">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center space-x-2 text-xs ${isUser ? "text-white/80" : "text-gray-400"}">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
               </svg>
               <span>${att.filename} (${this.formatFileSize(att.file_size)})</span>
@@ -200,10 +200,10 @@ export default class extends Controller {
     }
 
     messageDiv.innerHTML = `
-      <div class="${isUser ? "bg-blue-600 text-white" : "bg-white border border-gray-200 text-gray-900"} rounded-lg px-4 py-3 max-w-2xl shadow-sm">
-        <div class="whitespace-pre-wrap break-words">${this.escapeHtml(content)}</div>
+      <div class="${isUser ? "bg-gradient-to-br from-[#0A7AFF] to-[#3B9EFF] text-white" : "bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] text-white"} rounded-xl px-4 py-2.5 max-w-2xl">
+        <div class="whitespace-pre-wrap break-words text-sm leading-relaxed">${this.escapeHtml(content)}</div>
         ${attachmentsHTML}
-        <div class="text-xs ${isUser ? "text-blue-100" : "text-gray-500"} mt-1">${time}</div>
+        <div class="text-[10px] ${isUser ? "text-white/60" : "text-gray-600"} mt-1.5">${time}</div>
       </div>
     `
 

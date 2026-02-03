@@ -1,43 +1,43 @@
-<div class="flex flex-col h-screen bg-gray-50" data-controller="chat" data-chat-conversation-id-value="<%= @scraping.id %>">
+<div class="flex flex-col h-screen bg-[#0F1419]" data-controller="chat" data-chat-conversation-id-value="<%= @scraping.id %>">
   
-  <!-- Header -->
-  <div class="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+  <!-- Header Compacto -->
+  <div class="flex-shrink-0 bg-white/[0.02] backdrop-blur-xl border-b border-white/[0.05] px-6 py-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-4">
-        <%= link_to admin_scraping_path(@scraping), class: "text-gray-600 hover:text-gray-900" do %>
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <%= link_to admin_scraping_path(@scraping), class: "text-gray-500 hover:text-white transition-colors" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
           </svg>
         <% end %>
         
         <div>
-          <h1 class="text-xl font-bold text-gray-900">Chat com Assistant IA</h1>
-          <p class="text-sm text-gray-600">Scraping #<%= @scraping.scraping_id %> - <%= @scraping.profile_url %></p>
+          <h1 class="text-lg font-light text-white">Chat com <span class="font-medium">Assistant IA</span></h1>
+          <p class="text-xs text-gray-500">Scraping #<%= @scraping.scraping_id %> - <%= @scraping.profile_url %></p>
         </div>
       </div>
 
       <div class="flex items-center space-x-2">
-        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+        <span class="px-2.5 py-1 bg-[#00D98E]/10 text-[#00D98E] rounded-lg text-xs font-medium border border-[#00D98E]/20">
           <%= @messages.count %> mensagens
         </span>
       </div>
     </div>
   </div>
 
-  <!-- Messages Area -->
-  <div class="flex-1 overflow-y-auto px-6 py-4 space-y-4" data-chat-target="messagesContainer">
+  <!-- Messages Area com Altura Controlada -->
+  <div class="flex-1 overflow-y-auto px-6 py-4 space-y-3" data-chat-target="messagesContainer">
     
     <!-- Welcome Message -->
     <% if @messages.empty? %>
-      <div class="text-center py-12">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+      <div class="text-center py-16">
+        <div class="inline-flex items-center justify-center w-14 h-14 bg-white/[0.03] rounded-2xl mb-4 border border-white/[0.05]">
+          <svg class="w-7 h-7 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
           </svg>
         </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">Bem-vindo ao Chat IA</h3>
-        <p class="text-gray-600 max-w-md mx-auto">
-          Faça perguntas sobre a análise do perfil <%= @scraping.profile_url %>. 
+        <h3 class="text-xl font-light text-white mb-2">Bem-vindo ao <span class="font-medium">Chat IA</span></h3>
+        <p class="text-sm text-gray-500 max-w-md mx-auto leading-relaxed">
+          Faça perguntas sobre a análise do perfil <span class="text-gray-400"><%= @scraping.profile_url %></span>. 
           Você pode enviar arquivos de texto ou imagens para análise adicional.
         </p>
       </div>
@@ -46,17 +46,17 @@
     <!-- Existing Messages -->
     <% @messages.each do |message| %>
       <div class="flex <%= message.user? ? 'justify-end' : 'justify-start' %>" data-chat-target="message">
-        <div class="<%= message.user? ? 'bg-blue-600 text-white' : 'bg-white border border-gray-200 text-gray-900' %> rounded-lg px-4 py-3 max-w-2xl shadow-sm">
+        <div class="<%= message.user? ? 'bg-gradient-to-br from-[#0A7AFF] to-[#3B9EFF] text-white' : 'bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] text-white' %> rounded-xl px-4 py-2.5 max-w-2xl">
           
           <!-- Message Content -->
-          <div class="whitespace-pre-wrap break-words"><%= message.content %></div>
+          <div class="whitespace-pre-wrap break-words text-sm leading-relaxed"><%= message.content %></div>
           
           <!-- Attachments -->
           <% if message.has_attachments? %>
             <div class="mt-2 space-y-1">
               <% message.message_attachments.each do |attachment| %>
-                <div class="flex items-center space-x-2 text-xs <%= message.user? ? 'text-blue-100' : 'text-gray-600' %>">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="flex items-center space-x-2 text-xs <%= message.user? ? 'text-white/80' : 'text-gray-400' %>">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
                   </svg>
                   <span><%= attachment.filename %> (<%= attachment.file_size_human %>)</span>
@@ -66,7 +66,7 @@
           <% end %>
           
           <!-- Timestamp -->
-          <div class="text-xs <%= message.user? ? 'text-blue-100' : 'text-gray-500' %> mt-1">
+          <div class="text-[10px] <%= message.user? ? 'text-white/60' : 'text-gray-600' %> mt-1.5">
             <%= message.created_at.strftime("%H:%M") %>
           </div>
         </div>
@@ -75,36 +75,36 @@
 
     <!-- Loading Indicator (hidden by default) -->
     <div class="hidden justify-start" data-chat-target="loadingIndicator">
-      <div class="bg-white border border-gray-200 rounded-lg px-4 py-3 shadow-sm animate-fade-in">
+      <div class="bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] rounded-xl px-4 py-2.5 animate-fade-in">
         <div class="flex items-center space-x-3">
           <!-- Typing Animation -->
           <div class="flex space-x-1">
-            <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 0ms"></div>
-            <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
-            <div class="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+            <div class="w-2 h-2 bg-[#0A7AFF] rounded-full animate-bounce" style="animation-delay: 0ms"></div>
+            <div class="w-2 h-2 bg-[#0A7AFF] rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+            <div class="w-2 h-2 bg-[#0A7AFF] rounded-full animate-bounce" style="animation-delay: 300ms"></div>
           </div>
-          <span class="text-gray-600 text-sm">O assistente está pensando...</span>
+          <span class="text-gray-400 text-sm">O assistente está pensando...</span>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Input Area -->
-  <div class="bg-white border-t border-gray-200 px-6 py-4">
+  <!-- Input Area Compacta e Fixa -->
+  <div class="flex-shrink-0 bg-white/[0.02] backdrop-blur-xl border-t border-white/[0.05] px-6 py-3">
     
     <!-- File Upload Preview (hidden by default) -->
-    <div class="hidden mb-3 p-3 bg-gray-50 rounded-lg border border-gray-200" data-chat-target="filePreview">
+    <div class="hidden mb-2 p-2.5 bg-white/[0.03] rounded-lg border border-white/[0.05]" data-chat-target="filePreview">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
           </svg>
-          <span class="text-sm text-gray-700" data-chat-target="fileName">arquivo.txt</span>
+          <span class="text-sm text-gray-300" data-chat-target="fileName">arquivo.txt</span>
           <span class="text-xs text-gray-500" data-chat-target="fileSize">1.2 KB</span>
         </div>
-        <button type="button" data-action="click->chat#removeFile" class="text-red-600 hover:text-red-800">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button type="button" data-action="click->chat#removeFile" class="text-red-400 hover:text-red-300 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -112,26 +112,26 @@
     </div>
 
     <!-- Input Form -->
-    <form data-action="submit->chat#sendMessage" class="flex items-end space-x-3">
+    <form data-action="submit->chat#sendMessage" class="flex items-end space-x-2.5">
       
       <!-- File Upload Button -->
       <label class="cursor-pointer flex-shrink-0">
         <input type="file" class="hidden" data-chat-target="fileInput" data-action="change->chat#handleFileSelect" accept=".txt,.csv,.json,.png,.jpg,.jpeg">
-        <div class="p-3 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="p-2.5 text-gray-400 hover:text-white hover:bg-white/[0.05] rounded-lg transition-all duration-200 border border-white/[0.05]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
           </svg>
         </div>
       </label>
 
-      <!-- Message Input -->
+      <!-- Message Input com Melhor Legibilidade -->
       <div class="flex-1">
         <textarea
           data-chat-target="messageInput"
-          data-action="keydown->chat#handleKeydown"
+          data-action="keydown->chat#handleKeydown input->chat#autoResizeTextarea"
           rows="1"
-          placeholder="Digite sua mensagem..."
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          placeholder="Digite um script para um reel, de acordo com o que mais funciona..."
+          class="w-full px-4 py-2.5 bg-white/[0.03] border border-white/[0.1] rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-[#0A7AFF] focus:border-transparent resize-none transition-all duration-200 text-base"
         ></textarea>
       </div>
 
@@ -139,16 +139,17 @@
       <button
         type="submit"
         data-chat-target="sendButton"
-        class="flex-shrink-0 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        class="flex-shrink-0 bg-gradient-to-br from-[#0A7AFF] to-[#3B9EFF] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Enviar
       </button>
     </form>
 
-    <p class="text-xs text-gray-500 mt-2">
+    <p class="text-[10px] text-gray-600 mt-1.5 uppercase tracking-wider">
       Arquivos suportados: TXT, CSV, JSON, PNG, JPG • Máx: 10MB
     </p>
   </div>
+
   <style>
     @keyframes fade-in {
       from {
@@ -173,6 +174,25 @@
       50% {
         transform: translateY(-8px);
       }
+    }
+
+    /* Scrollbar customizada para o tema dark */
+    [data-chat-target="messagesContainer"]::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    [data-chat-target="messagesContainer"]::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+    }
+
+    [data-chat-target="messagesContainer"]::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    [data-chat-target="messagesContainer"]::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.15);
     }
   </style>
 </div>
