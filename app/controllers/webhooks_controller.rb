@@ -43,10 +43,10 @@ class WebhooksController < ActionController::Base
     user = User.find_by(id: session.client_reference_id)
     return unless user
 
-    subscription_data = Stripe::Subscription.retrieve(
-      session.subscription,
+    subscription_data = Stripe::Subscription.retrieve({
+      id: session.subscription,
       expand: ['latest_invoice']
-    )
+    })
 
     user.create_subscription!(
       stripe_subscription_id: subscription_data.id,
