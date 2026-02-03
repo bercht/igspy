@@ -53,16 +53,11 @@ class WebhooksController < ActionController::Base
       { id: session.subscription, expand: ['latest_invoice'] }
     )
 
-    current_period_end = subscription_data['current_period_end']
-    cancel_at = subscription_data['cancel_at']
-
     user.create_subscription!(
       stripe_subscription_id: subscription_data.id,
       stripe_price_id: subscription_data.items.data.first.price.id,
       status: subscription_data.status,
-      # current_period_end: current_period_end ? Time.zone.at(current_period_end) : nil,
-      current_period_end: subscription_data.current_period_end
-      # cancel_at: cancel_at ? Time.zone.at(cancel_at) : nil
+      current_period_end: subscription_data.current_period_end,
       cancel_at: subscription_data.cancel_at
     )
 
@@ -76,8 +71,8 @@ class WebhooksController < ActionController::Base
     sub = Subscription.find_by(stripe_subscription_id: subscription.id)
     return unless sub
 
-    current_period_end: subscription['current_period_end']
-    cancel_at: subscription['cancel_at']
+    current_period_end = subscription['current_period_end']
+    cancel_at = subscription['cancel_at']
 
     sub.update(
       status: subscription.status,
@@ -95,8 +90,8 @@ class WebhooksController < ActionController::Base
     sub = Subscription.find_by(stripe_subscription_id: subscription.id)
     return unless sub
 
-    current_period_end = subscription['current_period_end']
-    canceled_at = subscription['canceled_at']
+    current_period_end = subscription.current_period_end
+    canceled_at = subscription.canceled_at
 
     sub.update(
       status: 'canceled',
