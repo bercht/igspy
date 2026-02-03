@@ -59,21 +59,27 @@ class WebhooksController < ActionController::Base
 
     # Forma correta segundo a documentação oficial
     subscription_data = Stripe::Subscription.retrieve(
-      { id: session.subscription, expand: ['latest_invoice'] }
+      session.subscription,
+      expand: ['latest_invoice', 'items.data']
     )
 
     Rails.logger.info "📦 Creating subscription for user #{user.id}"
     Rails.logger.info "  Stripe Subscription ID: #{subscription_data.id}"
     Rails.logger.info "  Status: #{subscription_data.status}"
-    Rails.logger.info "  Current period end (raw): #{subscription_data.current_period_end}"
-    Rails.logger.info "  Cancel at (raw): #{subscription_data.cancel_at}"
+    
+    # ✅ CORREÇÃO: Pegar current_period_end do lugar certo
+    current_period_end = extract_current_period_end(subscription_data)
+    cancel_at = subscription_data.cancel_at
+    
+    Rails.logger.info "  Current period end (raw): #{current_period_end}"
+    Rails.logger.info "  Cancel at (raw): #{cancel_at}"
 
     user.create_subscription!(
       stripe_subscription_id: subscription_data.id,
       stripe_price_id: subscription_data.items.data.first.price.id,
       status: subscription_data.status,
-      current_period_end: timestamp_to_time(subscription_data.current_period_end),
-      cancel_at: timestamp_to_time(subscription_data.cancel_at)
+      current_period_end: timestamp_to_time(current_period_end),
+      cancel_at: timestamp_to_time(cancel_at)
     )
 
     Rails.logger.info "✅ Subscription created for user #{user.id}: #{subscription_data.id}"
@@ -89,8 +95,11 @@ class WebhooksController < ActionController::Base
     Rails.logger.info "  Subscription ID: #{subscription.id}"
     Rails.logger.info "  Status: #{subscription.status}"
     Rails.logger.info "  Cancel at period end: #{subscription.cancel_at_period_end}"
-    Rails.logger.info "  Cancel at (raw): #{subscription.cancel_at}"
-    Rails.logger.info "  Current period end (raw): #{subscription.current_period_end}"
+    
+    # Debug: mostrar estrutura do objeto
+    Rails.logger.info "  Object structure:"
+    Rails.logger.info "    Has current_period_end? #{subscription.respond_to?(:current_period_end)}"
+    Rails.logger.info "    Has items.data? #{subscription.respond_to?(:items) && subscription.items&.data&.any?}"
     
     # ✅ CORREÇÃO #1: Log explícito se não encontrar
     sub = Subscription.find_by(stripe_subscription_id: subscription.id)
@@ -108,25 +117,26 @@ class WebhooksController < ActionController::Base
     Rails.logger.info "    current_period_end: #{sub.current_period_end}"
     Rails.logger.info "    cancel_at: #{sub.cancel_at}"
 
-    # ✅ CORREÇÃO #2: Pegar current_period_end corretamente
-    current_period_end = subscription.current_period_end
+    # ✅ CORREÇÃO #2: Pegar current_period_end do lugar certo
+    # Pode estar em subscription.current_period_end OU subscription.items.data[0].current_period_end
+    current_period_end = extract_current_period_end(subscription)
     
     if current_period_end.nil?
-      Rails.logger.warn "⚠️ current_period_end is nil at subscription level"
-      # Tentar pegar de items.data se existir
-      if subscription.respond_to?(:items) && subscription.items&.data&.any?
-        current_period_end = subscription.items.data.first.current_period_end
-        Rails.logger.info "  Using current_period_end from items.data: #{current_period_end}"
-      end
+      Rails.logger.error "❌ current_period_end not found in webhook payload"
+      Rails.logger.error "Subscription object keys: #{subscription.to_hash.keys.inspect}"
     end
     
-    # ✅ CORREÇÃO #3: Simplificar lógica de cancel_at
+    # ✅ CORREÇÃO #3: Pegar cancel_at
     cancel_at = subscription.cancel_at
     
-    Rails.logger.info "  Values to update:"
-    Rails.logger.info "    status (from Stripe): #{subscription.status}"
-    Rails.logger.info "    current_period_end (converted): #{timestamp_to_time(current_period_end)}"
-    Rails.logger.info "    cancel_at (converted): #{timestamp_to_time(cancel_at)}"
+    Rails.logger.info "  Values extracted from webhook:"
+    Rails.logger.info "    current_period_end (raw): #{current_period_end}"
+    Rails.logger.info "    cancel_at (raw): #{cancel_at}"
+    
+    Rails.logger.info "  Values to update (converted):"
+    Rails.logger.info "    status: #{subscription.status}"
+    Rails.logger.info "    current_period_end: #{timestamp_to_time(current_period_end)}"
+    Rails.logger.info "    cancel_at: #{timestamp_to_time(cancel_at)}"
 
     # ✅ CORREÇÃO #4: Usar update! para levantar exceção
     # ✅ CORREÇÃO #5: Usar status real do Stripe (não alterar para 'canceled' prematuramente)
@@ -171,7 +181,8 @@ class WebhooksController < ActionController::Base
       return
     end
 
-    current_period_end = subscription.current_period_end || subscription.ended_at
+    # ✅ CORREÇÃO: Pegar current_period_end do lugar certo
+    current_period_end = extract_current_period_end(subscription) || subscription.ended_at
     canceled_at = subscription.canceled_at || subscription.cancel_at
 
     sub.update!(
@@ -193,6 +204,22 @@ class WebhooksController < ActionController::Base
 
   def handle_payment_failed(invoice, event_id)
     Rails.logger.error "❌ Payment failed | Event: #{event_id} | Invoice: #{invoice.id}"
+  end
+
+  # ✅ NOVO MÉTODO: Extrair current_period_end do lugar certo
+  def extract_current_period_end(subscription)
+    # Tentar pegar do nível superior primeiro
+    if subscription.respond_to?(:current_period_end) && subscription.current_period_end
+      return subscription.current_period_end
+    end
+    
+    # Se não existir, tentar pegar de items.data[0]
+    if subscription.respond_to?(:items) && subscription.items&.data&.any?
+      return subscription.items.data.first.current_period_end
+    end
+    
+    # Se não encontrar em nenhum lugar, retornar nil
+    nil
   end
 
   def timestamp_to_time(timestamp)
