@@ -40,7 +40,7 @@ class CleanupOldAnalysesJob < ApplicationJob
   
   def cleanup_user_profile_stats(user)
     # Usar o método já criado no model
-    ProfileStat.keep_latest(user, 3)
+    ProfileStat.keep_latest(user, 30)
   end
   
   def delete_openai_assistant(assistant_id)
