@@ -119,32 +119,49 @@
                 </div>
               
               <% else %>
-                <!-- Graph -->
-                <div class="space-y-3">
-                  <% @profile_stats.each_with_index do |stat, index| %>
+                <!-- Metrics Row -->
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                  <div class="text-center">
+                    <p class="text-xs text-gray-500 mb-1">Seguidores</p>
+                    <p class="text-lg font-light text-white"><%= number_to_human(@profile_stats.last.followers, precision: 1, significant: false, delimiter: '.', separator: ',') %></p>
+                    <% if @profile_stats.length >= 2 %>
+                      <% f_growth = ((@profile_stats.last.followers - @profile_stats.first.followers).to_f / [@profile_stats.first.followers, 1].max * 100).round(1) %>
+                      <p class="text-[10px] <%= f_growth >= 0 ? 'text-[#00D98E]' : 'text-red-400' %>"><%= f_growth >= 0 ? '+' : '' %><%= f_growth %>%</p>
+                    <% end %>
+                  </div>
+                  <div class="text-center border-x border-white/[0.05]">
+                    <p class="text-xs text-gray-500 mb-1">Seguindo</p>
+                    <p class="text-lg font-light text-white"><%= number_to_human(@profile_stats.last.following, precision: 1, significant: false, delimiter: '.', separator: ',') %></p>
+                    <% if @profile_stats.length >= 2 %>
+                      <% w_growth = ((@profile_stats.last.following - @profile_stats.first.following).to_f / [@profile_stats.first.following, 1].max * 100).round(1) %>
+                      <p class="text-[10px] <%= w_growth >= 0 ? 'text-[#00D98E]' : 'text-red-400' %>"><%= w_growth >= 0 ? '+' : '' %><%= w_growth %>%</p>
+                    <% end %>
+                  </div>
+                  <div class="text-center">
+                    <p class="text-xs text-gray-500 mb-1">Posts</p>
+                    <p class="text-lg font-light text-white"><%= @profile_stats.last.posts %></p>
+                    <% if @profile_stats.length >= 2 %>
+                      <% p_growth = ((@profile_stats.last.posts - @profile_stats.first.posts).to_f / [@profile_stats.first.posts, 1].max * 100).round(1) %>
+                      <p class="text-[10px] <%= p_growth >= 0 ? 'text-[#00D98E]' : 'text-red-400' %>"><%= p_growth >= 0 ? '+' : '' %><%= p_growth %>%</p>
+                    <% end %>
+                  </div>
+                </div>
+
+                <!-- Sparkline -->
+                <div class="space-y-2">
+                  <% @profile_stats.each do |stat| %>
                     <div class="flex items-center justify-between">
-                      <span class="text-xs text-gray-500"><%= stat.created_at.strftime('%d/%m') %></span>
-                      <div class="flex-1 mx-3">
+                      <span class="text-[10px] text-gray-600 w-10 flex-shrink-0"><%= stat.created_at.strftime('%d/%m') %></span>
+                      <div class="flex-1 mx-2">
                         <div class="h-1 bg-white/[0.05] rounded-full overflow-hidden">
-                          <div class="h-full bg-gradient-to-r from-[#0A7AFF] to-[#3B9EFF] rounded-full transition-all duration-500" 
-                               style="width: <%= (stat.followers.to_f / @profile_stats.map(&:followers).max * 100).round %>%"></div>
+                          <div class="h-full bg-gradient-to-r from-[#0A7AFF] to-[#3B9EFF] rounded-full transition-all duration-500"
+                               style="width: <%= (@profile_stats.map(&:followers).max > 0 ? (stat.followers.to_f / @profile_stats.map(&:followers).max * 100) : 0).round %>%"></div>
                         </div>
                       </div>
-                      <span class="text-xs text-white font-medium"><%= number_to_human(stat.followers, precision: 1, significant: false, delimiter: '.', separator: ',') %></span>
+                      <span class="text-[10px] text-gray-500 w-12 text-right flex-shrink-0"><%= number_to_human(stat.followers, precision: 1, significant: false, delimiter: '.', separator: ',') %></span>
                     </div>
                   <% end %>
                 </div>
-                
-                <!-- Growth Indicator -->
-                <% if @profile_stats.length >= 2 %>
-                  <% growth = @profile_stats.last.growth_rate(@profile_stats.first) %>
-                  <div class="mt-4 pt-4 border-t border-white/[0.05] flex items-center justify-between">
-                    <span class="text-xs text-gray-500">Crescimento</span>
-                    <span class="text-sm <%= growth && growth > 0 ? 'text-[#00D98E]' : 'text-gray-400' %> font-medium">
-                      <%= growth ? "#{growth > 0 ? '+' : ''}#{growth}%" : 'N/A' %>
-                    </span>
-                  </div>
-                <% end %>
               <% end %>
             </div>
           </div>

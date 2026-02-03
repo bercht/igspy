@@ -34,9 +34,9 @@ class User < ApplicationRecord
     profile_stats.recent_first.first
   end
   
-  # Método helper para stats do gráfico (últimas 3)
+  # Método helper para stats do gráfico (últimas 7)
   def profile_stats_for_chart
-    profile_stats.recent_first.limit(3).reverse
+    profile_stats.recent_first.limit(7).reverse
   end
 
   private

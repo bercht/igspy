@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_02_222337) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_02_222641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -135,7 +135,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_222337) do
     t.index ["chat_provider"], name: "index_scraping_analyses_on_chat_provider"
     t.index ["created_at"], name: "index_scraping_analyses_on_created_at"
     t.index ["metadata"], name: "index_scraping_analyses_on_metadata", using: :gin
-    t.index ["scraping_id"], name: "index_scraping_analyses_on_scraping_id"
+    t.index ["scraping_id"], name: "index_scraping_analyses_on_scraping_id", unique: true
     t.index ["status"], name: "index_scraping_analyses_on_status"
   end
 
