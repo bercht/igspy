@@ -43,23 +43,23 @@ class WebhooksController < ActionController::Base
     user = User.find_by(id: session.client_reference_id)
     return unless user
 
-    subscription_data = Stripe::Subscription.retrieve({
-      id: session.subscription,
-      expand: ['latest_invoice']
-    })
+    # Forma correta segundo a documentação oficial
+    subscription_data = Stripe::Subscription.retrieve(
+      { id: session.subscription, expand: ['latest_invoice'] }
+    )
 
     user.create_subscription!(
       stripe_subscription_id: subscription_data.id,
-      stripe_price_id: subscription_data.items.data[0].price.id,
+      stripe_price_id: subscription_data.items.data.first.price.id,
       status: subscription_data.status,
-      current_period_end: Time.at(subscription_data.current_period_end),
-      cancel_at: subscription_data.cancel_at ? Time.at(subscription_data.cancel_at) : nil
+      current_period_end: Time.zone.at(subscription_data.current_period_end),
+      cancel_at: subscription_data.cancel_at ? Time.zone.at(subscription_data.cancel_at) : nil
     )
 
-    Rails.logger.info "✅ Subscription created for user #{user.id}"
+    Rails.logger.info "✅ Subscription created for user #{user.id}: #{subscription_data.id}"
   rescue => e
-    Rails.logger.error "Error in handle_checkout_completed: #{e.message}"
-    Rails.logger.error e.backtrace.join("\n")
+    Rails.logger.error "❌ Error in handle_checkout_completed: #{e.message}"
+    Rails.logger.error "Backtrace: #{e.backtrace.first(5).join("\n")}"
   end
 
   def handle_subscription_updated(subscription)
