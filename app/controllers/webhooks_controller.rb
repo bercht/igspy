@@ -57,8 +57,8 @@ class WebhooksController < ActionController::Base
       stripe_subscription_id: subscription_data.id,
       stripe_price_id: subscription_data.items.data.first.price.id,
       status: subscription_data.status,
-      current_period_end: subscription_data.current_period_end,
-      cancel_at: subscription_data.cancel_at
+      current_period_end: subscription_data.current_period_end ? Time.zone.at(subscription_data.current_period_end) : nil,
+      cancel_at: subscription_data.cancel_at ? Time.zone.at(subscription_data.cancel_at) : nil
     )
 
     Rails.logger.info "✅ Subscription created for user #{user.id}: #{subscription_data.id}"
@@ -71,8 +71,8 @@ class WebhooksController < ActionController::Base
     sub = Subscription.find_by(stripe_subscription_id: subscription.id)
     return unless sub
 
-    current_period_end = subscription['current_period_end']
-    cancel_at = subscription['cancel_at']
+    current_period_end = subscription.current_period_end
+    cancel_at = subscription.cancel_at
 
     sub.update(
       status: subscription.status,
