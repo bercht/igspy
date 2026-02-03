@@ -74,7 +74,10 @@ class WebhooksController < ActionController::Base
     Rails.logger.info "  Current period end (raw): #{current_period_end}"
     Rails.logger.info "  Cancel at (raw): #{cancel_at}"
 
-    user.create_subscription!(
+    # ✅ SOLUÇÃO DEFINITIVA: Criar diretamente sem passar pelo User
+    # Isso evita que callbacks do User causem rollback
+    subscription = Subscription.create!(
+      user_id: user.id,
       stripe_subscription_id: subscription_data.id,
       stripe_price_id: subscription_data.items.data.first.price.id,
       status: subscription_data.status,
@@ -82,7 +85,10 @@ class WebhooksController < ActionController::Base
       cancel_at: timestamp_to_time(cancel_at)
     )
 
-    Rails.logger.info "✅ Subscription created for user #{user.id}: #{subscription_data.id}"
+    Rails.logger.info "✅ Subscription created successfully"
+    Rails.logger.info "  Subscription ID: #{subscription.id}"
+    Rails.logger.info "  User ID: #{user.id}"
+    Rails.logger.info "  Stripe Subscription ID: #{subscription.stripe_subscription_id}"
   rescue => e
     Rails.logger.error "❌ Error in handle_checkout_completed: #{e.message}"
     Rails.logger.error "Event ID: #{event_id}"
