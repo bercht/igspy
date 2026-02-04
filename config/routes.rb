@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     end
 
     resource :profile_context, only: [:show, :update] do
-      post :reanalyze, on: :collection
+      post :reanalyze, on: :member
     end
 
     # Billing routes
