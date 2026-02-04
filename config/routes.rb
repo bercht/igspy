@@ -38,6 +38,10 @@ Rails.application.routes.draw do
       end
     end
 
+    resource :profile_context, only: [:show, :update] do
+      post :reanalyze, on: :collection
+    end
+
     # Billing routes
     resources :billings, only: [:new, :create] do
       collection do
