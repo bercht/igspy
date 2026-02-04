@@ -7,7 +7,7 @@ class UserProfileContext < ApplicationRecord
     processing: 'processing', 
     completed: 'completed',
     failed: 'failed'
-  }, _suffix: true
+  }
   
   enum communication_tone: {
     formal: 'formal',
