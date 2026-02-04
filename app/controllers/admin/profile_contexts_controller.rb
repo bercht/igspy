@@ -1,5 +1,5 @@
 # app/controllers/admin/profile_context_controller.rb
-class Admin::ProfileContextController < Admin::BaseController
+class Admin::ProfileContextsController < Admin::BaseController
   def show
     @context = current_user.user_profile_context || current_user.build_user_profile_context
     
