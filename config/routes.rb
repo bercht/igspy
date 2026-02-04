@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     post "callbacks", to: "callbacks#create"
     post "profile_stats", to: "profile_stats#create"
     get "scrapings/:id/status", to: "scrapings#status", as: :scraping_status
+    post 'profile_context', to: 'profile_contexts#create'
   end
 
   # Webhook do Stripe (fora do namespace admin)

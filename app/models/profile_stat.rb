@@ -2,6 +2,7 @@
 class ProfileStat < ApplicationRecord
   # Relacionamentos
   belongs_to :user
+  after_create :trigger_context_analysis
   
   # Validações
   validates :username, presence: true
@@ -37,5 +38,16 @@ class ProfileStat < ApplicationRecord
       posts: posts,
       collected_at: created_at.strftime('%d/%m/%Y %H:%M')
     }
+  end
+  
+  private
+  
+  def trigger_context_analysis
+    # Só disparar se for o primeiro profile_stat OU se passou mais de 7 dias
+    existing_context = user.user_profile_context
+    return if existing_context&.created_at&.> 7.days.ago
+    
+    Rails.logger.info "🎯 Disparando análise de contexto para user #{user.id}"
+    ProfileContextAnalyzerService.call(user)
   end
 end
