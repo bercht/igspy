@@ -13,8 +13,13 @@ class ProfileContextAnalyzerService
   
   def call
     # Criar ou atualizar registro de contexto com status processing
-    context = @user.user_profile_context || @user.build_user_profile_context
-    context.update!(status: 'processing')
+    context = @user.user_profile_context
+    
+    if context
+      context.update!(status: 'processing')
+    else
+      context = @user.create_user_profile_context!(status: 'processing')
+    end
     
     # Buscar último profile_stat
     profile_stat = @user.latest_profile_stat
