@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_03_180502) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_04_004441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_03_180502) do
     t.index ["scraping_id"], name: "index_conversations_on_scraping_id"
     t.index ["status"], name: "index_conversations_on_status"
     t.index ["thread_id"], name: "index_conversations_on_thread_id", unique: true
+  end
+
+  create_table "demo_scrapings", force: :cascade do |t|
+    t.string "profile_username", null: false
+    t.jsonb "profile_data", default: {}, null: false
+    t.jsonb "cached_analysis", default: {}, null: false
+    t.datetime "last_refreshed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_username"], name: "index_demo_scrapings_on_profile_username", unique: true
   end
 
   create_table "instagram_posts", force: :cascade do |t|
@@ -139,6 +149,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_03_180502) do
     t.index ["status"], name: "index_scraping_analyses_on_status"
   end
 
+  create_table "scraping_usages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "period", null: false
+    t.integer "count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "period"], name: "index_scraping_usages_on_user_id_and_period", unique: true
+    t.index ["user_id"], name: "index_scraping_usages_on_user_id"
+  end
+
   create_table "scrapings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "profile_url"
@@ -201,6 +221,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_03_180502) do
   add_foreign_key "messages", "conversations"
   add_foreign_key "profile_stats", "users"
   add_foreign_key "scraping_analyses", "scrapings"
+  add_foreign_key "scraping_usages", "users"
   add_foreign_key "scrapings", "users"
   add_foreign_key "subscriptions", "users"
 end

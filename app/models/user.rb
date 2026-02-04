@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :scrapings, dependent: :destroy
   has_many :profile_stats, dependent: :destroy
   has_one :subscription, dependent: :destroy
+  has_many :scraping_usages, dependent: :destroy
 
   # Validações para API keys (opcional - permite vazio)
   validates :manus_api_key, format: { with: /\A[a-zA-Z0-9_-]*\z/, allow_blank: true }, if: -> { manus_api_key.present? }

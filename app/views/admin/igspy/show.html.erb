@@ -13,7 +13,48 @@
       Configure e envie dados para automação via webhook n8n
     </p>
   </div>
-
+  <!-- Demo Section -->
+  <% if !current_user.subscribed? %>
+    <div class="mb-8 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl p-8 border border-blue-500/20">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-semibold text-white mb-2">Exemplo de Análise</h2>
+          <p class="text-gray-400">Veja uma análise real de um perfil público</p>
+        </div>
+        <%= link_to admin_billings_path, class: "px-6 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 shadow-lg", style: "background: linear-gradient(135deg, #0A7AFF 0%, #3B9EFF 100%);" do %>
+          Analisar qualquer perfil agora →
+        <% end %>
+      </div>
+      
+      <% if @demo_scraping = DemoScraping.fetch_demo %>
+        <div class="bg-white/5 rounded-xl p-6">
+          <div class="flex items-center space-x-4 mb-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl font-bold">
+              <%= @demo_scraping.profile_data['username']&.first&.upcase || 'A' %>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white"><%= @demo_scraping.profile_data['full_name'] || 'Perfil Demo' %></h3>
+              <p class="text-gray-400">@<%= @demo_scraping.profile_username %></p>
+            </div>
+          </div>
+          
+          <div class="prose prose-invert max-w-none">
+            <p class="text-gray-300"><%= @demo_scraping.cached_analysis['analysis_text']&.truncate(300) || 'Análise de demonstração' %></p>
+          </div>
+          
+          <div class="mt-6 pt-6 border-t border-white/10">
+            <p class="text-sm text-gray-500 text-center">
+              🔒 Esta é uma prévia. Assine para analisar qualquer perfil e obter insights completos.
+            </p>
+          </div>
+        </div>
+      <% else %>
+        <div class="bg-white/5 rounded-xl p-6 text-center">
+          <p class="text-gray-400">Demo em breve...</p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <!-- Grid Layout -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     
