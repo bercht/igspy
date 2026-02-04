@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     
     # Página Igspy
     resource :igspy, only: [:show, :create]
-    resources :scrapings, only: [:index, :show]
+    resources :scrapings, only: [:index, :show, :destroy]
 
     # Rotas para chat com o assistant
     resources :conversations, only: [:show] do
