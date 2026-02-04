@@ -1,4 +1,4 @@
-<div class="flex flex-col h-screen bg-[#0F1419]" data-controller="chat" data-chat-conversation-id-value="<%= @scraping.id %>">
+<div class="flex flex-col bg-[#0F1419]" style="height: 100vh;" data-controller="chat" data-chat-conversation-id-value="<%= @scraping.id %>">
   
   <!-- Header Compacto -->
   <div class="flex-shrink-0 bg-white/[0.02] backdrop-blur-xl border-b border-white/[0.05] px-6 py-3">
@@ -11,71 +11,143 @@
         <% end %>
         
         <div>
-          <h1 class="text-lg font-light text-white">Chat com <span class="font-medium">Assistant IA</span></h1>
-          <p class="text-xs text-gray-500">Scraping #<%= @scraping.scraping_id %> - <%= @scraping.profile_url %></p>
+          <h1 class="text-lg font-light text-white">
+            <span class="font-medium">Assistente IA</span> • <%= @scraping.profile_url.split('/').last %>
+          </h1>
+          <p class="text-xs text-gray-500">Análise #<%= @scraping.scraping_id %> • <%= @scraping.instagram_posts.count %> posts analisados</p>
         </div>
       </div>
 
       <div class="flex items-center space-x-2">
         <span class="px-2.5 py-1 bg-[#00D98E]/10 text-[#00D98E] rounded-lg text-xs font-medium border border-[#00D98E]/20">
-          <%= @messages.count %> mensagens
+          <%= @messages.count %> <%= @messages.count == 1 ? 'mensagem' : 'mensagens' %>
         </span>
       </div>
     </div>
   </div>
 
-  <!-- Messages Area com Altura Controlada -->
-  <div class="flex-1 overflow-y-auto px-6 py-4 space-y-3" data-chat-target="messagesContainer">
+  <!-- Messages Area com Altura Controlada (calc) -->
+  <div class="flex-1 overflow-y-auto px-6" data-chat-target="messagesContainer" style="height: calc(100vh - 120px - 100px);">
     
-    <!-- Welcome Message -->
+    <!-- Estado Inicial: Input Centralizado (ChatGPT-style) -->
     <% if @messages.empty? %>
-      <div class="text-center py-16">
-        <div class="inline-flex items-center justify-center w-14 h-14 bg-white/[0.03] rounded-2xl mb-4 border border-white/[0.05]">
-          <svg class="w-7 h-7 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-light text-white mb-2">Bem-vindo ao <span class="font-medium">Chat IA</span></h3>
-        <p class="text-sm text-gray-500 max-w-md mx-auto leading-relaxed">
-          Faça perguntas sobre a análise do perfil <span class="text-gray-400"><%= @scraping.profile_url %></span>. 
-          Você pode enviar arquivos de texto ou imagens para análise adicional.
-        </p>
-      </div>
-    <% end %>
+      <div class="flex flex-col items-center justify-center h-full" data-chat-target="emptyState">
+        <div class="text-center max-w-2xl mx-auto mb-8">
+          <!-- Ícone -->
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#0A7AFF]/10 to-[#7C3AED]/10 rounded-2xl mb-6 border border-white/[0.05]">
+            <svg class="w-8 h-8 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          
+          <!-- Título -->
+          <h3 class="text-2xl font-light text-white mb-3">
+            Pronto para <span class="font-semibold bg-gradient-to-r from-[#0A7AFF] to-[#7C3AED] bg-clip-text text-transparent">criar conteúdo</span>?
+          </h3>
+          
+          <!-- Descrição -->
+          <p class="text-base text-gray-400 leading-relaxed mb-6">
+            Seu assistente já analisou <span class="text-white font-medium"><%= @scraping.instagram_posts.count %> posts</span> de <span class="text-white font-medium">@<%= @scraping.profile_url.split('/').last %></span>.<br>
+            Peça scripts, ideias de conteúdo ou estratégias personalizadas.
+          </p>
 
-    <!-- Existing Messages -->
-    <% @messages.each do |message| %>
-      <div class="flex <%= message.user? ? 'justify-end' : 'justify-start' %>" data-chat-target="message">
-        <div class="<%= message.user? ? 'bg-gradient-to-br from-[#0A7AFF] to-[#3B9EFF] text-white' : 'bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] text-white' %> rounded-xl px-4 py-2.5 max-w-2xl">
-          
-          <!-- Message Content -->
-          <div class="whitespace-pre-wrap break-words text-sm leading-relaxed"><%= message.content %></div>
-          
-          <!-- Attachments -->
-          <% if message.has_attachments? %>
-            <div class="mt-2 space-y-1">
-              <% message.message_attachments.each do |attachment| %>
-                <div class="flex items-center space-x-2 text-xs <%= message.user? ? 'text-white/80' : 'text-gray-400' %>">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                  </svg>
-                  <span><%= attachment.filename %> (<%= attachment.file_size_human %>)</span>
+          <!-- Sugestões de Perguntas (Starter Prompts) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+            <button 
+              onclick="document.querySelector('[data-chat-target=messageInput]').value = 'Crie um script de reel sobre [tema], baseado no que mais funciona neste perfil'; document.querySelector('[data-chat-target=messageInput]').focus()"
+              class="group text-left p-4 bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.05] hover:border-white/[0.1] rounded-xl transition-all duration-200">
+              <div class="flex items-start space-x-3">
+                <svg class="w-5 h-5 text-[#0A7AFF] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-white group-hover:text-[#0A7AFF] transition-colors">Criar script de reel</p>
+                  <p class="text-xs text-gray-500 mt-1">Baseado nos posts que mais funcionam</p>
                 </div>
-              <% end %>
-            </div>
-          <% end %>
-          
-          <!-- Timestamp -->
-          <div class="text-[10px] <%= message.user? ? 'text-white/60' : 'text-gray-600' %> mt-1.5">
-            <%= message.created_at.strftime("%H:%M") %>
+              </div>
+            </button>
+
+            <button 
+              onclick="document.querySelector('[data-chat-target=messageInput]').value = 'Quais são os 5 temas que mais geram engajamento neste perfil?'; document.querySelector('[data-chat-target=messageInput]').focus()"
+              class="group text-left p-4 bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.05] hover:border-white/[0.1] rounded-xl transition-all duration-200">
+              <div class="flex items-start space-x-3">
+                <svg class="w-5 h-5 text-[#7C3AED] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-white group-hover:text-[#7C3AED] transition-colors">Temas que funcionam</p>
+                  <p class="text-xs text-gray-500 mt-1">Descubra o que gera mais engajamento</p>
+                </div>
+              </div>
+            </button>
+
+            <button 
+              onclick="document.querySelector('[data-chat-target=messageInput]').value = 'Sugira 10 ideias de conteúdo para os próximos 7 dias'; document.querySelector('[data-chat-target=messageInput]').focus()"
+              class="group text-left p-4 bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.05] hover:border-white/[0.1] rounded-xl transition-all duration-200">
+              <div class="flex items-start space-x-3">
+                <svg class="w-5 h-5 text-[#00D98E] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-white group-hover:text-[#00D98E] transition-colors">Cronograma de conteúdo</p>
+                  <p class="text-xs text-gray-500 mt-1">Planeje sua semana de posts</p>
+                </div>
+              </div>
+            </button>
+
+            <button 
+              onclick="document.querySelector('[data-chat-target=messageInput]').value = 'Analise este post e sugira melhorias: [cole o texto aqui]'; document.querySelector('[data-chat-target=messageInput]').focus()"
+              class="group text-left p-4 bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.05] hover:border-white/[0.1] rounded-xl transition-all duration-200">
+              <div class="flex items-start space-x-3">
+                <svg class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-white group-hover:text-amber-400 transition-colors">Revisar conteúdo</p>
+                  <p class="text-xs text-gray-500 mt-1">Melhore um post existente</p>
+                </div>
+              </div>
+            </button>
           </div>
         </div>
+      </div>
+    <% else %>
+      <!-- Mensagens Existentes (crescem para cima) -->
+      <div class="py-4 space-y-3">
+        <% @messages.each do |message| %>
+          <div class="flex <%= message.user? ? 'justify-end' : 'justify-start' %> animate-fade-in" data-chat-target="message">
+            <div class="<%= message.user? ? 'bg-gradient-to-br from-[#0A7AFF] to-[#3B9EFF] text-white' : 'bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] text-white' %> rounded-2xl px-4 py-3 max-w-2xl shadow-sm">
+              
+              <!-- Message Content -->
+              <div class="whitespace-pre-wrap break-words text-sm leading-relaxed"><%= message.content %></div>
+              
+              <!-- Attachments -->
+              <% if message.has_attachments? %>
+                <div class="mt-2 space-y-1">
+                  <% message.message_attachments.each do |attachment| %>
+                    <div class="flex items-center space-x-2 text-xs <%= message.user? ? 'text-white/80' : 'text-gray-400' %>">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                      </svg>
+                      <span><%= attachment.filename %> (<%= attachment.file_size_human %>)</span>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+              
+              <!-- Timestamp -->
+              <div class="text-[10px] <%= message.user? ? 'text-white/60' : 'text-gray-600' %> mt-1.5">
+                <%= message.created_at.strftime("%H:%M") %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
 
     <!-- Loading Indicator (hidden by default) -->
-    <div class="hidden justify-start" data-chat-target="loadingIndicator">
-      <div class="bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] rounded-xl px-4 py-2.5 animate-fade-in">
+    <div class="hidden justify-start pb-4" data-chat-target="loadingIndicator">
+      <div class="bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] rounded-2xl px-4 py-3 animate-fade-in shadow-sm">
         <div class="flex items-center space-x-3">
           <!-- Typing Animation -->
           <div class="flex space-x-1">
@@ -83,18 +155,18 @@
             <div class="w-2 h-2 bg-[#0A7AFF] rounded-full animate-bounce" style="animation-delay: 150ms"></div>
             <div class="w-2 h-2 bg-[#0A7AFF] rounded-full animate-bounce" style="animation-delay: 300ms"></div>
           </div>
-          <span class="text-gray-400 text-sm">O assistente está pensando...</span>
+          <span class="text-gray-400 text-sm">Analisando...</span>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Input Area Compacta e Fixa -->
-  <div class="flex-shrink-0 bg-white/[0.02] backdrop-blur-xl border-t border-white/[0.05] px-6 py-3">
+  <!-- Input Area Fixa no Rodapé (Sticky) -->
+  <div class="flex-shrink-0 bg-white/[0.02] backdrop-blur-xl border-t border-white/[0.05] px-6 py-4">
     
     <!-- File Upload Preview (hidden by default) -->
-    <div class="hidden mb-2 p-2.5 bg-white/[0.03] rounded-lg border border-white/[0.05]" data-chat-target="filePreview">
+    <div class="hidden mb-3 p-3 bg-white/[0.03] rounded-xl border border-white/[0.05]" data-chat-target="filePreview">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
           <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,26 +184,27 @@
     </div>
 
     <!-- Input Form -->
-    <form data-action="submit->chat#sendMessage" class="flex items-end space-x-2.5">
+    <form data-action="submit->chat#sendMessage" class="flex items-end space-x-3">
       
       <!-- File Upload Button -->
       <label class="cursor-pointer flex-shrink-0">
         <input type="file" class="hidden" data-chat-target="fileInput" data-action="change->chat#handleFileSelect" accept=".txt,.csv,.json,.png,.jpg,.jpeg">
-        <div class="p-2.5 text-gray-400 hover:text-white hover:bg-white/[0.05] rounded-lg transition-all duration-200 border border-white/[0.05]">
+        <div class="p-3 text-gray-400 hover:text-white hover:bg-white/[0.05] rounded-xl transition-all duration-200 border border-white/[0.05]">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
           </svg>
         </div>
       </label>
 
-      <!-- Message Input com Melhor Legibilidade -->
+      <!-- Message Input -->
       <div class="flex-1">
         <textarea
           data-chat-target="messageInput"
           data-action="keydown->chat#handleKeydown input->chat#autoResizeTextarea"
           rows="1"
-          placeholder="Digite um script para um reel, de acordo com o que mais funciona..."
-          class="w-full px-4 py-2.5 bg-white/[0.03] border border-white/[0.1] rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-[#0A7AFF] focus:border-transparent resize-none transition-all duration-200 text-base"
+          placeholder="Ex: Crie um script de reel sobre [tema], baseado no que mais funciona..."
+          class="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.1] rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-[#0A7AFF] focus:border-transparent resize-none transition-all duration-200 text-base"
+          style="max-height: 150px;"
         ></textarea>
       </div>
 
@@ -139,14 +212,16 @@
       <button
         type="submit"
         data-chat-target="sendButton"
-        class="flex-shrink-0 bg-gradient-to-br from-[#0A7AFF] to-[#3B9EFF] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="flex-shrink-0 bg-gradient-to-br from-[#0A7AFF] to-[#3B9EFF] text-white px-6 py-3 rounded-xl font-medium hover:opacity-90 hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#0A7AFF]/20"
       >
-        Enviar
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+        </svg>
       </button>
     </form>
 
-    <p class="text-[10px] text-gray-600 mt-1.5 uppercase tracking-wider">
-      Arquivos suportados: TXT, CSV, JSON, PNG, JPG • Máx: 10MB
+    <p class="text-[10px] text-gray-600 mt-2 uppercase tracking-wider">
+      Arquivos suportados: TXT, CSV, JSON, PNG, JPG • Máx: 10MB • <kbd class="px-1.5 py-0.5 bg-white/[0.05] rounded text-gray-500">Ctrl+Enter</kbd> para enviar
     </p>
   </div>
 

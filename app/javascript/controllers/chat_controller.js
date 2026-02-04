@@ -10,7 +10,8 @@ export default class extends Controller {
     "fileName",
     "fileSize",
     "loadingIndicator",
-    "message"
+    "message",
+    "emptyState"
   ]
 
   static values = {
@@ -61,6 +62,9 @@ export default class extends Controller {
           file_size: this.uploadedFile.file_size
         }]
       }
+
+      // Esconder empty state (ChatGPT-style)
+      this.hideEmptyState()
 
       // Adicionar mensagem do usuário na UI imediatamente
       this.addMessageToUI("user", content, this.uploadedFile ? [this.uploadedFile] : [])
@@ -246,6 +250,12 @@ export default class extends Controller {
     setTimeout(() => {
       this.messagesContainerTarget.scrollTop = this.messagesContainerTarget.scrollHeight
     }, 100)
+  }
+
+  hideEmptyState() {
+    if (this.hasEmptyStateTarget) {
+      this.emptyStateTarget.style.display = "none"
+    }
   }
 
   formatFileSize(bytes) {
