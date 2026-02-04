@@ -9,36 +9,54 @@
       <!-- Badge -->
       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#3A4452] bg-[#1A1F2E]/50 mb-8 animate-fade-up">
         <span class="w-2 h-2 rounded-full bg-[#0A7AFF] animate-pulse-glow"></span>
-        <span class="text-sm text-[#A1A5B0]">+5.000 criadores já usam o Viral Spy</span>
+        <span class="text-sm text-[#A1A5B0]">Foco total em Instagram • Sem achismo, só dados reais</span>
       </div>
 
       <!-- Main headline -->
       <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 animate-fade-up text-white" style="animation-delay: 0.1s">
-        Descubra como
-        <span class="block text-gradient bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] bg-clip-text text-transparent">viralizar antes de todos</span>
+        Pare de perder tempo com conteúdos
+        <span class="block text-gradient bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] bg-clip-text text-transparent">que não dão resultado.</span>
       </h1>
 
       <!-- Subtitle -->
-      <p class="text-2xl md:text-3xl lg:text-4xl font-black leading-tight mb-6 animate-fade-up text-white" style="animation-delay: 0.2s">
-        Espie tendências, analise conteúdos virais e crie posts e reels que explodem — 
-        tudo com base dados reais de performance e IA avançada.
+      <p class="text-xl md:text-2xl font-normal leading-relaxed mb-6 animate-fade-up text-[#E5E7EB]" style="animation-delay: 0.2s">
+        Crie posts baseados no que já está funcionando no Instagram.
+      </p>
+      
+      <p class="text-lg md:text-xl leading-relaxed mb-8 animate-fade-up text-[#A1A5B0]" style="animation-delay: 0.25s">
+        Analise perfis concorrentes, entenda <strong class="text-white">por que</strong> certos conteúdos performam melhor e <br>tenha <strong class="text-bold text-red-500">seu próprio Agente de IA</strong> para <strong class="text-white">replicar padrões vencedores</strong> em novas ideias, ganchos e formatos.
       </p>
 
       <!-- CTAs -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-up" style="animation-delay: 0.3s">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4 animate-fade-up" style="animation-delay: 0.3s">
         <%= link_to new_user_registration_path, class: "group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#00D98E] to-[#0A7AFF] text-[#0F1419] rounded-lg font-bold text-lg hover:shadow-xl hover:shadow-[#00D98E]/40 transition-all" do %>
-          Assinar por R$79/mês
+          Começar agora — R$49/mês
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
         <% end %>
-        
-        <button class="group inline-flex items-center gap-2 px-8 py-4 border-2 border-[#3A4452] text-white rounded-lg font-bold text-lg hover:border-[#0A7AFF] hover:bg-[#0A7AFF]/10 transition-all">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"></path>
+      </div>
+      
+      <!-- Microcopy de segurança -->
+      <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-[#A1A5B0] mb-16 animate-fade-up" style="animation-delay: 0.35s">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
           </svg>
-          Agendar demonstração
-        </button>
+          <span>Cancelamento fácil</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span>Foco total em Instagram</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span>Sem achismo, só dados reais</span>
+        </div>
       </div>
 
       <!-- App Preview -->
@@ -47,7 +65,7 @@
           <div class="bg-[#16161F] p-2">
             <img 
               src="https://placehold.co/1200x700/1A1F2E/00D98E?text=Dashboard+Viral+Spy" 
-              alt="Dashboard Viral Spy - Painel de análise de tendências e métricas de viralidade"
+              alt="Dashboard Viral Spy - Painel de análise de perfis e métricas de performance"
               class="rounded-xl w-full h-auto"
             />
           </div>
@@ -57,11 +75,11 @@
         <div class="absolute -left-8 top-1/4 glass rounded-xl p-4 animate-float hidden lg:block">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-lg bg-[#0A7AFF]/20 flex items-center justify-center">
-              <span class="text-2xl">🔥</span>
+              <span class="text-2xl">📊</span>
             </div>
             <div>
-              <p class="text-sm font-semibold text-[#E5E7EB]">+340%</p>
-              <p class="text-xs text-[#A1A5B0]">Engajamento</p>
+              <p class="text-sm font-semibold text-[#E5E7EB]">Padrões</p>
+              <p class="text-xs text-[#A1A5B0]">Identificados</p>
             </div>
           </div>
         </div>
@@ -69,11 +87,11 @@
         <div class="absolute -right-8 bottom-1/4 glass rounded-xl p-4 animate-float hidden lg:block" style="animation-delay: 1s">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-lg bg-[#00D98E]/20 flex items-center justify-center">
-              <span class="text-2xl">📈</span>
+              <span class="text-2xl">🎯</span>
             </div>
             <div>
-              <p class="text-sm font-semibold text-[#E5E7EB]">Viral Alert</p>
-              <p class="text-xs text-[#A1A5B0]">Tendência detectada</p>
+              <p class="text-sm font-semibold text-[#E5E7EB]">Análise IA</p>
+              <p class="text-xs text-[#A1A5B0]">Completa</p>
             </div>
           </div>
         </div>

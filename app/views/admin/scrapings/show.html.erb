@@ -186,8 +186,10 @@
 
           <!-- Conteúdo da Análise -->
           <div class="p-8">
-            <div class="prose prose-lg prose-invert max-w-none bg-white/[0.03] rounded-xl p-8 border border-white/[0.05]">
-              <%= render_markdown(@analysis.analysis_text) %>
+            <div class="max-w-none bg-white/[0.05] rounded-xl p-8 border border-white/[0.08]">
+              <div class="markdown-content text-gray-200 leading-relaxed space-y-4">
+                <%= render_markdown(@analysis.analysis_text) %>
+              </div>
             </div>
 
             <!-- Ações -->

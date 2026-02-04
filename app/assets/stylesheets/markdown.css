@@ -223,3 +223,231 @@
   color: #9CA3AF;
   text-decoration: line-through;
 }
+
+/* Dark Mode Styles for Markdown Content */
+.markdown-content {
+  color: #D1D5DB;
+  max-width: none;
+}
+
+.markdown-content h1 {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+}
+
+.markdown-content h2 {
+  color: #60A5FA;
+  font-weight: 600;
+  font-size: 1.875em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+  line-height: 1.3333333;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid rgba(96, 165, 250, 0.2);
+}
+
+.markdown-content h3 {
+  color: #E5E7EB;
+  font-weight: 600;
+  font-size: 1.5em;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.6;
+}
+
+.markdown-content h4 {
+  color: #D1D5DB;
+  font-weight: 600;
+  font-size: 1.25em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+.markdown-content p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.75;
+  color: #D1D5DB;
+}
+
+.markdown-content strong {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.markdown-content em {
+  color: #9CA3AF;
+  font-style: italic;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+}
+
+.markdown-content li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding-left: 0.375em;
+  color: #D1D5DB;
+}
+
+.markdown-content li::marker {
+  color: #60A5FA;
+  font-weight: 600;
+}
+
+.markdown-content blockquote {
+  font-weight: 500;
+  font-style: italic;
+  color: #E5E7EB;
+  border-left: 0.25rem solid #60A5FA;
+  quotes: "\201C""\201D""\2018""\2019";
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  padding-left: 1em;
+  background-color: rgba(96, 165, 250, 0.1);
+  padding: 1em;
+  padding-left: 1.5em;
+  border-radius: 0.5rem;
+}
+
+.markdown-content code {
+  color: #C084FC;
+  font-weight: 600;
+  font-size: 0.875em;
+  background-color: rgba(192, 132, 252, 0.15);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.markdown-content pre {
+  color: #E5E7EB;
+  background-color: rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+  margin-top: 1.7142857em;
+  margin-bottom: 1.7142857em;
+  border-radius: 0.75rem;
+  padding: 1.1428571em 1.1428571em;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.markdown-content pre code {
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.markdown-content table {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.markdown-content thead {
+  background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);
+}
+
+.markdown-content thead th {
+  color: white;
+  font-weight: 600;
+  vertical-align: bottom;
+  padding: 0.8571429em 0.8571429em;
+  border-bottom: none;
+}
+
+.markdown-content tbody tr {
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.markdown-content tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.markdown-content tbody tr:hover {
+  background-color: rgba(10, 122, 255, 0.1);
+}
+
+.markdown-content tbody td {
+  vertical-align: baseline;
+  padding: 0.8571429em 0.8571429em;
+  color: #D1D5DB;
+}
+
+.markdown-content a {
+  color: #60A5FA;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(96, 165, 250, 0.3);
+  transition: all 0.2s;
+}
+
+.markdown-content a:hover {
+  color: #93C5FD;
+  border-bottom-color: #93C5FD;
+}
+
+.markdown-content hr {
+  border-color: rgba(96, 165, 250, 0.2);
+  margin-top: 3em;
+  margin-bottom: 3em;
+  border-top-width: 2px;
+}
+
+/* Destaque para números e métricas em dark mode */
+.markdown-content strong:has(+ em),
+.markdown-content strong em {
+  color: #34D399;
+  font-size: 1.1em;
+}
+
+/* Estilo para listas aninhadas */
+.markdown-content ul ul,
+.markdown-content ul ol,
+.markdown-content ol ul,
+.markdown-content ol ol {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+/* Estilo para del (texto riscado) */
+.markdown-content del {
+  color: #6B7280;
+  text-decoration: line-through;
+}
