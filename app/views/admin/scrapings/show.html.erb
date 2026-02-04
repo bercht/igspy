@@ -1,277 +1,302 @@
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-controller="scraping-monitor" data-scraping-monitor-scraping-id-value="<%= @scraping.id %>" data-scraping-monitor-status-value="<%= @scraping.status %>">
-  
-  <!-- Header com Breadcrumb -->
-  <div class="mb-8">
-    <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
-      <%= link_to admin_scrapings_path, class: "hover:text-blue-600 transition" do %>
-        <span>Scrapings</span>
-      <% end %>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-      <span class="text-gray-900 font-medium">#<%= @scraping.scraping_id %></span>
-    </nav>
+<div class="min-h-screen bg-[#0F1419]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-controller="scraping-monitor" data-scraping-monitor-scraping-id-value="<%= @scraping.id %>" data-scraping-monitor-status-value="<%= @scraping.status %>">
     
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="text-3xl font-bold text-gray-900">Scraping #<%= @scraping.scraping_id %></h1>
-        <p class="mt-2 text-gray-600"><%= @scraping.profile_url %></p>
-      </div>
-      
-      <!-- Status Badge Grande -->
-      <div class="flex items-center space-x-3">
-        <% if @scraping.completed? %>
-          <div class="flex items-center space-x-2 bg-emerald-50 px-6 py-3 rounded-xl border-2 border-[#00D98E]" style="color: #007A52;">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span class="font-semibold">Concluído</span>
-          </div>
-        <% elsif @scraping.failed? %>
-          <div class="flex items-center space-x-2 bg-red-50 text-red-700 px-6 py-3 rounded-xl border-2 border-red-200">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span class="font-semibold">Falhou</span>
-          </div>
-        <% else %>
-          <div class="flex items-center space-x-2 bg-blue-50 px-6 py-3 rounded-xl border-2 border-[#0A7AFF]" style="color: #0559CC;">
-            <svg class="animate-spin w-6 h-6" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <span class="font-semibold">Em Progresso</span>
-          </div>
+    <!-- Header com Breadcrumb -->
+    <div class="mb-8">
+      <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+        <%= link_to admin_scrapings_path, class: "hover:text-[#0A7AFF] transition" do %>
+          <span>Scrapings</span>
         <% end %>
-      </div>
-    </div>
-  </div>
-
-  <!-- Grid de Cards -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-    
-    <!-- Card: Informações Básicas -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition">
-      <div class="flex items-center space-x-3 mb-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(10, 122, 255, 0.1);">
-          <svg class="w-6 h-6" style="color: #0A7AFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-900">Informações</h3>
-      </div>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <span class="text-white font-medium">#<%= @scraping.scraping_id %></span>
+      </nav>
       
-      <dl class="space-y-3">
+      <div class="flex items-center justify-between">
         <div>
-          <dt class="text-sm text-gray-500">Posts Solicitados</dt>
-          <dd class="text-2xl font-bold text-gray-900"><%= @scraping.results_limit %></dd>
+          <h1 class="text-4xl font-light text-white tracking-tight">
+            Scraping <span class="font-semibold">#<%= @scraping.scraping_id %></span>
+          </h1>
+          <p class="mt-2 text-gray-400"><%= @scraping.profile_url %></p>
         </div>
-        <div>
-          <dt class="text-sm text-gray-500">Iniciado em</dt>
-          <dd class="text-sm font-medium text-gray-900">
-            <%= @scraping.started_at.strftime("%d/%m/%Y às %H:%M") %>
-          </dd>
-        </div>
-        <% if @scraping.completed_at %>
-          <div>
-            <dt class="text-sm text-gray-500">Concluído em</dt>
-            <dd class="text-sm font-medium text-gray-900">
-              <%= @scraping.completed_at.strftime("%d/%m/%Y às %H:%M") %>
-            </dd>
-          </div>
-        <% end %>
-      </dl>
-    </div>
-
-    <!-- Card: Posts Coletados -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition">
-      <div class="flex items-center space-x-3 mb-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(124, 58, 237, 0.1);">
-          <svg class="w-6 h-6" style="color: #7C3AED;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-900">Posts</h3>
-      </div>
-      
-      <div>
-        <div class="text-4xl font-bold text-gray-900 mb-2" data-scraping-monitor-target="postsCount">
-          <%= @scraping.instagram_posts.count %>
-        </div>
-        <p class="text-sm text-gray-500">posts coletados do Instagram</p>
-      </div>
-    </div>
-
-    <!-- Card: Status da Análise -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition">
-      <div class="flex items-center space-x-3 mb-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(0, 217, 142, 0.1);">
-          <svg class="w-6 h-6" style="color: #00D98E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-900">Análise IA</h3>
-      </div>
-      
-      <div data-scraping-monitor-target="analysisStatus">
-        <% if @analysis.present? %>
-          <div class="flex items-center space-x-2">
-            <div class="flex-1">
-              <div class="text-lg font-semibold" style="color: #00D98E;">Pronta</div>
-              <p class="text-sm text-gray-500">Análise concluída com sucesso</p>
+        
+        <!-- Status Badge Grande -->
+        <div class="flex items-center space-x-3">
+          <% if @scraping.completed? %>
+            <div class="flex items-center space-x-2 bg-[#00D98E]/10 px-6 py-3 rounded-xl border-2 border-[#00D98E]/30" style="color: #00D98E;">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="font-semibold">Concluído</span>
             </div>
-            <svg class="w-8 h-8" style="color: #00D98E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-        <% elsif @scraping.completed? %>
-          <div class="flex items-center space-x-2">
-            <div class="flex-1">
-              <div class="text-lg font-semibold text-yellow-600">Gerando...</div>
-              <p class="text-sm text-gray-500">Aguarde a IA analisar</p>
+          <% elsif @scraping.failed? %>
+            <div class="flex items-center space-x-2 bg-red-500/10 text-red-400 px-6 py-3 rounded-xl border-2 border-red-500/30">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="font-semibold">Falhou</span>
             </div>
-            <svg class="animate-spin w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          </div>
-        <% else %>
-          <div class="text-lg font-semibold text-gray-400">Pendente</div>
-          <p class="text-sm text-gray-500">Aguardando coleta</p>
-        <% end %>
+          <% else %>
+            <div class="flex items-center space-x-2 bg-[#0A7AFF]/10 px-6 py-3 rounded-xl border-2 border-[#0A7AFF]/30" style="color: #0A7AFF;">
+              <svg class="animate-spin w-6 h-6" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="font-semibold">Em Progresso</span>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Análise Completa -->
-  <% if @analysis.present? %>
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+    <!-- Grid de Cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
       
-      <!-- Header da Análise -->
-      <div class="px-8 py-6" style="background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
-            <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
-              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      <!-- Card: Informações Básicas -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0A7AFF]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <div>
-              <h2 class="text-2xl font-bold text-white">Análise Completa</h2>
-              <p class="text-sm" style="color: rgba(255, 255, 255, 0.8);">Gerada por Inteligência Artificial</p>
-            </div>
+            <h3 class="text-lg font-light text-white">Informações</h3>
           </div>
           
-          <% if @analysis.assistant_id.present? %>
-            <span class="px-4 py-2 rounded-lg text-sm font-semibold text-white" style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
-              ✓ Assistant Criado
-            </span>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- Conteúdo da Análise -->
-      <div class="p-8">
-        <div class="prose prose-lg max-w-none bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-8 border border-gray-200">
-          <%= render_markdown(@analysis.analysis_text) %>
-        </div>
-
-        <!-- Ações -->
-        <div class="mt-8 flex flex-wrap gap-4">
-          <!-- Botão Copiar -->
-          <button 
-            onclick="navigator.clipboard.writeText(document.querySelector('.prose').innerText); this.innerHTML='<svg class=\'w-5 h-5 mr-2\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M5 13l4 4L19 7\' /></svg>Copiado!'; setTimeout(() => this.innerHTML='<svg class=\'w-5 h-5 mr-2\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3\' /></svg>Copiar Análise', 2000)"
-            class="inline-flex items-center px-6 py-3 border-2 border-gray-300 rounded-xl text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-sm hover:shadow">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-            </svg>
-            Copiar Análise
-          </button>
-
-          <!-- Botão Chat -->
-          <% if @analysis.assistant_id.present? %>
-            <%= link_to admin_conversation_path(@scraping), 
-              class: "inline-flex items-center px-6 py-3 border-2 border-transparent rounded-xl text-sm font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg",
-              style: "background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);" do %>
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-              <%= @scraping.conversation.present? ? "Continuar Conversa" : "Iniciar Conversa" %>
+          <dl class="space-y-3">
+            <div>
+              <dt class="text-xs text-gray-500 uppercase tracking-wider">Posts Solicitados</dt>
+              <dd class="text-3xl font-light text-white mt-1"><%= @scraping.results_limit %></dd>
+            </div>
+            <div>
+              <dt class="text-xs text-gray-500 uppercase tracking-wider">Iniciado em</dt>
+              <dd class="text-sm font-medium text-gray-400 mt-1">
+                <%= @scraping.started_at.strftime("%d/%m/%Y às %H:%M") %>
+              </dd>
+            </div>
+            <% if @scraping.completed_at %>
+              <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wider">Concluído em</dt>
+                <dd class="text-sm font-medium text-gray-400 mt-1">
+                  <%= @scraping.completed_at.strftime("%d/%m/%Y às %H:%M") %>
+                </dd>
+              </div>
             <% end %>
+          </dl>
+        </div>
+      </div>
 
-            <!-- Botão OpenAI -->
-            <%= link_to "https://platform.openai.com/playground/assistants?assistant=#{@analysis.assistant_id}", 
-              target: "_blank",
-              class: "inline-flex items-center px-6 py-3 border-2 border-gray-300 rounded-xl text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-sm hover:shadow" do %>
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+      <!-- Card: Posts Coletados -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
-              Abrir na OpenAI
+            </div>
+            <h3 class="text-lg font-light text-white">Posts</h3>
+          </div>
+          
+          <div>
+            <div class="text-4xl font-light text-white mb-2" data-scraping-monitor-target="postsCount">
+              <%= @scraping.instagram_posts.count %>
+            </div>
+            <p class="text-sm text-gray-500">posts coletados do Instagram</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Status da Análise -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#00D98E]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+              <svg class="w-6 h-6 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-light text-white">Análise IA</h3>
+          </div>
+          
+          <div data-scraping-monitor-target="analysisStatus">
+            <% if @analysis.present? %>
+              <div class="flex items-center space-x-2">
+                <div class="flex-1">
+                  <div class="text-lg font-semibold text-[#00D98E]">Pronta</div>
+                  <p class="text-sm text-gray-500">Análise concluída com sucesso</p>
+                </div>
+                <svg class="w-8 h-8 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            <% elsif @scraping.completed? %>
+              <div class="flex items-center space-x-2">
+                <div class="flex-1">
+                  <div class="text-lg font-semibold text-yellow-500">Gerando...</div>
+                  <p class="text-sm text-gray-500">Aguarde a IA analisar</p>
+                </div>
+                <svg class="animate-spin w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </div>
+            <% else %>
+              <div class="text-lg font-semibold text-gray-500">Pendente</div>
+              <p class="text-sm text-gray-600">Aguardando coleta</p>
             <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-  <% elsif @scraping.completed? && @analysis.nil? %>
-    <!-- Estado: IA Analisando -->
-    <div class="bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 rounded-2xl shadow-sm border-2 border-amber-200 p-8">
-      <div class="flex items-center space-x-6">
-        <div class="flex-shrink-0">
-          <div class="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center animate-pulse shadow-lg">
-            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-            </svg>
-          </div>
-        </div>
-        <div class="flex-1">
-          <h3 class="text-2xl font-bold text-amber-900 mb-2">Gerando Análise com IA</h3>
-          <p class="text-amber-700 text-lg">Os dados foram coletados com sucesso. A inteligência artificial está processando e analisando todos os posts...</p>
-          <p class="text-amber-600 text-sm mt-2">Isso pode levar alguns minutos. A página será atualizada automaticamente.</p>
-        </div>
-      </div>
-    </div>
-
-  <% elsif @scraping.in_progress? %>
-    <!-- Estado: Em Progresso -->
-    <div class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl shadow-sm border-2 border-blue-200 p-8">
-      <div class="flex items-center space-x-6">
-        <div class="flex-shrink-0">
-          <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <svg class="animate-spin w-10 h-10 text-white" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          </div>
-        </div>
-        <div class="flex-1">
-          <h3 class="text-2xl font-bold text-blue-900 mb-2">Scraping em Andamento</h3>
-          <p class="text-blue-700 text-lg" data-scraping-monitor-target="statusMessage"><%= @scraping.status_message || "Coletando dados do Instagram..." %></p>
-          <p class="text-blue-600 text-sm mt-2">Aguarde enquanto processamos o perfil.</p>
-        </div>
-      </div>
-    </div>
-
-  <% elsif @scraping.failed? %>
-    <!-- Estado: Falha -->
-    <div class="bg-gradient-to-br from-red-50 via-pink-50 to-red-50 rounded-2xl shadow-sm border-2 border-red-200 p-8">
-      <div class="flex items-center space-x-6">
-        <div class="flex-shrink-0">
-          <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-        </div>
-        <div class="flex-1">
-          <h3 class="text-2xl font-bold text-red-900 mb-2">Erro no Processamento</h3>
-          <p class="text-red-700 text-lg"><%= @scraping.status_message || "Ocorreu um erro durante o scraping." %></p>
-          <div class="mt-4">
-            <%= link_to "Tentar Novamente", admin_igspy_path, class: "inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition shadow-md hover:shadow-lg" %>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
 
+    <!-- Análise Completa -->
+    <% if @analysis.present? %>
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0A7AFF]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/[0.05] hover:border-white/10 transition-all duration-300 overflow-hidden">
+          
+          <!-- Header da Análise -->
+          <div class="px-8 py-6" style="background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
+                  <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="text-2xl font-light text-white">Análise <span class="font-semibold">Completa</span></h2>
+                  <p class="text-sm" style="color: rgba(255, 255, 255, 0.8);">Gerada por Inteligência Artificial</p>
+                </div>
+              </div>
+              
+              <% if @analysis.assistant_id.present? %>
+                <span class="px-4 py-2 rounded-lg text-sm font-semibold text-white" style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
+                  ✓ Assistant Criado
+                </span>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Conteúdo da Análise -->
+          <div class="p-8">
+            <div class="prose prose-lg prose-invert max-w-none bg-white/[0.03] rounded-xl p-8 border border-white/[0.05]">
+              <%= render_markdown(@analysis.analysis_text) %>
+            </div>
+
+            <!-- Ações -->
+            <div class="mt-8 flex flex-wrap gap-4">
+              <!-- Botão Copiar -->
+              <button 
+                onclick="navigator.clipboard.writeText(document.querySelector('.prose').innerText); this.innerHTML='<svg class=\'w-5 h-5 mr-2\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M5 13l4 4L19 7\' /></svg>Copiado!'; setTimeout(() => this.innerHTML='<svg class=\'w-5 h-5 mr-2\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3\' /></svg>Copiar Análise', 2000)"
+                class="inline-flex items-center px-6 py-3 border-2 border-white/10 rounded-xl text-sm font-semibold text-gray-300 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-200 shadow-sm hover:shadow">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                Copiar Análise
+              </button>
+
+              <!-- Botão Chat -->
+              <% if @analysis.assistant_id.present? %>
+                <%= link_to admin_conversation_path(@scraping), 
+                  class: "inline-flex items-center px-6 py-3 border-2 border-transparent rounded-xl text-sm font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg",
+                  style: "background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);" do %>
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  <%= @scraping.conversation.present? ? "Continuar Conversa" : "Iniciar Conversa" %>
+                <% end %>
+
+                <!-- Botão OpenAI -->
+                <%= link_to "https://platform.openai.com/playground/assistants?assistant=#{@analysis.assistant_id}", 
+                  target: "_blank",
+                  class: "inline-flex items-center px-6 py-3 border-2 border-white/10 rounded-xl text-sm font-semibold text-gray-300 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-200 shadow-sm hover:shadow" do %>
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Ver no OpenAI
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% elsif @scraping.completed? && @analysis.nil? %>
+      <!-- Estado: IA Analisando -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-amber-500/20 hover:border-amber-500/30 transition-all duration-300">
+          <div class="flex items-center space-x-6">
+            <div class="flex-shrink-0">
+              <div class="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center animate-pulse shadow-lg">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-light text-white mb-2">Gerando Análise com <span class="font-semibold">IA</span></h3>
+              <p class="text-gray-300 text-lg">Os dados foram coletados com sucesso. A inteligência artificial está processando e analisando todos os posts...</p>
+              <p class="text-gray-400 text-sm mt-2">Isso pode levar alguns minutos. A página será atualizada automaticamente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% elsif @scraping.in_progress? %>
+      <!-- Estado: Em Progresso -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0A7AFF]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-[#0A7AFF]/20 hover:border-[#0A7AFF]/30 transition-all duration-300">
+          <div class="flex items-center space-x-6">
+            <div class="flex-shrink-0">
+              <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                <svg class="animate-spin w-10 h-10 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-light text-white mb-2">Scraping em <span class="font-semibold">Andamento</span></h3>
+              <p class="text-gray-300 text-lg" data-scraping-monitor-target="statusMessage"><%= @scraping.status_message || "Coletando dados do Instagram..." %></p>
+              <p class="text-gray-400 text-sm mt-2">Aguarde enquanto processamos o perfil.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% elsif @scraping.failed? %>
+      <!-- Estado: Falha -->
+      <div class="group relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-8 border border-red-500/20 hover:border-red-500/30 transition-all duration-300">
+          <div class="flex items-center space-x-6">
+            <div class="flex-shrink-0">
+              <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-light text-white mb-2">Erro no <span class="font-semibold">Processamento</span></h3>
+              <p class="text-gray-300 text-lg"><%= @scraping.status_message || "Ocorreu um erro durante o scraping." %></p>
+              <div class="mt-4">
+                <%= link_to "Tentar Novamente", admin_igspy_path, class: "inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-xl font-semibold hover:from-red-600 hover:to-pink-700 transition shadow-md hover:shadow-lg" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
 </div>
