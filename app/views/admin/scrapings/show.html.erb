@@ -50,15 +50,15 @@
       </div>
     </div>
 
-    <!-- Grid de Cards -->
+    <!-- Grid de Cards - ALTURA FIXA -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
       
       <!-- Card: Informações Básicas -->
-      <div class="group relative">
+      <div class="group relative h-[240px]">
         <div class="absolute inset-0 bg-gradient-to-br from-[#0A7AFF]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+        <div class="relative h-full bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300 flex flex-col">
           <div class="flex items-center space-x-3 mb-4">
-            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center flex-shrink-0">
               <svg class="w-6 h-6 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -66,7 +66,7 @@
             <h3 class="text-lg font-light text-white">Informações</h3>
           </div>
           
-          <dl class="space-y-3">
+          <dl class="space-y-3 flex-1">
             <div>
               <dt class="text-xs text-gray-500 uppercase tracking-wider">Posts Solicitados</dt>
               <dd class="text-3xl font-light text-white mt-1"><%= @scraping.results_limit %></dd>
@@ -90,11 +90,11 @@
       </div>
 
       <!-- Card: Posts Coletados -->
-      <div class="group relative">
+      <div class="group relative h-[240px]">
         <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+        <div class="relative h-full bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300 flex flex-col">
           <div class="flex items-center space-x-3 mb-4">
-            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center flex-shrink-0">
               <svg class="w-6 h-6 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
@@ -102,7 +102,7 @@
             <h3 class="text-lg font-light text-white">Posts</h3>
           </div>
           
-          <div>
+          <div class="flex-1 flex flex-col justify-center">
             <div class="text-4xl font-light text-white mb-2" data-scraping-monitor-target="postsCount">
               <%= @scraping.instagram_posts.count %>
             </div>
@@ -112,11 +112,11 @@
       </div>
 
       <!-- Card: Status da Análise -->
-      <div class="group relative">
+      <div class="group relative h-[240px]">
         <div class="absolute inset-0 bg-gradient-to-br from-[#00D98E]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300">
+        <div class="relative h-full bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition-all duration-300 flex flex-col">
           <div class="flex items-center space-x-3 mb-4">
-            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center">
+            <div class="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center flex-shrink-0">
               <svg class="w-6 h-6 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -124,14 +124,14 @@
             <h3 class="text-lg font-light text-white">Análise IA</h3>
           </div>
           
-          <div data-scraping-monitor-target="analysisStatus">
+          <div class="flex-1 flex flex-col justify-center" data-scraping-monitor-target="analysisStatus">
             <% if @analysis.present? %>
               <div class="flex items-center space-x-2">
                 <div class="flex-1">
                   <div class="text-lg font-semibold text-[#00D98E]">Pronta</div>
                   <p class="text-sm text-gray-500">Análise concluída com sucesso</p>
                 </div>
-                <svg class="w-8 h-8 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-[#00D98E] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -141,7 +141,7 @@
                   <div class="text-lg font-semibold text-yellow-500">Gerando...</div>
                   <p class="text-sm text-gray-500">Aguarde a IA analisar</p>
                 </div>
-                <svg class="animate-spin w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24">
+                <svg class="animate-spin w-8 h-8 text-yellow-500 flex-shrink-0" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
@@ -155,13 +155,68 @@
       </div>
     </div>
 
-    <!-- Análise Completa -->
+    <!-- STICKY ACTION BAR - Botões de Ação Reposicionados -->
     <% if @analysis.present? %>
-      <div class="group relative">
+      <div class="sticky top-4 z-10 mb-8">
+        <div class="bg-white/[0.03] backdrop-blur-xl rounded-2xl p-4 border border-white/[0.1] shadow-2xl">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-white">Análise Pronta</p>
+                <p class="text-xs text-gray-400">Gerada por IA • <%= @scraping.instagram_posts.count %> posts analisados</p>
+              </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-3">
+              <!-- Botão Chat - PRIMÁRIO -->
+              <% if @analysis.assistant_id.present? %>
+                <%= link_to admin_conversation_path(@scraping), 
+                  class: "inline-flex items-center px-6 py-3 border-2 border-transparent rounded-xl text-sm font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105",
+                  style: "background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);" do %>
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  <%= @scraping.conversation.present? ? "Continuar Conversa" : "Iniciar Conversa" %>
+                <% end %>
+              <% end %>
+
+              <!-- Botão Copiar -->
+              <button 
+                onclick="navigator.clipboard.writeText(document.querySelector('.markdown-content').innerText); this.innerHTML='<svg class=\'w-5 h-5 mr-2\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M5 13l4 4L19 7\' /></svg>Copiado!'; setTimeout(() => this.innerHTML='<svg class=\'w-5 h-5 mr-2\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3\' /></svg>Copiar Análise', 2000)"
+                class="inline-flex items-center px-6 py-3 border-2 border-white/10 rounded-xl text-sm font-semibold text-gray-300 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-200 shadow-sm hover:shadow">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                Copiar Análise
+              </button>
+
+              <!-- Botão OpenAI -->
+              <% if @analysis.assistant_id.present? %>
+                <%= link_to "https://platform.openai.com/playground/assistants?assistant=#{@analysis.assistant_id}", 
+                  target: "_blank",
+                  class: "inline-flex items-center px-6 py-3 border-2 border-white/10 rounded-xl text-sm font-semibold text-gray-300 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-200 shadow-sm hover:shadow" do %>
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Ver no OpenAI
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Análise Completa com COLLAPSE -->
+      <div class="group relative" data-controller="collapse">
         <div class="absolute inset-0 bg-gradient-to-br from-[#0A7AFF]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/[0.05] hover:border-white/10 transition-all duration-300 overflow-hidden">
           
-          <!-- Header da Análise -->
+          <!-- Header da Análise - SEMPRE VISÍVEL -->
           <div class="px-8 py-6" style="background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
@@ -176,55 +231,68 @@
                 </div>
               </div>
               
-              <% if @analysis.assistant_id.present? %>
-                <span class="px-4 py-2 rounded-lg text-sm font-semibold text-white" style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
-                  ✓ Assistant Criado
-                </span>
-              <% end %>
+              <!-- Botão Toggle -->
+              <button 
+                data-action="click->collapse#toggle"
+                class="inline-flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:scale-105" 
+                style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
+                <span data-collapse-target="toggleText">Ver Análise Completa</span>
+                <svg data-collapse-target="icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
             </div>
           </div>
 
-          <!-- Conteúdo da Análise -->
-          <div class="p-8">
-            <div class="max-w-none bg-white/[0.05] rounded-xl p-8 border border-white/[0.08]">
-              <div class="markdown-content text-gray-200 leading-relaxed space-y-4">
-                <%= render_markdown(@analysis.analysis_text) %>
+          <!-- Resumo Rápido - SEMPRE VISÍVEL -->
+          <div class="px-8 py-6 bg-white/[0.03] border-b border-white/[0.05]">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="flex items-start space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-[#0A7AFF]/10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Status</p>
+                  <p class="text-sm font-semibold text-white">Análise Completa</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Posts Analisados</p>
+                  <p class="text-sm font-semibold text-white"><%= @scraping.instagram_posts.count %> posts</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-[#00D98E]/10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Insights</p>
+                  <p class="text-sm font-semibold text-white">Estratégias identificadas</p>
+                </div>
               </div>
             </div>
+          </div>
 
-            <!-- Ações -->
-            <div class="mt-8 flex flex-wrap gap-4">
-              <!-- Botão Copiar -->
-              <button 
-                onclick="navigator.clipboard.writeText(document.querySelector('.prose').innerText); this.innerHTML='<svg class=\'w-5 h-5 mr-2\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M5 13l4 4L19 7\' /></svg>Copiado!'; setTimeout(() => this.innerHTML='<svg class=\'w-5 h-5 mr-2\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3\' /></svg>Copiar Análise', 2000)"
-                class="inline-flex items-center px-6 py-3 border-2 border-white/10 rounded-xl text-sm font-semibold text-gray-300 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-200 shadow-sm hover:shadow">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                </svg>
-                Copiar Análise
-              </button>
-
-              <!-- Botão Chat -->
-              <% if @analysis.assistant_id.present? %>
-                <%= link_to admin_conversation_path(@scraping), 
-                  class: "inline-flex items-center px-6 py-3 border-2 border-transparent rounded-xl text-sm font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg",
-                  style: "background: linear-gradient(135deg, #0A7AFF 0%, #7C3AED 100%);" do %>
-                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                  <%= @scraping.conversation.present? ? "Continuar Conversa" : "Iniciar Conversa" %>
-                <% end %>
-
-                <!-- Botão OpenAI -->
-                <%= link_to "https://platform.openai.com/playground/assistants?assistant=#{@analysis.assistant_id}", 
-                  target: "_blank",
-                  class: "inline-flex items-center px-6 py-3 border-2 border-white/10 rounded-xl text-sm font-semibold text-gray-300 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-200 shadow-sm hover:shadow" do %>
-                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  Ver no OpenAI
-                <% end %>
-              <% end %>
+          <!-- Conteúdo da Análise - COLAPSÁVEL -->
+          <div data-collapse-target="content" class="hidden">
+            <div class="p-8">
+              <div class="max-w-none bg-white/[0.05] rounded-xl p-8 border border-white/[0.08]">
+                <div class="markdown-content text-gray-200 leading-relaxed space-y-4">
+                  <%= render_markdown(@analysis.analysis_text) %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -302,3 +370,23 @@
 
   </div>
 </div>
+
+<!-- Stimulus Controller para Collapse -->
+<script>
+  import { Controller } from "@hotwired/stimulus"
+
+  export default class extends Controller {
+    static targets = ["content", "icon", "toggleText"]
+
+    toggle() {
+      this.contentTarget.classList.toggle("hidden")
+      this.iconTarget.classList.toggle("rotate-180")
+      
+      if (this.contentTarget.classList.contains("hidden")) {
+        this.toggleTextTarget.textContent = "Ver Análise Completa"
+      } else {
+        this.toggleTextTarget.textContent = "Ocultar Análise"
+      }
+    }
+  }
+</script>

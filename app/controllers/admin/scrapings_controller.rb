@@ -1,13 +1,13 @@
 class Admin::ScrapingsController < Admin::BaseController
   def index
-    @scrapings = current_user.scraping.sorder(created_at: :desc)
+    @scrapings = current_user.scrapings.order(created_at: :desc)
   end
 
   def show
     @scraping = current_user.scrapings.find(params[:id])
     @analysis = @scraping.scraping_analysis
   end
-  
+
   def destroy
     @scraping = current_user.scrapings.find(params[:id])
     @scraping.destroy
