@@ -62,4 +62,21 @@ class ProfileContextAnalyzerService
     request = Net::HTTP::Post.new(uri.request_uri)
     request['Content-Type'] = 'application/json'
     request['X-N8N-Token'] = ENV['N8N_WEBHOOK_TOKEN'] if ENV['N8N_WEBHOOK_TOKEN']
-    request.body =
+    request.body = payload.to_json
+    
+    response = http.request(request)
+    
+    unless response.is_a?(Net::HTTPSuccess)
+      raise "n8n returned #{response.code}: #{response.body}"
+    end
+    
+    Rails.logger.info "✅ Profile context analysis dispatched for user #{@user.id}"
+  end
+  
+  def callback_url
+    Rails.application.routes.url_helpers.api_profile_context_url(
+      host: ENV['APP_HOST'] || 'apps.curt.com.br',
+      protocol: 'https'
+    )
+  end
+end
