@@ -58,6 +58,21 @@ class IgspyWebhookService
   private
 
   def payload
+    # Buscar contexto do perfil (se existir)
+    context = @user.user_profile_context
+    
+    profile_context = if context&.completed?
+      {
+        niche: context.detected_niche,
+        audience: context.detected_audience,
+        tone: context.communication_tone,
+        themes: context.frequent_themes,
+        fullAnalysis: context.full_analysis
+      }
+    else
+      nil
+    end
+    
     {
       scrapingId: @scraping.scraping_id,
       scrapingRecordId: @scraping.id,
@@ -65,6 +80,7 @@ class IgspyWebhookService
       urls: [ @scraping.profile_url ],
       resultsLimit: @scraping.results_limit,
       callbackUrl: callback_url,
+      profileContext: profile_context,
       # API Keys e preferências
       preferredChatApi: @user.preferred_chat_api || 'none',
       anthropicApiKey: @user.anthropic_api_key
