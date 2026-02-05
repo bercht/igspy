@@ -1,109 +1,203 @@
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
-     data-controller="profile-context-monitor"
-     data-profile-context-monitor-status-value="<%= @context.status %>"
-     data-profile-context-monitor-updated-at-value="<%= @context.updated_at.to_i %>"
-     data-profile-context-monitor-url-value="<%= admin_profile_context_path(format: :json) %>">
-  
-  <!-- Header -->
-  <div class="mb-8">
-    <h1 class="text-3xl font-semibold text-white mb-2">
-      Seu Contexto de Perfil
-    </h1>
-    <p class="text-gray-400">
-      Informações extraídas automaticamente para personalizar seus agentes de conteúdo
-    </p>
-  </div>
-  
-  <!-- Status Badge -->
-  <% if @context.processing? %>
-    <div class="mb-6 bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4">
-      <div class="flex items-center space-x-3">
-        <div class="animate-spin rounded-full h-5 w-5 border-2 border-yellow-500 border-t-transparent"></div>
-        <span class="text-yellow-300">Analisando seu perfil...</span>
+<div class="min-h-screen bg-[#0F1419]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-light text-white tracking-tight">
+            Contexto do <span class="font-semibold">Perfil</span>
+          </h1>
+          <p class="mt-2 text-gray-400">Informações extraídas para personalizar seus agentes de conteúdo</p>
+        </div>
+        
+        <!-- Status Badge -->
+        <div class="flex items-center space-x-3">
+          <% if @context.completed? %>
+            <div class="flex items-center space-x-2 bg-[#00D98E]/10 px-6 py-3 rounded-xl border-2 border-[#00D98E]/30" style="color: #00D98E;">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="font-semibold">Análise Completa</span>
+            </div>
+          <% elsif @context.processing? %>
+            <div class="flex items-center space-x-2 bg-[#0A7AFF]/10 px-6 py-3 rounded-xl border-2 border-[#0A7AFF]/30" style="color: #0A7AFF;">
+              <svg class="animate-spin w-6 h-6" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="font-semibold">Analisando...</span>
+            </div>
+          <% elsif @context.failed? %>
+            <div class="flex items-center space-x-2 bg-red-500/10 text-red-400 px-6 py-3 rounded-xl border-2 border-red-500/30">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="font-semibold">Erro na Análise</span>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  <% elsif @context.failed? %>
-    <div class="mb-6 bg-red-500/10 border border-red-500/20 rounded-xl p-4">
-      <span class="text-red-300">Erro na análise. Tente reanalisar.</span>
-    </div>
-  <% end %>
-  
-  <%= form_with model: @context, url: admin_profile_context_path, method: :patch, class: "space-y-8", html: { id: "profile-context-form" } do |f| %>
-    
-    <!-- Nicho -->
-    <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
-      <%= f.label :detected_niche, "📊 Nicho Detectado", class: "block text-sm font-medium text-gray-300 mb-3" %>
-      <%= f.text_field :detected_niche, 
-          class: "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition-all",
-          placeholder: "Ex: Estética Avançada" %>
-    </div>
-    
-    <!-- Público-Alvo -->
-    <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
-      <%= f.label :detected_audience, "👥 Público-Alvo", class: "block text-sm font-medium text-gray-300 mb-3" %>
-      <%= f.text_area :detected_audience, 
-          rows: 3,
-          class: "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition-all",
-          placeholder: "Descreva seu público ideal..." %>
-    </div>
-    
-    <!-- Tom de Comunicação -->
-    <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
-      <label class="block text-sm font-medium text-gray-300 mb-3">🎤 Tom de Comunicação</label>
-      <div class="flex flex-wrap gap-3">
-        <% UserProfileContext.communication_tones.keys.each do |tone| %>
-          <% is_selected = @context.communication_tone == tone.to_s %>
-          <label class="flex items-center space-x-2 px-4 py-2 rounded-lg border cursor-pointer transition <%= is_selected ? 'bg-[#0A7AFF]/20 border-[#0A7AFF]' : 'bg-white/[0.03] border-white/[0.05] hover:border-[#0A7AFF]/50' %>">
-            <%= f.radio_button :communication_tone, tone, class: "text-[#0A7AFF]" %>
-            <span class="text-white capitalize"><%= tone.humanize %></span>
-          </label>
-        <% end %>
+
+    <%= form_with model: @context, url: admin_profile_context_path, method: :patch, class: "space-y-6" do |f| %>
+      
+      <!-- Grid de Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Nicho -->
+        <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-[#0A7AFF]/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
+            </div>
+            <%= f.label :detected_niche, "Nicho Detectado", class: "text-lg font-light text-white" %>
+          </div>
+          <%= f.text_field :detected_niche, 
+              class: "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition",
+              placeholder: "Ex: Marketing Imobiliário" %>
+        </div>
+        
+        <!-- Público-Alvo -->
+        <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05] hover:border-white/10 transition">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <%= f.label :detected_audience, "Público-Alvo", class: "text-lg font-light text-white" %>
+          </div>
+          <%= f.text_area :detected_audience, 
+              rows: 2,
+              class: "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition resize-none",
+              placeholder: "Descreva seu público ideal..." %>
+        </div>
       </div>
-    </div>
-    
-    <!-- Temas Frequentes -->
-    <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
-      <%= f.label :frequent_themes, "🏷️ Temas Frequentes", class: "block text-sm font-medium text-gray-300 mb-3" %>
-      <div class="flex flex-wrap gap-2 mb-3">
-        <% (@context.frequent_themes || []).each do |theme| %>
-          <span class="px-3 py-1 bg-[#0A7AFF]/10 text-[#0A7AFF] rounded-full text-sm">
-            <%= theme %>
-          </span>
-        <% end %>
-      </div>
-      <p class="text-xs text-gray-500">Edite no campo "Correções" abaixo para adicionar/remover temas</p>
-    </div>
-    
-    <!-- Análise Completa -->
-    <% if @context.full_analysis.present? %>
+      
+      <!-- Tom de Comunicação -->
       <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
-        <h3 class="text-sm font-medium text-gray-300 mb-3">📝 Análise Completa</h3>
-        <p class="text-gray-400 leading-relaxed"><%= @context.full_analysis %></p>
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-[#00D98E]/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-[#00D98E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+            </svg>
+          </div>
+          <label class="text-lg font-light text-white">Tom de Comunicação</label>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <% UserProfileContext.communication_tones.keys.each do |tone| %>
+            <% is_selected = @context.communication_tone == tone.to_s %>
+            <label class="flex items-center space-x-2 px-4 py-2 rounded-lg border cursor-pointer transition <%= is_selected ? 'bg-[#0A7AFF]/20 border-[#0A7AFF]' : 'bg-white/[0.03] border-white/[0.05] hover:border-[#0A7AFF]/50' %>">
+              <%= f.radio_button :communication_tone, tone, class: "text-[#0A7AFF]" %>
+              <span class="text-white capitalize"><%= tone.humanize %></span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+      
+      <!-- Temas Frequentes -->
+      <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+          </div>
+          <label class="text-lg font-light text-white">Temas Frequentes</label>
+        </div>
+        <% if (@context.frequent_themes || []).any? %>
+          <div class="flex flex-wrap gap-2">
+            <% @context.frequent_themes.each do |theme| %>
+              <span class="px-3 py-1 bg-[#0A7AFF]/10 text-[#0A7AFF] rounded-full text-sm">
+                <%= theme %>
+              </span>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-gray-500 text-sm">Nenhum tema detectado ainda</p>
+        <% end %>
+      </div>
+      
+      <!-- Correções Manuais -->
+      <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-white/[0.05] flex items-center justify-center">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </div>
+          <%= f.label :user_corrections, "Suas Correções/Observações", class: "text-lg font-light text-white" %>
+        </div>
+        <%= f.text_area :user_corrections, 
+            rows: 4,
+            class: "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition resize-none",
+            placeholder: "Adicione informações que a IA não captou ou corrija algo..." %>
+      </div>
+      
+      <!-- Actions -->
+      <div class="flex items-center justify-between">
+        <%= button_to reanalyze_admin_profile_context_path, method: :post, class: "px-6 py-3 rounded-xl font-medium text-white bg-white/[0.05] border border-white/[0.10] hover:bg-white/[0.08] transition" do %>
+          🔄 Reanalisar Perfil
+        <% end %>
+        
+        <%= f.submit "💾 Salvar Alterações", 
+            class: "px-8 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 shadow-lg cursor-pointer",
+            style: "background: linear-gradient(135deg, #0A7AFF 0%, #3B9EFF 100%);" %>
+      </div>
+      
+    <% end %>
+    
+    <!-- Análise Completa (Collapse) -->
+    <% if @context.full_analysis.present? %>
+      <div class="mt-8" data-controller="collapse">
+        <div class="group relative">
+          <div class="absolute inset-0 bg-gradient-to-br from-[#0A7AFF]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="relative bg-white/[0.02] backdrop-blur-sm rounded-2xl border border-white/[0.05] hover:border-white/10 transition-all duration-300 overflow-hidden">
+            
+            <!-- Header Collapse -->
+            <div class="p-8">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                  <div class="w-14 h-14 rounded-xl flex items-center justify-center" style="background-color: rgba(10, 122, 255, 0.1);">
+                    <svg class="w-7 h-7 text-[#0A7AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="text-2xl font-light text-white">Análise <span class="font-semibold">Completa</span></h2>
+                    <p class="text-sm text-gray-400">Gerada por Inteligência Artificial</p>
+                  </div>
+                </div>
+                
+                <button 
+                  type="button"
+                  data-action="click->collapse#toggle"
+                  class="inline-flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:scale-105 bg-white/[0.05] hover:bg-white/[0.08]">
+                  <span data-collapse-target="toggleText">Ver Análise Completa</span>
+                  <svg data-collapse-target="icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Conteúdo Collapse -->
+            <div data-collapse-target="content" class="hidden">
+              <div class="px-8 pb-8">
+                <div class="bg-white/[0.05] rounded-xl p-8 border border-white/[0.08]">
+                  <div class="prose prose-invert prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-ul:text-gray-300 prose-ol:text-gray-300 max-w-none">
+                    <%= simple_format(@context.full_analysis) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
-    
-    <!-- Correções Manuais -->
-    <div class="bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.05]">
-      <%= f.label :user_corrections, "✏️ Suas Correções/Observações", class: "block text-sm font-medium text-gray-300 mb-3" %>
-      <%= f.text_area :user_corrections, 
-          rows: 4,
-          class: "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-[#0A7AFF]/50 focus:ring-1 focus:ring-[#0A7AFF]/50 transition-all",
-          placeholder: "Adicione informações que a IA não captou ou corrija algo..." %>
-    </div>
-    
-  <% end %>
-  
-  <!-- Actions -->
-  <div class="flex items-center justify-between">
-    <%= button_to reanalyze_admin_profile_context_path, method: :post, class: "px-6 py-3 rounded-xl font-medium text-white bg-white/[0.05] border border-white/[0.10] hover:bg-white/[0.08] transition" do %>
-      🔄 Reanalisar Perfil
-    <% end %>
-    
-    <%= button_tag "💾 Salvar Alterações",
-        type: "submit",
-        form: "profile-context-form",
-        class: "px-8 py-3 rounded-xl font-medium text-white transition-all duration-300 hover:scale-105 shadow-lg cursor-pointer",
-        style: "background: linear-gradient(135deg, #0A7AFF 0%, #3B9EFF 100%);" %>
+
   </div>
-  
 </div>
