@@ -3,10 +3,16 @@ class Api::ProfileContextsController < ApplicationController
   skip_before_action :verify_authenticity_token
   
   def create
-    context_id = params[:contextId]
-    analysis_result = params[:analysisResult]
+    context_id = params[:contextId] || params[:context_id]
+    analysis_result = params[:analysisResult] || params[:analysis_result] || params[:analysis]
     
     Rails.logger.info "📥 Recebendo callback de análise de contexto: #{context_id}"
+    
+    unless context_id.present? && analysis_result.present?
+      Rails.logger.error "❌ Profile context callback missing data: context_id=#{context_id.inspect} analysis_result=#{analysis_result.class}"
+      render json: { error: "Missing contextId or analysisResult" }, status: :unprocessable_entity
+      return
+    end
     
     context = UserProfileContext.find(context_id)
     

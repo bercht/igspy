@@ -1,4 +1,8 @@
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+     data-controller="profile-context-monitor"
+     data-profile-context-monitor-status-value="<%= @context.status %>"
+     data-profile-context-monitor-updated-at-value="<%= @context.updated_at.to_i %>"
+     data-profile-context-monitor-url-value="<%= admin_profile_context_path(format: :json) %>">
   
   <!-- Header -->
   <div class="mb-8">
@@ -48,7 +52,8 @@
       <label class="block text-sm font-medium text-gray-300 mb-3">🎤 Tom de Comunicação</label>
       <div class="flex flex-wrap gap-3">
         <% UserProfileContext.communication_tones.keys.each do |tone| %>
-          <label class="flex items-center space-x-2 px-4 py-2 bg-white/[0.03] rounded-lg border border-white/[0.05] cursor-pointer hover:border-[#0A7AFF]/50 transition">
+          <% is_selected = @context.communication_tone == tone.to_s %>
+          <label class="flex items-center space-x-2 px-4 py-2 rounded-lg border cursor-pointer transition <%= is_selected ? 'bg-[#0A7AFF]/20 border-[#0A7AFF]' : 'bg-white/[0.03] border-white/[0.05] hover:border-[#0A7AFF]/50' %>">
             <%= f.radio_button :communication_tone, tone, class: "text-[#0A7AFF]" %>
             <span class="text-white capitalize"><%= tone.humanize %></span>
           </label>

@@ -8,6 +8,19 @@ class Admin::ProfileContextsController < Admin::BaseController
       ProfileContextAnalyzerService.call(current_user)
       @context.reload
     end
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {
+          id: @context.id,
+          status: @context.status,
+          updated_at: @context.updated_at.to_i,
+          completed: @context.completed?,
+          failed: @context.failed?
+        }
+      end
+    end
   end
   
   def update
