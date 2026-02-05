@@ -21,8 +21,13 @@ class Admin::ProfileContextsController < Admin::BaseController
   end
   
   def reanalyze
-    ProfileContextAnalyzerService.call(current_user)
-    redirect_to admin_profile_context_path, notice: 'Reanálise iniciada!'
+    result = ProfileContextAnalyzerService.call(current_user)
+    
+    if result[:success]
+      redirect_to admin_profile_context_path, notice: 'Reanálise iniciada! Aguarde alguns minutos.'
+    else
+      redirect_to admin_profile_context_path, alert: "Erro ao iniciar reanálise: #{result[:error]}"
+    end
   end
   
   private
